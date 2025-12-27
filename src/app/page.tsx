@@ -84,21 +84,73 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#2A1B15]/5 rounded-full text-[#3E2723] text-sm font-bold mb-8 animate-fade-in text-center">
             <span className="flex h-2 w-2 rounded-full bg-[#D4A373] animate-pulse"></span>
-            Kafenizin Yeni Beyniyle Tanışın
+            Kafe İşletmeciliğinde Dijital Devrim
           </div>
           <h1 className="text-6xl lg:text-8xl font-black mb-8 leading-[1.1] tracking-tight">
-            Karmaşıklığı Bitirin, <br /><span className="text-[#D4A373]">Kâra Odaklanın.</span>
+            Operasyonunuzu <br /><span className="text-[#D4A373]">Akıllandırın.</span>
           </h1>
-          <p className="text-xl lg:text-2xl text-[#3E2723]/70 max-w-3xl mx-auto mb-12 leading-relaxed">
-            Eski nesil POS sistemlerinin yarattığı stok kaçaklarına ve yavaşlığa son verin. ProBrew ile operasyonunuzu saniyeler içinde dijitalleştirin.
+          <p className="text-xl lg:text-2xl text-[#3E2723]/70 max-w-4xl mx-auto mb-12 leading-relaxed font-medium">
+            Sıradan bir POS cihazından daha fazlası; ProBrew, menü tasarımından stok analizine, personel performansından müşteri sadakatine kadar kafenizin her hücresini yöneten merkezi bir işletim sistemidir.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-5">
             <a href="#demo" className="px-10 py-5 bg-[#2A1B15] text-white font-black rounded-2xl hover:bg-[#3E2723] transition-all transform hover:scale-105 shadow-2xl shadow-[#2A1B15]/20 flex items-center justify-center gap-3 text-lg">
-              Demoyu İncele <FaArrowRight />
+              Hemen Deneyin <FaArrowRight />
             </a>
             <a href="https://wa.me/905432695442" className="flex items-center justify-center gap-3 px-10 py-5 bg-white text-[#2A1B15] font-black rounded-2xl border-2 border-[#2A1B15]/10 hover:border-[#2A1B15] transition-all text-lg">
-              <FaWhatsapp className="text-[#25D366]" /> Satış Ekibine Yazın
+              <FaWhatsapp className="text-[#25D366]" /> Uzmanla Görüşün
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Expanded System Explanation Section */}
+      <section id="system-details" className="py-24 bg-[#FDF5E6]/30 border-y border-[#2A1B15]/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl lg:text-5xl font-black mb-6">Uçtan Uca İşletme Yönetimi</h2>
+            <p className="text-xl opacity-60 max-w-3xl mx-auto italic font-medium">"Kontrol edemediğiniz şeyi yönetemezsiniz." ProBrew ile her detay artık ekranınızda.</p>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+            <div className="space-y-12">
+              <div className="flex gap-8 group">
+                <div className="flex-shrink-0 w-16 h-16 bg-[#2A1B15] text-[#D4A373] rounded-2xl flex items-center justify-center text-3xl group-hover:rotate-12 transition-transform shadow-lg">
+                  <FaCoffee />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold mb-4">Akıllı Reçete & Maliyet Kontrolü</h3>
+                  <p className="text-[#3E2723]/70 leading-relaxed font-medium">Satılan her bir kahvenin içerisindeki hammadde miktarını gramaj bazında otomatik düşürün. Gerçek maliyetinizi anlık görün, kârlılığınızı optimize edin.</p>
+                </div>
+              </div>
+              <div className="flex gap-8 group">
+                <div className="flex-shrink-0 w-16 h-16 bg-[#2A1B15] text-[#D4A373] rounded-2xl flex items-center justify-center text-3xl group-hover:rotate-12 transition-transform shadow-lg">
+                  <FaLayerGroup />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold mb-4">Dinamik Stok & Tedarik Yönetimi</h3>
+                  <p className="text-[#3E2723]/70 leading-relaxed font-medium">Kritik seviyeye düşen hammaddeler için anlık uyarı alın. Tedarikçi faturasını sisteme girin, depodaki değişimi ve fire oranlarını tarihsel olarak raporlayın.</p>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-12">
+              <div className="flex gap-8 group">
+                <div className="flex-shrink-0 w-16 h-16 bg-[#2A1B15] text-[#D4A373] rounded-2xl flex items-center justify-center text-3xl group-hover:rotate-12 transition-transform shadow-lg">
+                  <FaChartLine />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold mb-4">Gelişmiş Raporlama & Analiz</h3>
+                  <p className="text-[#3E2723]/70 leading-relaxed font-medium">En çok satan ürünler, en yoğun saatler ve personel performansını tek tıkla görün. Ay sonu muhasebe derdini otomatikleşen ciro raporlarıyla çözün.</p>
+                </div>
+              </div>
+              <div className="flex gap-8 group">
+                <div className="flex-shrink-0 w-16 h-16 bg-[#2A1B15] text-[#D4A373] rounded-2xl flex items-center justify-center text-3xl group-hover:rotate-12 transition-transform shadow-lg">
+                  <FaShieldAlt />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold mb-4">Merkezi Yetkilendirme & Güvenlik</h3>
+                  <p className="text-[#3E2723]/70 leading-relaxed font-medium">İstediğiniz personele istediğiniz yetkiyi verin. İkram ve iptal işlemlerini yönetici onayıyla gerçekleştirin, kasanızı güvence altına alın.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -164,10 +216,10 @@ export default function Home() {
                 </div>
               </div>
               <div className="pt-12 space-y-4">
-                <div className="bg-[#5d3ebd] p-0 rounded-full flex items-center justify-center min-h-[160px] w-full shadow-xl transition-transform hover:scale-105 overflow-hidden">
+                <div className="bg-[#5d3ebd] p-4 rounded-full flex items-center justify-center min-h-[160px] w-[160px] mx-auto shadow-xl transition-transform hover:scale-105 overflow-hidden">
                   <img src="/logo_getir.png" alt="Getir" className="w-full h-full object-cover scale-[1.01]" />
                 </div>
-                <div className="bg-[#FDF5E6] text-[#2A1B15] p-10 rounded-[3rem] flex flex-col items-center justify-center min-h-[160px] shadow-xl border border-[#2A1B15]/5 transition-transform hover:scale-105">
+                <div className="bg-[#FDF5E6] text-[#2A1B15] p-10 rounded-[3rem] flex flex-col items-center justify-center min-h-[160px] shadow-xl border border-[#2A1B15]/10 transition-transform hover:scale-105">
                   <span className="text-3xl font-black">E-Fatura</span>
                   <span className="text-xs font-bold opacity-40 uppercase tracking-widest mt-2">Tam Uyum</span>
                 </div>
@@ -216,7 +268,7 @@ export default function Home() {
                 </div>
                 <div>
                   <div className="text-sm opacity-60 font-bold uppercase tracking-widest leading-none mb-1">DESTEK HATTI</div>
-                  <div className="text-xl font-black">0850 000 00 00</div>
+                  <div className="text-xl font-black">+90 543 269 54 42</div>
                 </div>
               </div>
             </div>
