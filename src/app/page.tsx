@@ -156,18 +156,18 @@ export default function Home() {
             </div>
             <div className="lg:w-1/2 grid grid-cols-2 gap-4">
               <div className="space-y-4">
-                <div className="bg-[#FF6000] p-6 rounded-[3rem] flex items-center justify-center min-h-[160px] shadow-xl overflow-hidden">
-                  <img src="/logo_trendyol.png" alt="Trendyol Go" className="w-full h-auto object-contain scale-110" />
+                <div className="bg-[#FF6000] p-4 rounded-[3rem] flex items-center justify-center min-h-[160px] shadow-xl transition-transform hover:scale-105">
+                  <img src="/logo_trendyol.png" alt="Trendyol Go" className="w-full h-auto object-contain" />
                 </div>
-                <div className="bg-[#ea004b] p-6 rounded-[3rem] flex items-center justify-center min-h-[160px] shadow-xl overflow-hidden">
-                  <img src="/logo_yemeksepeti.png" alt="Yemeksepeti" className="w-full h-auto object-contain scale-150" />
+                <div className="bg-[#ea004b] p-8 rounded-[3rem] flex items-center justify-center min-h-[160px] shadow-xl transition-transform hover:scale-105">
+                  <img src="/logo_yemeksepeti.png" alt="Yemeksepeti" className="w-full h-auto object-contain" />
                 </div>
               </div>
               <div className="pt-12 space-y-4">
-                <div className="bg-[#5d3ebd] p-6 rounded-[3rem] flex items-center justify-center min-h-[160px] shadow-xl overflow-hidden">
-                  <img src="/logo_getir.png" alt="Getir" className="w-full h-auto object-contain" />
+                <div className="bg-[#5d3ebd] p-0 rounded-full flex items-center justify-center min-h-[160px] w-full shadow-xl transition-transform hover:scale-105 overflow-hidden">
+                  <img src="/logo_getir.png" alt="Getir" className="w-full h-full object-cover scale-[1.01]" />
                 </div>
-                <div className="bg-[#FDF5E6] text-[#2A1B15] p-10 rounded-[3rem] flex flex-col items-center justify-center min-h-[160px] shadow-xl border border-[#2A1B15]/5">
+                <div className="bg-[#FDF5E6] text-[#2A1B15] p-10 rounded-[3rem] flex flex-col items-center justify-center min-h-[160px] shadow-xl border border-[#2A1B15]/5 transition-transform hover:scale-105">
                   <span className="text-3xl font-black">E-Fatura</span>
                   <span className="text-xs font-bold opacity-40 uppercase tracking-widest mt-2">Tam Uyum</span>
                 </div>
