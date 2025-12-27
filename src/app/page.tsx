@@ -104,52 +104,80 @@ export default function Home() {
       </section>
 
       {/* Expanded System Explanation Section */}
-      <section id="system-details" className="py-24 bg-[#FDF5E6]/30 border-y border-[#2A1B15]/5">
+      <section id="features" className="py-32 bg-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-[#FDF5E6] rounded-bl-[10rem] -z-10 opacity-50"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl lg:text-5xl font-black mb-6">Uçtan Uca İşletme Yönetimi</h2>
-            <p className="text-xl opacity-60 max-w-3xl mx-auto italic font-medium">"Kontrol edemediğiniz şeyi yönetemezsiniz." ProBrew ile her detay artık ekranınızda.</p>
+          <div className="text-center mb-24">
+            <div className="text-[#D4A373] font-black mb-4 uppercase tracking-[0.3em] text-sm">SİSTEM ÖZELLİKLERİ</div>
+            <h2 className="text-5xl lg:text-7xl font-black mb-8 tracking-tight">Eksiksiz <br /><span className="text-[#D4A373]">Kontrol Paneli.</span></h2>
+            <p className="text-xl text-[#3E2723]/60 max-w-3xl mx-auto font-medium leading-relaxed">ProBrew, bir kafe işletmesinin ihtiyacı olan tüm süreçleri tek bir çatı altında, bulutun hızıyla birleştirir.</p>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-            <div className="space-y-12">
-              <div className="flex gap-8 group">
-                <div className="flex-shrink-0 w-16 h-16 bg-[#2A1B15] text-[#D4A373] rounded-2xl flex items-center justify-center text-3xl group-hover:rotate-12 transition-transform shadow-lg">
-                  <FaCoffee />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-4">Akıllı Reçete & Maliyet Kontrolü</h3>
-                  <p className="text-[#3E2723]/70 leading-relaxed font-medium">Satılan her bir kahvenin içerisindeki hammadde miktarını gramaj bazında otomatik düşürün. Gerçek maliyetinizi anlık görün, kârlılığınızı optimize edin.</p>
-                </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {/* Feature 1 */}
+            <div className="group p-10 bg-[#FDF5E6]/40 rounded-[3rem] border border-[#2A1B15]/5 hover:bg-[#2A1B15] transition-all duration-500 hover:-translate-y-2 shadow-sm hover:shadow-2xl">
+              <div className="w-16 h-16 bg-[#2A1B15] text-[#D4A373] rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-[#D4A373] group-hover:text-[#2A1B15] transition-colors shadow-lg">
+                <FaCoffee />
               </div>
-              <div className="flex gap-8 group">
-                <div className="flex-shrink-0 w-16 h-16 bg-[#2A1B15] text-[#D4A373] rounded-2xl flex items-center justify-center text-3xl group-hover:rotate-12 transition-transform shadow-lg">
-                  <FaLayerGroup />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-4">Dinamik Stok & Tedarik Yönetimi</h3>
-                  <p className="text-[#3E2723]/70 leading-relaxed font-medium">Kritik seviyeye düşen hammaddeler için anlık uyarı alın. Tedarikçi faturasını sisteme girin, depodaki değişimi ve fire oranlarını tarihsel olarak raporlayın.</p>
-                </div>
-              </div>
+              <h3 className="text-2xl font-black mb-6 group-hover:text-white transition-colors">Akıllı Reçete & Maliyet</h3>
+              <p className="text-[#3E2723]/70 leading-relaxed font-medium group-hover:text-white/70 transition-colors">
+                Satılan her ürünün içindeki hammaddeyi gramaj bazında otomatik düşürün. Gerçek zamanlı maliyet analizi ile kârlılığınızı her an kontrol altında tutun.
+              </p>
             </div>
-            <div className="space-y-12">
-              <div className="flex gap-8 group">
-                <div className="flex-shrink-0 w-16 h-16 bg-[#2A1B15] text-[#D4A373] rounded-2xl flex items-center justify-center text-3xl group-hover:rotate-12 transition-transform shadow-lg">
-                  <FaChartLine />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-4">Gelişmiş Raporlama & Analiz</h3>
-                  <p className="text-[#3E2723]/70 leading-relaxed font-medium">En çok satan ürünler, en yoğun saatler ve personel performansını tek tıkla görün. Ay sonu muhasebe derdini otomatikleşen ciro raporlarıyla çözün.</p>
-                </div>
+
+            {/* Feature 2 */}
+            <div className="group p-10 bg-[#FDF5E6]/40 rounded-[3rem] border border-[#2A1B15]/5 hover:bg-[#2A1B15] transition-all duration-500 hover:-translate-y-2 shadow-sm hover:shadow-2xl">
+              <div className="w-16 h-16 bg-[#2A1B15] text-[#D4A373] rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-[#D4A373] group-hover:text-[#2A1B15] transition-colors shadow-lg">
+                <FaLayerGroup />
               </div>
-              <div className="flex gap-8 group">
-                <div className="flex-shrink-0 w-16 h-16 bg-[#2A1B15] text-[#D4A373] rounded-2xl flex items-center justify-center text-3xl group-hover:rotate-12 transition-transform shadow-lg">
-                  <FaShieldAlt />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-4">Merkezi Yetkilendirme & Güvenlik</h3>
-                  <p className="text-[#3E2723]/70 leading-relaxed font-medium">İstediğiniz personele istediğiniz yetkiyi verin. İkram ve iptal işlemlerini yönetici onayıyla gerçekleştirin, kasanızı güvence altına alın.</p>
-                </div>
+              <h3 className="text-2xl font-black mb-6 group-hover:text-white transition-colors">Dinamik Stok Takibi</h3>
+              <p className="text-[#3E2723]/70 leading-relaxed font-medium group-hover:text-white/70 transition-colors">
+                Kritik seviye uyarıları ile ürününüz hiç bitmesin. Tedarikçi faturalarını tarayın, depo girişlerini yapın ve fire oranlarını otomatik raporlayın.
+              </p>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="group p-10 bg-[#FDF5E6]/40 rounded-[3rem] border border-[#2A1B15]/5 hover:bg-[#2A1B15] transition-all duration-500 hover:-translate-y-2 shadow-sm hover:shadow-2xl">
+              <div className="w-16 h-16 bg-[#2A1B15] text-[#D4A373] rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-[#D4A373] group-hover:text-[#2A1B15] transition-colors shadow-lg">
+                <FaQrcode />
               </div>
+              <h3 className="text-2xl font-black mb-6 group-hover:text-white transition-colors">QR Menü & Sipariş</h3>
+              <p className="text-[#3E2723]/70 leading-relaxed font-medium group-hover:text-white/70 transition-colors">
+                Müşterileriniz masadaki QR kodu okutup menüyü incelesin, garsonu beklemeden siparişini versin. Operasyon hızınızı %40 artırın.
+              </p>
+            </div>
+
+            {/* Feature 4 */}
+            <div className="group p-10 bg-[#FDF5E6]/40 rounded-[3rem] border border-[#2A1B15]/5 hover:bg-[#2A1B15] transition-all duration-500 hover:-translate-y-2 shadow-sm hover:shadow-2xl">
+              <div className="w-16 h-16 bg-[#2A1B15] text-[#D4A373] rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-[#D4A373] group-hover:text-[#2A1B15] transition-colors shadow-lg">
+                <FaChartLine />
+              </div>
+              <h3 className="text-2xl font-black mb-6 group-hover:text-white transition-colors">Gelişmiş Raporlama</h3>
+              <p className="text-[#3E2723]/70 leading-relaxed font-medium group-hover:text-white/70 transition-colors">
+                En çok satan ürünler, personel performansı ve ciro analizleri cebinizde. Bulut tabanlı yedekleme ile verileriniz her daim güvende.
+              </p>
+            </div>
+
+            {/* Feature 5 */}
+            <div className="group p-10 bg-[#FDF5E6]/40 rounded-[3rem] border border-[#2A1B15]/5 hover:bg-[#2A1B15] transition-all duration-500 hover:-translate-y-2 shadow-sm hover:shadow-2xl">
+              <div className="w-16 h-16 bg-[#2A1B15] text-[#D4A373] rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-[#D4A373] group-hover:text-[#2A1B15] transition-colors shadow-lg">
+                <FaConciergeBell />
+              </div>
+              <h3 className="text-2xl font-black mb-6 group-hover:text-white transition-colors">Mutfak & Kurye Takip</h3>
+              <p className="text-[#3E2723]/70 leading-relaxed font-medium group-hover:text-white/70 transition-colors">
+                Mutfak ekranı ile hazırlık süreçlerini yönetin. Kurye uygulaması ile paket servislerin anlık konumunu ve teslimat sürelerini izleyin.
+              </p>
+            </div>
+
+            {/* Feature 6 */}
+            <div className="group p-10 bg-[#FDF5E6]/40 rounded-[3rem] border border-[#2A1B15]/5 hover:bg-[#2A1B15] transition-all duration-500 hover:-translate-y-2 shadow-sm hover:shadow-2xl">
+              <div className="w-16 h-16 bg-[#2A1B15] text-[#D4A373] rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-[#D4A373] group-hover:text-[#2A1B15] transition-colors shadow-lg">
+                <FaShieldAlt />
+              </div>
+              <h3 className="text-2xl font-black mb-6 group-hover:text-white transition-colors">Merkezi Güvenlik</h3>
+              <p className="text-[#3E2723]/70 leading-relaxed font-medium group-hover:text-white/70 transition-colors">
+                İptal ve ikramlarda yönetici onayı isteyin. Kasa hareketlerini anlık bildirimlerle takip edin, yetkisiz erişimlerin önüne geçin.
+              </p>
             </div>
           </div>
         </div>
@@ -206,22 +234,22 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="lg:w-1/2 grid grid-cols-2 gap-4">
-              <div className="space-y-4">
-                <div className="bg-[#FF6000] p-4 rounded-[3rem] flex items-center justify-center min-h-[160px] shadow-xl transition-transform hover:scale-105">
-                  <img src="/logo_trendyol.png" alt="Trendyol Go" className="w-full h-auto object-contain" />
+            <div className="lg:w-1/2 grid grid-cols-2 gap-6">
+              <div className="space-y-6">
+                <div className="bg-white p-8 rounded-[3rem] flex items-center justify-center min-h-[180px] shadow-lg border border-[#2A1B15]/5 transition-all hover:shadow-2xl hover:-translate-y-1">
+                  <img src="/logo_trendyol.png" alt="Trendyol Go" className="w-[85%] h-auto object-contain grayscale-[0.2] hover:grayscale-0 transition-all" />
                 </div>
-                <div className="bg-[#ea004b] p-8 rounded-[3rem] flex items-center justify-center min-h-[160px] shadow-xl transition-transform hover:scale-105">
-                  <img src="/logo_yemeksepeti.png" alt="Yemeksepeti" className="w-full h-auto object-contain" />
+                <div className="bg-white p-8 rounded-[3rem] flex items-center justify-center min-h-[180px] shadow-lg border border-[#2A1B15]/5 transition-all hover:shadow-2xl hover:-translate-y-1">
+                  <img src="/logo_yemeksepeti.png" alt="Yemeksepeti" className="w-[85%] h-auto object-contain grayscale-[0.2] hover:grayscale-0 transition-all" />
                 </div>
               </div>
-              <div className="pt-12 space-y-4">
-                <div className="bg-[#5d3ebd] p-4 rounded-full flex items-center justify-center min-h-[160px] w-[160px] mx-auto shadow-xl transition-transform hover:scale-105 overflow-hidden">
-                  <img src="/logo_getir.png" alt="Getir" className="w-full h-full object-cover scale-[1.01]" />
+              <div className="pt-16 space-y-6">
+                <div className="bg-white p-8 rounded-full flex items-center justify-center min-h-[180px] w-[180px] mx-auto shadow-lg border border-[#2A1B15]/5 transition-all hover:shadow-2xl hover:-translate-y-1 overflow-hidden">
+                  <img src="/logo_getir.png" alt="Getir" className="w-[85%] h-auto object-contain grayscale-[0.2] hover:grayscale-0 transition-all" />
                 </div>
-                <div className="bg-[#FDF5E6] text-[#2A1B15] p-10 rounded-[3rem] flex flex-col items-center justify-center min-h-[160px] shadow-xl border border-[#2A1B15]/10 transition-transform hover:scale-105">
-                  <span className="text-3xl font-black">E-Fatura</span>
-                  <span className="text-xs font-bold opacity-40 uppercase tracking-widest mt-2">Tam Uyum</span>
+                <div className="bg-white text-[#2A1B15] p-10 rounded-[3rem] flex flex-col items-center justify-center min-h-[180px] shadow-lg border border-[#2A1B15]/5 transition-all hover:shadow-2xl hover:-translate-y-1">
+                  <span className="text-3xl font-black text-[#2A1B15]/80">E-Fatura</span>
+                  <span className="text-xs font-bold text-[#D4A373] uppercase tracking-widest mt-2">Tam Entegrasyon</span>
                 </div>
               </div>
             </div>
