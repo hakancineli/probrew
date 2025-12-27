@@ -237,15 +237,15 @@ export default function Home() {
             <div className="lg:w-1/2 grid grid-cols-2 gap-6">
               <div className="space-y-6">
                 <div className="bg-white rounded-[3rem] flex items-center justify-center min-h-[180px] shadow-lg border border-[#2A1B15]/5 transition-all hover:shadow-2xl hover:-translate-y-1 overflow-hidden relative">
-                  <img src="/logo_trendyol.png" alt="Trendyol Go" className="w-full h-full object-cover transition-all" />
+                  <img src="/logo_trendyol.png" alt="Trendyol Go" className="absolute inset-0 w-full h-full object-cover transition-all" />
                 </div>
                 <div className="bg-white rounded-[3rem] flex items-center justify-center min-h-[180px] shadow-lg border border-[#2A1B15]/5 transition-all hover:shadow-2xl hover:-translate-y-1 overflow-hidden relative">
-                  <img src="/logo_yemeksepeti.png" alt="Yemeksepeti" className="w-full h-full object-cover transition-all" />
+                  <img src="/logo_yemeksepeti.png" alt="Yemeksepeti" className="absolute inset-0 w-full h-full object-cover transition-all" />
                 </div>
               </div>
               <div className="pt-16 space-y-6">
                 <div className="bg-white rounded-full flex items-center justify-center min-h-[180px] w-[180px] mx-auto shadow-lg border border-[#2A1B15]/5 transition-all hover:shadow-2xl hover:-translate-y-1 overflow-hidden relative">
-                  <img src="/logo_getir.png" alt="Getir" className="w-full h-full object-cover scale-105 transition-all" />
+                  <img src="/logo_getir.png" alt="Getir" className="absolute inset-0 w-full h-full object-cover scale-105 transition-all" />
                 </div>
                 <div className="bg-white text-[#2A1B15] p-10 rounded-[3rem] flex flex-col items-center justify-center min-h-[180px] shadow-lg border border-[#2A1B15]/5 transition-all hover:shadow-2xl hover:-translate-y-1">
                   <span className="text-3xl font-black text-[#2A1B15]/80">E-Fatura</span>
