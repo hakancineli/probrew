@@ -156,16 +156,16 @@ export default function Home() {
             </div>
             <div className="lg:w-1/2 grid grid-cols-2 gap-4">
               <div className="space-y-4">
-                <div className="bg-[#FF6000] p-10 rounded-[3rem] flex items-center justify-center min-h-[160px] shadow-xl">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Trendyol_logo.svg" alt="Trendyol" className="h-10 invert brightness-0" />
+                <div className="bg-[#FF6000] p-6 rounded-[3rem] flex items-center justify-center min-h-[160px] shadow-xl overflow-hidden">
+                  <img src="/logo_trendyol.png" alt="Trendyol Go" className="w-full h-auto object-contain scale-110" />
                 </div>
-                <div className="bg-[#ea004b] p-10 rounded-[3rem] flex items-center justify-center min-h-[160px] shadow-xl">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Yemeksepeti_logo.svg" alt="Yemeksepeti" className="h-8 invert brightness-0" />
+                <div className="bg-[#ea004b] p-6 rounded-[3rem] flex items-center justify-center min-h-[160px] shadow-xl overflow-hidden">
+                  <img src="/logo_yemeksepeti.png" alt="Yemeksepeti" className="w-full h-auto object-contain scale-150" />
                 </div>
               </div>
               <div className="pt-12 space-y-4">
-                <div className="bg-[#5d3ebd] p-10 rounded-[3rem] flex items-center justify-center min-h-[160px] shadow-xl">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Getir_logo.svg" alt="Getir" className="h-10" />
+                <div className="bg-[#5d3ebd] p-6 rounded-[3rem] flex items-center justify-center min-h-[160px] shadow-xl overflow-hidden">
+                  <img src="/logo_getir.png" alt="Getir" className="w-full h-auto object-contain" />
                 </div>
                 <div className="bg-[#FDF5E6] text-[#2A1B15] p-10 rounded-[3rem] flex flex-col items-center justify-center min-h-[160px] shadow-xl border border-[#2A1B15]/5">
                   <span className="text-3xl font-black">E-Fatura</span>
