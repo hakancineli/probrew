@@ -26,11 +26,34 @@ export default function Home() {
     setFormStatus('success');
   };
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "ProBrew",
+    "operatingSystem": "Web, Android, iOS",
+    "applicationCategory": "BusinessApplication",
+    "description": "Yeni Nesil Kafe & Restoran Otomasyon Sistemi",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "TRY"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "ratingCount": "50"
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#FDF5E6] text-[#2A1B15] font-sans selection:bg-[#D4A373] selection:text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Floating WhatsApp Button */}
       <a
-        href="https://wa.me/905000000000"
+        href="https://wa.me/905432695442"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-8 right-8 z-[100] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center gap-3 font-bold px-6"
@@ -73,7 +96,7 @@ export default function Home() {
             <a href="#demo" className="px-10 py-5 bg-[#2A1B15] text-white font-black rounded-2xl hover:bg-[#3E2723] transition-all transform hover:scale-105 shadow-2xl shadow-[#2A1B15]/20 flex items-center justify-center gap-3 text-lg">
               Demoyu İncele <FaArrowRight />
             </a>
-            <a href="https://wa.me/905000000000" className="flex items-center justify-center gap-3 px-10 py-5 bg-white text-[#2A1B15] font-black rounded-2xl border-2 border-[#2A1B15]/10 hover:border-[#2A1B15] transition-all text-lg">
+            <a href="https://wa.me/905432695442" className="flex items-center justify-center gap-3 px-10 py-5 bg-white text-[#2A1B15] font-black rounded-2xl border-2 border-[#2A1B15]/10 hover:border-[#2A1B15] transition-all text-lg">
               <FaWhatsapp className="text-[#25D366]" /> Satış Ekibine Yazın
             </a>
           </div>
@@ -133,12 +156,21 @@ export default function Home() {
             </div>
             <div className="lg:w-1/2 grid grid-cols-2 gap-4">
               <div className="space-y-4">
-                <div className="bg-[#D4A373] p-10 rounded-[3rem] flex items-center justify-center text-5xl font-black text-[#2A1B15]">Trendyol</div>
-                <div className="bg-white/10 p-10 rounded-[3rem] flex items-center justify-center text-5xl font-black">Yemek</div>
+                <div className="bg-[#FF6000] p-10 rounded-[3rem] flex items-center justify-center min-h-[160px] shadow-xl">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Trendyol_logo.svg" alt="Trendyol" className="h-10 invert brightness-0" />
+                </div>
+                <div className="bg-[#ea004b] p-10 rounded-[3rem] flex items-center justify-center min-h-[160px] shadow-xl">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Yemeksepeti_logo.svg" alt="Yemeksepeti" className="h-8 invert brightness-0" />
+                </div>
               </div>
               <div className="pt-12 space-y-4">
-                <div className="bg-white/10 p-10 rounded-[3rem] flex items-center justify-center text-5xl font-black">Getir</div>
-                <div className="bg-[#D4A373] p-10 rounded-[3rem] flex items-center justify-center text-5xl font-black text-[#2A1B15]">E-Fatura</div>
+                <div className="bg-[#5d3ebd] p-10 rounded-[3rem] flex items-center justify-center min-h-[160px] shadow-xl">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Getir_logo.svg" alt="Getir" className="h-10" />
+                </div>
+                <div className="bg-[#FDF5E6] text-[#2A1B15] p-10 rounded-[3rem] flex flex-col items-center justify-center min-h-[160px] shadow-xl border border-[#2A1B15]/5">
+                  <span className="text-3xl font-black">E-Fatura</span>
+                  <span className="text-xs font-bold opacity-40 uppercase tracking-widest mt-2">Tam Uyum</span>
+                </div>
               </div>
             </div>
           </div>
