@@ -36,6 +36,7 @@ export default function Home() {
             <div className="hidden md:flex items-center gap-8">
               <a href="#features" className="text-sm font-bold hover:text-[#D4A373] transition-colors">Özellikler</a>
               <a href="#showcase" className="text-sm font-bold hover:text-[#D4A373] transition-colors">Referanslar</a>
+              <a href="#faq" className="text-sm font-bold hover:text-[#D4A373] transition-colors">SSS</a>
               <a href="#pricing" className="text-sm font-bold hover:text-[#D4A373] transition-colors">Fiyatlandırma</a>
               <a href="#demo" className="px-5 py-2.5 bg-[#2A1B15] text-white rounded-full text-sm font-bold hover:bg-[#3E2723] transition-all">Demo İste</a>
             </div>
@@ -179,6 +180,42 @@ export default function Home() {
                 <p className="text-sm opacity-60 leading-relaxed">{f.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section id="faq" className="py-32 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-black text-center mb-16">Sıkça Sorulan Sorular</h2>
+          <div className="space-y-6">
+            {[
+              { q: "Sistemi kullanmak için özel bir donanım gerekiyor mu?", a: "Hayır. ProBrew bulut tabanlıdır; herhangi bir tablet, bilgisayar veya akıllı telefondan anında kullanmaya başlayabilirsiniz." },
+              { q: "Trendyol ve Yemeksepeti siparişleri kafa karıştırır mı?", a: "Tam tersi! Tüm platform siparişlerini tek merkezde topluyoruz, mutfak ekranında saniyeler içinde beliriyor." },
+              { q: "İnternet kesilirse ne olur?", a: "Çevrimdışı çalışma modumuz sayesinde sipariş almaya devam edebilir, internet geldiğinde verilerinizi eşitleyebilirsiniz." },
+              { q: "Verilerimiz güvende mi?", a: "Evet. Tüm verileriniz banka düzeyinde şifreleme ile Vercel ve AWS üzerinde yedekli olarak saklanmaktadır." }
+            ].map((item, i) => (
+              <div key={i} className="bg-white p-8 rounded-[2rem] shadow-sm border border-[#2A1B15]/5">
+                <h4 className="text-lg font-bold mb-3 flex gap-3 text-[#2A1B15]">
+                  <span className="text-[#D4A373]">Q:</span> {item.q}
+                </h4>
+                <p className="text-[#3E2723]/70 leading-relaxed pl-7">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Tech Stack Section */}
+      <section className="py-24 bg-white border-y border-[#2A1B15]/5">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <p className="text-sm font-black text-[#3E2723]/30 uppercase tracking-[0.2em] mb-12">GÜVENDİĞİMİZ TEKNOLOJİLER</p>
+          <div className="flex flex-wrap justify-center gap-12 opacity-40 grayscale">
+            <span className="text-2xl font-black">Next.js</span>
+            <span className="text-2xl font-black">Prisma</span>
+            <span className="text-2xl font-black">PostgreSQL</span>
+            <span className="text-2xl font-black">TailwindCSS</span>
+            <span className="text-2xl font-black">Vercel</span>
           </div>
         </div>
       </section>
