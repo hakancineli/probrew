@@ -209,8 +209,8 @@ export default function Home() {
               <div className="w-14 h-14 bg-green-500 text-white rounded-2xl flex items-center justify-center text-3xl mb-6">
                 <FaShieldAlt />
               </div>
-              <h3 className="text-2xl font-bold mb-4 font-black">Sıfır Donanım Maliyeti</h3>
-              <p className="text-[#3E2723]/70 leading-relaxed font-medium">Özel terminallere binlerce dolar harcamayın. Mevcut tablet ve telefonlarınızı anında terminale dönüştürün.</p>
+              <h3 className="text-2xl font-bold mb-4 font-black">Binlerce Dolarlık Donanıma Son</h3>
+              <p className="text-[#3E2723]/70 leading-relaxed font-medium">Hantal ve pahalı POS cihazlarına yatırım yapmayın. ProBrew, cebinizdeki telefon veya masanızdaki tablet ile anında çalışır. Kurulum maliyetini sıfıra indirin.</p>
             </div>
           </div>
         </div>
@@ -300,6 +300,61 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Product Showcase / Screenshots */}
+      <section className="py-24 bg-[#FDF5E6]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-black mb-4">Sistemi Yakından Tanıyın</h2>
+            <p className="text-lg opacity-60 max-w-2xl mx-auto">Modern, hızlı ve kullanıcı dostu arayüzlerimizle işletmenizin kontrolü parmaklarınızın ucunda.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* POS Screen */}
+            <div className="group">
+              <div className="bg-[#2A1B15] p-2 rounded-[2rem] shadow-2xl overflow-hidden relative aspect-[4/3] transform transition-all duration-300 group-hover:-translate-y-2">
+                <img src="/images/screenshots/pos.png" alt="ProBrew POS Ekranı" className="w-full h-full object-cover rounded-[1.5rem]" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                  <span className="text-white font-bold text-lg">Hızlı Satış Ekranı</span>
+                </div>
+              </div>
+              <div className="mt-6 text-center">
+                <h3 className="text-xl font-bold mb-2">Işık Hızında POS</h3>
+                <p className="text-sm opacity-70 px-4">Saniyeler içinde sipariş alın, hatayı sıfıra indirin.</p>
+              </div>
+            </div>
+
+            {/* Mobile Menu */}
+            <div className="group mt-12 md:mt-0">
+              <div className="bg-[#2A1B15] p-2 rounded-[2rem] shadow-2xl overflow-hidden relative aspect-[3/5] max-w-[280px] mx-auto transform transition-all duration-300 group-hover:-translate-y-2 border-8 border-[#2A1B15]">
+                <img src="/images/screenshots/mobile_menu.png" alt="ProBrew QR Menü" className="w-full h-full object-cover rounded-[1.2rem]" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                  <span className="text-white font-bold text-lg">QR Menü & Sipariş</span>
+                </div>
+              </div>
+              <div className="mt-6 text-center">
+                <h3 className="text-xl font-bold mb-2">Temassız QR Menü</h3>
+                <p className="text-sm opacity-70 px-4">Müşterileriniz kendi telefonlarından sipariş versin.</p>
+              </div>
+            </div>
+
+            {/* Dashboard */}
+            <div className="group md:mt-0">
+              <div className="bg-[#2A1B15] p-2 rounded-[2rem] shadow-2xl overflow-hidden relative aspect-[4/3] transform transition-all duration-300 group-hover:-translate-y-2">
+                <img src="/images/screenshots/dashboard.png" alt="ProBrew Yönetim Paneli" className="w-full h-full object-cover rounded-[1.5rem]" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                  <span className="text-white font-bold text-lg">Gelişmiş Raporlar</span>
+                </div>
+              </div>
+              <div className="mt-6 text-center">
+                <h3 className="text-xl font-bold mb-2">Anlık Raporlama</h3>
+                <p className="text-sm opacity-70 px-4">Cironuzu, stok durumunuzu ve kârlılığınızı cepten izleyin.</p>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
