@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   FaRocket,
   FaChartLine,
@@ -58,7 +58,7 @@ export default function Home() {
         rel="noopener noreferrer"
         className="fixed bottom-8 right-8 z-[100] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center gap-3 font-bold px-6"
       >
-        <FaWhatsapp className="text-2xl" /> <span>Hızlı Destek</span>
+        <div className="text-2xl">{React.createElement(FaWhatsapp as any)}</div> <span>Hızlı Destek</span>
       </a>
 
       {/* Navigation */}
