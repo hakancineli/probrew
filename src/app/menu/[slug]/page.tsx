@@ -62,7 +62,9 @@ export default async function PublicMenuPage({
     Custom: business.primaryColor
   };
   const activeTheme = business.systemSettings?.activeTheme || 'Nordic';
-  const themePrimary = THEME_COLORS[activeTheme] || business.primaryColor;
+  const themePrimary = THEME_COLORS[activeTheme] || business.systemSettings?.primaryColor || business.primaryColor;
+  const brandLogo = business.systemSettings?.logoUrl || business.logoUrl;
+  const brandName = business.systemSettings?.brandName || business.name;
 
   // Group products by category
   const categories = business.products.reduce((acc: any, product) => {
@@ -75,11 +77,11 @@ export default async function PublicMenuPage({
     <div className="min-h-screen bg-[#FDFBF7] pb-20" style={{ '--primary': themePrimary } as any}>
       {/* Business Header */}
       <div className="relative h-72 bg-slate-900 flex items-center justify-center overflow-hidden">
-        {business.logoUrl ? (
+        {brandLogo ? (
           <div className="absolute inset-0">
              <Image 
-              src={business.logoUrl} 
-              alt={business.name} 
+              src={brandLogo} 
+              alt={brandName} 
               fill 
               unoptimized
               className="object-cover opacity-30 blur-md scale-110"
@@ -92,13 +94,13 @@ export default async function PublicMenuPage({
         
         <div className="relative z-10 text-center px-6">
           <div className="w-28 h-28 bg-white/10 backdrop-blur-xl rounded-[2.5rem] mx-auto mb-6 border border-white/20 shadow-2xl overflow-hidden flex items-center justify-center">
-             {business.logoUrl ? (
-                <img src={business.logoUrl} alt={business.name} className="w-full h-full object-cover" />
+             {brandLogo ? (
+                <img src={brandLogo} alt={brandName} className="w-full h-full object-cover" />
              ) : (
                 <span className="text-5xl drop-shadow-lg">☕</span>
              )}
           </div>
-          <h1 className="text-4xl font-black text-white mb-2 drop-shadow-2xl tracking-tighter">{business.name}</h1>
+          <h1 className="text-4xl font-black text-white mb-2 drop-shadow-2xl tracking-tighter">{brandName}</h1>
           <p className="text-white/60 font-bold uppercase tracking-[0.2em] text-[10px] mb-4">Dijital Menü Deneyimi</p>
           <div className="h-1 w-12 bg-white/20 mx-auto rounded-full" />
         </div>

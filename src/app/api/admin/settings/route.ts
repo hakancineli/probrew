@@ -54,6 +54,9 @@ export async function GET(request: NextRequest) {
 
     const response = {
         ...settings,
+        brandName: settings?.brandName || settings?.business?.name,
+        logoUrl: settings?.logoUrl || settings?.business?.logoUrl,
+        primaryColor: settings?.primaryColor || settings?.business?.primaryColor,
         slug: (settings as any).business?.slug
     };
 
