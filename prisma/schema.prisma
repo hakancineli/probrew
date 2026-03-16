@@ -115,6 +115,7 @@ model SystemSettings {
   officialPhone         String?  @map("official_phone")
   taxOffice             String?  @map("tax_office")
   taxNumber             String?  @map("tax_number")
+  activeTheme           String   @default("Nordic") @map("active_theme")
   
   updatedAt             DateTime @updatedAt @map("updated_at")
   business              Business @relation(fields: [businessId], references: [id], onDelete: Cascade)

@@ -114,8 +114,7 @@ export async function PUT(request: NextRequest) {
       data: {
         name: brandName || undefined,
         logoUrl: logoUrl !== undefined ? logoUrl : undefined,
-        primaryColor: primaryColor || undefined,
-        secondaryColor: secondaryColor || undefined
+        primaryColor: primaryColor || undefined
       }
     });
 

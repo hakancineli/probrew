@@ -65,7 +65,6 @@ export async function POST(request: NextRequest) {
           name: businessName,
           slug: finalSlug,
           primaryColor: '#2563EB',
-          secondaryColor: '#1E40AF',
         }
       });
       

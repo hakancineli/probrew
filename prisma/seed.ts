@@ -16,7 +16,6 @@ async function main() {
       name: 'ProBrew Ana İşletme',
       slug: 'probrew-main',
       primaryColor: '#2563EB',
-      secondaryColor: '#1E40AF',
     }
   });
   console.log('Business created:', business.name);

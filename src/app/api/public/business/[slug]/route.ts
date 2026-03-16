@@ -14,7 +14,6 @@ export async function GET(
         slug: true,
         logoUrl: true,
         primaryColor: true,
-        secondaryColor: true,
         systemSettings: true,
       }
     });
