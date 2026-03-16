@@ -87,7 +87,7 @@ export default async function PublicMenuPage({
   const brandName = business.systemSettings?.brandName || business.name;
 
   // Group products by category
-  const categories = business.products.reduce((acc: any, product) => {
+  const categories = business.products.reduce((acc: any, product: any) => {
     if (!acc[product.category]) acc[product.category] = [];
     acc[product.category].push(product);
     return acc;
