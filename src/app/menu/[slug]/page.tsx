@@ -7,38 +7,58 @@ import MenuClient from './MenuClient';
 export const dynamic = 'force-dynamic';
 
 async function getMenuData(slug: string, tableId?: string) {
-  const business = await prisma.business.findUnique({
-    where: { slug },
-    include: {
-      systemSettings: true,
-      products: {
-        where: { isActive: true },
-        orderBy: { category: 'asc' },
-        include: {
-            recipes: {
-                include: {
-                    items: {
-                        include: {
-                            ingredient: true
-                        }
-                    }
-                }
+  try {
+    const business = await prisma.business.findUnique({
+      where: { slug },
+      include: {
+        systemSettings: {
+            select: {
+                brandName: true,
+                primaryColor: true,
+                secondaryColor: true,
+                logoUrl: true,
+                isKitchenEnabled: true,
+                isPaymentEnabled: true,
+                activeTheme: true,
             }
+        },
+        products: {
+          where: { isActive: true },
+          orderBy: { category: 'asc' },
+          include: {
+              recipes: {
+                  include: {
+                      items: {
+                          include: {
+                              ingredient: true
+                          }
+                      }
+                  }
+              }
+          }
         }
       }
-    }
-  });
-
-  if (!business) return null;
-
-  let table = null;
-  if (tableId) {
-    table = await prisma.table.findUnique({
-        where: { id: tableId }
     });
-  }
 
-  return { business, table };
+    if (!business) return null;
+
+    let table = null;
+    if (tableId) {
+      table = await prisma.table.findUnique({
+          where: { id: tableId }
+      });
+    }
+
+    return { business, table };
+  } catch (error) {
+    console.error(`[Menu] Data fetch error for ${slug}:`, error);
+    // Attempt absolute minimal fetch if extended fetch fails
+    const basic = await prisma.business.findUnique({ 
+        where: { slug },
+        include: { products: { where: { isActive: true } } }
+    });
+    return { business: basic as any, table: null };
+  }
 }
 
 export default async function PublicMenuPage({ 
