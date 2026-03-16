@@ -10,6 +10,7 @@ async function getMenuData(slug: string, tableId?: string) {
   const business = await prisma.business.findUnique({
     where: { slug },
     include: {
+      systemSettings: true,
       products: {
         where: { isActive: true },
         orderBy: { category: 'asc' },
@@ -52,6 +53,8 @@ export default async function PublicMenuPage({
   if (!data?.business) notFound();
   
   const { business, table } = data;
+  const activeTheme = business.systemSettings?.activeTheme || 'Nordic';
+  const themePrimary = activeTheme === 'Turkish' ? '#dc2626' : business.primaryColor;
 
   // Group products by category
   const categories = business.products.reduce((acc: any, product) => {
@@ -61,7 +64,7 @@ export default async function PublicMenuPage({
   }, {});
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7] pb-20" style={{ '--primary': business.primaryColor } as any}>
+    <div className="min-h-screen bg-[#FDFBF7] pb-20" style={{ '--primary': themePrimary } as any}>
       {/* Business Header */}
       <div className="relative h-72 bg-slate-900 flex items-center justify-center overflow-hidden">
         {business.logoUrl ? (
@@ -124,7 +127,7 @@ export default async function PublicMenuPage({
       <a 
         href={`/feedback/${business.slug}`}
         className="fixed bottom-6 right-6 w-14 h-14 rounded-full shadow-2xl flex items-center justify-center text-white transition-all hover:scale-110 active:scale-90 z-[45]"
-        style={{ backgroundColor: business.primaryColor }}
+        style={{ backgroundColor: themePrimary }}
       >
         <FaStar size={24} />
       </a>

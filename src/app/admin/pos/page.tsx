@@ -1547,7 +1547,7 @@ export default function POSPage() {
                                         <div className="mt-auto">
                                             <h3 className={`font-semibold ${themeStyles.text} text-[10px] md:text-sm line-clamp-2 leading-tight`}>{item.name}</h3>
                                             <div className="flex justify-between items-end mt-0.5 md:mt-1">
-                                                <p className="text-brand-primary font-bold text-xs md:text-base">
+                                                <p className={`${themeStyles.accent.replace('bg-', 'text-')} font-bold text-xs md:text-base`}>
                                                     {(() => {
                                                         const dbProduct = getDbProduct(item.name);
                                                         const price = dbProduct?.price || item.price;
@@ -2037,6 +2037,20 @@ export default function POSPage() {
                             -webkit-print-color-adjust: exact !important;
                             print-color-adjust: exact !important;
                         }
+                        .print-root {
+                            width: 80mm !important;
+                            margin: 0 !important;
+                            padding: 5mm !important;
+                            background: white !important;
+                            color: black !important;
+                        }
+                        /* Correct Print Visibility */
+                        body > * { 
+                            display: none !important; 
+                        }
+                        body > #print-receipt-container { 
+                            display: block !important; 
+                        }
                         #print-receipt-container {
                             display: block !important;
                             position: absolute !important;
@@ -2045,19 +2059,9 @@ export default function POSPage() {
                             width: 80mm !important;
                             z-index: 99999 !important;
                             background: white !important;
+                            visibility: visible !important;
                         }
-                        .print-root {
-                            width: 80mm !important;
-                            margin: 0 !important;
-                            padding: 5mm !important;
-                            background: white !important;
-                            color: black !important;
-                        }
-                        /* Hide everything else */
-                        body > *:not(#print-receipt-container) {
-                            display: none !important;
-                        }
-                        nav, header, footer, aside, .no-print, .print-hidden { 
+                        .no-print, .print-hidden { 
                             display: none !important; 
                         }
                     }

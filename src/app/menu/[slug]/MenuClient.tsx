@@ -11,6 +11,10 @@ export default function MenuClient({ business, categories, table }: any) {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [isCheckingOut, setIsCheckingOut] = useState(false);
     const [orderSuccess, setOrderSuccess] = useState(false);
+    
+    // Theme Logic
+    const activeTheme = business.systemSettings?.activeTheme || 'Nordic';
+    const themePrimary = activeTheme === 'Turkish' ? '#dc2626' : business.primaryColor;
 
     const totalAmount = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
@@ -109,7 +113,8 @@ export default function MenuClient({ business, categories, table }: any) {
                 </p>
                 <button 
                     onClick={() => setOrderSuccess(false)}
-                    className="w-full max-w-xs py-4 bg-slate-900 text-white rounded-2xl font-black shadow-xl flex items-center justify-center gap-2"
+                    className="w-full max-w-xs py-4 text-white rounded-2xl font-black shadow-xl flex items-center justify-center gap-2"
+                    style={{ backgroundColor: themePrimary }}
                 >
                     <FaRedo /> Yeni Sipariş Ver
                 </button>
@@ -146,7 +151,7 @@ export default function MenuClient({ business, categories, table }: any) {
                 {Object.entries(categories).map(([category, products]: [string, any]) => (
                     <section key={category} id={category} className="mb-12">
                         <h2 className="text-2xl font-black text-slate-800 mb-6 flex items-center gap-3">
-                            <span className="w-2 h-8 rounded-full" style={{ backgroundColor: business.primaryColor }} />
+                            <span className="w-2 h-8 rounded-full" style={{ backgroundColor: themePrimary }} />
                             {category}
                         </h2>
                         
@@ -164,7 +169,7 @@ export default function MenuClient({ business, categories, table }: any) {
                                     <div className="flex-1">
                                         <div className="flex justify-between items-start mb-1">
                                             <h3 className="font-bold text-slate-900">{product.name}</h3>
-                                            <span className="font-black text-lg" style={{ color: business.primaryColor }}>
+                                            <span className="font-black text-lg" style={{ color: themePrimary }}>
                                                 ₺{product.price}
                                             </span>
                                         </div>
@@ -189,7 +194,8 @@ export default function MenuClient({ business, categories, table }: any) {
             {cart.length > 0 && (
                 <button 
                     onClick={() => setIsCartOpen(true)}
-                    className="fixed bottom-6 left-6 right-6 z-50 bg-slate-900 text-white rounded-[2rem] py-5 px-8 flex items-center justify-between shadow-2xl animate-in slide-in-from-bottom duration-300"
+                    className="fixed bottom-6 left-6 right-6 z-50 text-white rounded-[2rem] py-5 px-8 flex items-center justify-between shadow-2xl animate-in slide-in-from-bottom duration-300"
+                    style={{ backgroundColor: themePrimary }}
                 >
                     <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center font-black text-sm">
@@ -248,7 +254,8 @@ export default function MenuClient({ business, categories, table }: any) {
                             <button 
                                 onClick={handleCheckout}
                                 disabled={isCheckingOut}
-                                className="w-full py-5 bg-slate-900 text-white rounded-[2rem] font-black text-lg shadow-2xl flex items-center justify-center gap-3 disabled:opacity-50"
+                                className="w-full py-5 text-white rounded-[2rem] font-black text-lg shadow-2xl flex items-center justify-center gap-3 disabled:opacity-50"
+                                style={{ backgroundColor: themePrimary }}
                             >
                                 {isCheckingOut ? (
                                      <div className="w-6 h-6 border-4 border-white/20 border-t-white rounded-full animate-spin" />
