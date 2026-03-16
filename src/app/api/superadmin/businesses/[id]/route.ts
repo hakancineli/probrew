@@ -93,10 +93,33 @@ export async function DELETE(
 ) {
     try {
         const role = request.headers.get('x-user-role');
-        const userEmail = request.headers.get('x-user-email') || 'SuperAdmin';
+        const userEmail = request.headers.get('x-user-email');
         
-        if (role !== 'SUPERADMIN') {
+        if (role !== 'SUPERADMIN' || !userEmail) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+
+        const body = await request.json();
+        const { password } = body;
+
+        if (!password) {
+            return NextResponse.json({ error: 'Güvenlik için şifre gereklidir.' }, { status: 400 });
+        }
+
+        // Verify SuperAdmin Password
+        const admin = await prisma.systemAdmin.findUnique({
+            where: { email: userEmail }
+        });
+
+        if (!admin) {
+            return NextResponse.json({ error: 'Yönetici bulunamadı.' }, { status: 404 });
+        }
+
+        const bcrypt = require('bcryptjs');
+        const isValid = await bcrypt.compare(password, admin.passwordHash);
+
+        if (!isValid) {
+            return NextResponse.json({ error: 'Hatalı yönetici şifresi.' }, { status: 403 });
         }
 
         // Add Audit Log BEFORE deletion because of cascade

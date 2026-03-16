@@ -35,6 +35,8 @@ export default function SuperAdminDashboard() {
   // Management Modal State
   const [selectedBusiness, setSelectedBusiness] = useState<Business | null>(null);
   const [isManaging, setIsManaging] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deletePassword, setDeletePassword] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [updating, setUpdating] = useState(false);
 
@@ -187,18 +189,33 @@ export default function SuperAdminDashboard() {
   };
 
   const handleDeleteBusiness = async (id: string) => {
-    if (!confirm('DİKKAT: Bu işletme ve TÜM verileri (ürünler, siparişler, personel) kalıcı olarak silinecek. Emin misiniz?')) return;
+    if (!deletePassword) {
+        toast.error('Giriş şifrenizi girmeniz gerekmektedir.');
+        return;
+    }
     
     setUpdating(true);
     try {
       const res = await fetch(`/api/superadmin/businesses/${id}`, {
         method: 'DELETE',
-        headers: { 'x-user-role': 'SUPERADMIN' }
+        headers: { 
+          'Content-Type': 'application/json',
+          'x-user-role': 'SUPERADMIN',
+          'x-user-email': 'admin@probrew.com.tr' // Fallback for middleware, though it should be handled there
+        },
+        body: JSON.stringify({ password: deletePassword })
       });
+      
+      const data = await res.json();
+
       if (res.ok) {
-        toast.success('İşletme silindi.');
+        toast.success('İşletme ve tüm verileri silindi.');
         setIsManaging(false);
+        setIsDeleting(false);
+        setDeletePassword('');
         fetchBusinesses();
+      } else {
+        toast.error(data.error || 'Silinemedi.');
       }
     } catch (e) {
       toast.error('Silinemedi.');
@@ -719,7 +736,11 @@ export default function SuperAdminDashboard() {
                 <p className="text-slate-400 font-mono text-sm">ID: {selectedBusiness.id}</p>
               </div>
               <button 
-                onClick={() => setIsManaging(false)}
+                onClick={() => {
+                  setIsManaging(false);
+                  setIsDeleting(false);
+                  setDeletePassword('');
+                }}
                 className="p-3 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white rounded-2xl transition-all"
               >
                 <FaTimesCircle size={24} />
@@ -781,14 +802,46 @@ export default function SuperAdminDashboard() {
               </div>
 
               {/* Danger Zone */}
-              <div className="pt-4">
-                <button 
-                  onClick={() => handleDeleteBusiness(selectedBusiness.id)}
-                  disabled={updating}
-                  className="w-full py-4 border border-red-500/20 text-red-500 hover:bg-red-500/10 font-bold rounded-2xl transition-all flex items-center justify-center gap-2"
-                >
-                  {updating ? 'İşlem yapılıyor...' : '⚠️ İşletmeyi Ve Tüm Verileri Sil'}
-                </button>
+              <div className="pt-4 border-t border-slate-800">
+                {!isDeleting ? (
+                  <button 
+                    onClick={() => setIsDeleting(true)}
+                    className="w-full py-4 border border-red-500/20 text-red-500 hover:bg-red-500/10 font-black rounded-2xl transition-all flex items-center justify-center gap-2 uppercase tracking-widest text-xs"
+                  >
+                    ⚠️ İşletmeyi Ve Tüm Verileri Sil
+                  </button>
+                ) : (
+                  <div className="space-y-4 animate-in slide-in-from-bottom-2 duration-300">
+                    <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl">
+                      <p className="text-xs text-red-400 font-bold leading-relaxed mb-2">
+                        DİKKAT: Bu işlem geri alınamaz. İşletmeye ait tüm ürünler, siparişler, personel ve ayarlar KALICI OLARAK silinecektir.
+                      </p>
+                      <p className="text-[10px] text-slate-500 uppercase tracking-widest font-black">Onaylamak için şifrenizi girin:</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <input 
+                        type="password"
+                        placeholder="SuperAdmin Şifresi"
+                        value={deletePassword}
+                        onChange={(e) => setDeletePassword(e.target.value)}
+                        className="flex-1 bg-slate-950 border border-red-500/20 rounded-xl px-4 text-white focus:border-red-500 outline-none"
+                      />
+                      <button 
+                         onClick={() => handleDeleteBusiness(selectedBusiness.id)}
+                         disabled={updating || !deletePassword}
+                         className="px-6 py-3 bg-red-600 hover:bg-red-500 text-white font-black rounded-xl transition-all disabled:opacity-50"
+                      >
+                         {updating ? '...' : 'SİL'}
+                      </button>
+                      <button 
+                         onClick={() => setIsDeleting(false)}
+                         className="px-4 py-3 bg-slate-800 text-slate-400 font-bold rounded-xl"
+                      >
+                         İptal
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
