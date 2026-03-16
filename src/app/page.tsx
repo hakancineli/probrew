@@ -57,11 +57,41 @@ export default function Home() {
       desc: 'Müşterilerinizi tanıyan tek POS. Kişiye özel puanlar ve ödüllerle sadakati %40 artırın.',
       img: '/images/showcase/customer-display.png',
       color: 'bg-pink-600'
+    },
+    {
+      title: 'Güvenli Ödeme & Hukuk',
+      tag: 'COMPLIANCE',
+      desc: 'MSS ve KVKK standartlarına tam uyumlu, iyzico entegreli güvenli ödeme altyapısı.',
+      img: '/images/showcase/legal-pos.png',
+      color: 'bg-slate-700'
     }
   ];
 
   return (
     <div className="bg-[#FAF9F6] min-h-screen font-sans selection:bg-brand-primary selection:text-white">
+      {/* JSON-LD Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "ProBrew",
+            "operatingSystem": "Web, iOS, Android, Windows",
+            "applicationCategory": "BusinessApplication",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "TRY"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.9",
+              "ratingCount": "520"
+            }
+          })
+        }}
+      />
       <Navbar />
 
       <main className="overflow-x-hidden">
@@ -81,8 +111,8 @@ export default function Home() {
                 </div>
 
                 <h1 className="text-5xl md:text-7xl font-black text-brand-dark leading-[0.9] mb-8 tracking-tighter">
-                  Kafe ve Restoran <br />
-                  <span className="text-brand-primary">Yönetimini Sanata Dönüştürün.</span>
+                  Kafe POS ve <br />
+                  <span className="text-brand-primary">Restoran Yönetiminde Yeni Nesil Standart.</span>
                 </h1>
 
                 <p className="text-xl text-gray-500 mb-10 leading-relaxed font-medium">

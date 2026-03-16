@@ -7,11 +7,11 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
   title: {
-    default: 'ProBrew | Kafe İşletme Yönetim Sistemi',
-    template: '%s | ProBrew'
+    default: 'ProBrew | Yeni Nesil Kafe POS & Restoran Otomasyon Sistemi',
+    template: '%s | ProBrew Kafe Yazılımı'
   },
-  description: 'ProBrew ile kafenizin her hücresini yönetin. POS, menü tasarımı, stok analizi, personel performansı ve müşteri sadakatine kadar merkezi işletme yönetim sistemi.',
-  keywords: ['kafe yönetimi', 'pos sistemi', 'stok yönetimi', 'menü yönetimi', 'kafe yazılımı', 'probrew', 'işletme yönetimi'],
+  description: 'ProBrew ile işletmenizi dijitalleştirin. Bulut tabanlı Kafe POS, interaktif QR Menü, stok takibi, personel yönetimi ve yapay zeka destekli analizler tek platformda.',
+  keywords: ['kafe pos sistemi', 'restoran otomasyonu', 'qr menü sistemi', 'stok takibi yazılımı', 'kafe yönetim sistemi', 'bulut tabanlı pos', 'temassız sipariş', 'probrew', 'adısyon takip sistemi'],
   metadataBase: new URL('https://probrew.com.tr'),
   alternates: {
     canonical: '/',

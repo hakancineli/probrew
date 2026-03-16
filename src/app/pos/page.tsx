@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { FiMonitor, FiCpu, FiSmartphone, FiPieChart, FiArrowRight, FiZap, FiLayout, FiShield, FiUsers, FiClock, FiGlobe } from 'react-icons/fi';
+import { FiMonitor, FiCpu, FiSmartphone, FiPieChart, FiArrowRight, FiZap, FiLayout, FiShield, FiUsers, FiClock, FiGlobe, FiSettings } from 'react-icons/fi';
 import { FaUsers, FaGlobe } from 'react-icons/fa';
 
 export const metadata: Metadata = {
@@ -42,6 +42,20 @@ export default function PosPage() {
             img: '/images/showcase/qr-menu.png',
             icon: <FiLayout />,
             color: 'bg-rose-50'
+        },
+        {
+            title: 'Kurumsal Marka Paneli',
+            desc: 'Kendi logonuz, kendi renkleriniz ve size özel temalarınız. SaaS altyapımızla işletmenizin kimliğini tüm platformlarda saniyeler içinde güncelleyin.',
+            img: '/images/showcase/admin-panel-ui.png',
+            icon: <FiSettings />,
+            color: 'bg-purple-50'
+        },
+        {
+            title: 'Yapay Zeka Destekli Analiz',
+            desc: 'Gemini AI entegrasyonu ile stok ihtiyaçlarınızı öngörün, personel verimliliğini optimize edin ve yarının satışlarını bugünden tahmin edin.',
+            img: '/images/showcase/analytics-ui.png', // Placeholder or use AI logic
+            icon: <FiCpu />,
+            color: 'bg-orange-50'
         },
         {
             title: 'Sadakat ve Ödül (Rewards)',
