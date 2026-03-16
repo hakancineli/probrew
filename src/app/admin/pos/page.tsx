@@ -18,7 +18,11 @@ const THEMES = {
         button: 'bg-blue-500',
         border: 'border-slate-200',
         text: 'text-slate-900',
-        subText: 'text-slate-500'
+        subText: 'text-slate-500',
+        cardBg: 'bg-white',
+        cardText: 'text-slate-900',
+        searchBg: 'bg-slate-50',
+        inputBg: 'bg-white'
     },
     Midnight: {
         bg: 'bg-[#020617]',
@@ -27,7 +31,11 @@ const THEMES = {
         button: 'bg-indigo-500',
         border: 'border-slate-800',
         text: 'text-slate-100',
-        subText: 'text-slate-400'
+        subText: 'text-slate-400',
+        cardBg: 'bg-slate-800',
+        cardText: 'text-slate-100',
+        searchBg: 'bg-slate-950',
+        inputBg: 'bg-slate-800'
     },
     Bistro: {
         bg: 'bg-[#E5D9C8]',
@@ -36,7 +44,11 @@ const THEMES = {
         button: 'bg-[#6D4C41]',
         border: 'border-[#5C4033]',
         text: 'text-[#EAD8C0]',
-        subText: 'text-[#A1887F]'
+        subText: 'text-[#A1887F]',
+        cardBg: 'bg-[#4E342E]',
+        cardText: 'text-[#F5F5F5]',
+        searchBg: 'bg-[#2D1B18]',
+        inputBg: 'bg-[#3E2723]'
     },
     Vibrant: {
         bg: 'bg-purple-50',
@@ -45,7 +57,11 @@ const THEMES = {
         button: 'bg-pink-500',
         border: 'border-purple-100',
         text: 'text-slate-900',
-        subText: 'text-slate-500'
+        subText: 'text-slate-500',
+        cardBg: 'bg-white',
+        cardText: 'text-slate-900',
+        searchBg: 'bg-purple-50',
+        inputBg: 'bg-white'
     }
 };
 
@@ -715,7 +731,8 @@ export default function POSPage() {
                             total: finalTotal
                         },
                         customer: customer,
-                        loyaltyMessage: data.message
+                        loyaltyMessage: data.message,
+                        theme: activeTheme
                     }
                 });
                 channel.close();
@@ -751,11 +768,12 @@ export default function POSPage() {
                     total: finalTotal
                 },
                 customer: selectedCustomer,
-                loyaltyMessage: loyaltyMessage
+                loyaltyMessage: loyaltyMessage,
+                theme: activeTheme
             }
         });
         return () => channel.close();
-    }, [cart, cartTotal, totalDiscount, finalTotal, loyaltyMessage, selectedCustomer]);
+    }, [cart, cartTotal, totalDiscount, finalTotal, loyaltyMessage, selectedCustomer, activeTheme]);
 
     // Customer Search Logic
     useEffect(() => {
@@ -838,7 +856,7 @@ export default function POSPage() {
             // Small delay to ensure DOM and external images (QR) are updated/loaded
             const timer = setTimeout(() => {
                 window.print();
-            }, 800);
+            }, 1500);
             return () => clearTimeout(timer);
         }
     }, [lastOrder]);
@@ -1064,22 +1082,22 @@ export default function POSPage() {
             <div className={`flex flex-col md:flex-row h-screen h-[100dvh] ${themeStyles.bg} overflow-hidden relative print:hidden transition-colors duration-500`}>
                 {/* Staff Selection Modal */}
                 {showStaffModal && (
-                    <div className="absolute inset-0 bg-black/50 z-[60] flex items-center justify-center backdrop-blur-sm animate-fade-in">
-                        <div className="bg-white p-6 rounded-2xl shadow-2xl max-w-md w-full relative">
+                    <div className="absolute inset-0 bg-black/60 z-[60] flex items-center justify-center backdrop-blur-sm animate-fade-in">
+                        <div className={`${themeStyles.cardBg} p-6 rounded-2xl shadow-2xl max-w-md w-full relative border ${themeStyles.border}`}>
                             <button
                                 onClick={() => {
                                     setShowStaffModal(false);
                                     setStaffMode(false);
                                 }}
-                                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+                                className={`absolute top-4 right-4 ${themeStyles.subText} hover:text-red-500`}
                             >
                                 <FaTimes size={24} />
                             </button>
 
-                            <h3 className="text-xl font-bold text-gray-800 mb-4">Personel Seçin</h3>
+                            <h3 className={`text-xl font-bold ${themeStyles.text} mb-4`}>Personel Seçin</h3>
                             <div className="grid grid-cols-2 gap-3 max-h-96 overflow-y-auto p-1">
                                 {allStaff.length === 0 ? (
-                                    <p className="col-span-2 text-center text-gray-500 py-10">Personel bulunamadı.</p>
+                                    <p className={`col-span-2 text-center ${themeStyles.subText} py-10`}>Personel bulunamadı.</p>
                                 ) : (
                                     allStaff.map(staff => (
                                         <button
@@ -1088,13 +1106,13 @@ export default function POSPage() {
                                                 setSelectedStaff(staff);
                                                 setShowStaffModal(false);
                                             }}
-                                            className="p-4 rounded-xl border-2 border-gray-100 hover:border-purple-600 hover:bg-purple-50 transition-all text-center group"
+                                            className={`p-4 rounded-xl border-2 ${themeStyles.border} hover:border-purple-600 hover:bg-purple-50 transition-all text-center group ${themeStyles.cardBg}`}
                                         >
-                                            <div className="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-2 font-bold group-hover:bg-purple-600 group-hover:text-white transition-colors">
+                                            <div className={`w-12 h-12 ${themeStyles.accent} text-white rounded-full flex items-center justify-center mx-auto mb-2 font-bold group-hover:scale-110 transition-transform`}>
                                                 {staff.name.split(' ').map((n: string) => n[0]).join('')}
                                             </div>
-                                            <span className="font-bold text-gray-800 block text-sm">{staff.name}</span>
-                                            <span className="text-[10px] text-gray-500 uppercase">{staff.role}</span>
+                                            <span className={`font-bold ${themeStyles.text} block text-sm`}>{staff.name}</span>
+                                            <span className={`text-[10px] ${themeStyles.subText} uppercase`}>{staff.role}</span>
                                         </button>
                                     ))
                                 )}
@@ -1105,22 +1123,22 @@ export default function POSPage() {
 
                 {/* Split Bill Modal */}
                 {showSplitModal && (
-                    <div className="absolute inset-0 bg-black/50 z-50 flex items-center justify-center backdrop-blur-sm animate-fade-in">
-                        <div className="bg-white p-6 rounded-2xl shadow-2xl max-w-md w-full relative">
+                    <div className="absolute inset-0 bg-black/60 z-50 flex items-center justify-center backdrop-blur-sm animate-fade-in">
+                        <div className={`${themeStyles.cardBg} p-6 rounded-2xl shadow-2xl max-w-md w-full relative border ${themeStyles.border}`}>
                             <button
                                 onClick={() => setShowSplitModal(false)}
-                                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+                                className={`absolute top-4 right-4 ${themeStyles.subText} hover:text-red-500 transition-colors`}
                             >
                                 <FaTimes size={24} />
                             </button>
 
-                            <h3 className="text-xl font-bold text-gray-800 mb-2">Hesap Böl (Parçalı Ödeme)</h3>
-                            <p className="text-gray-500 mb-4 text-sm">Toplam Tutar: <span className="font-bold text-gray-900 text-lg">₺{finalTotal.toFixed(2)}</span></p>
+                            <h3 className={`text-xl font-bold ${themeStyles.text} mb-2`}>Hesap Böl (Parçalı Ödeme)</h3>
+                            <p className={`${themeStyles.subText} mb-4 text-sm`}>Toplam Tutar: <span className={`font-bold ${themeStyles.text} text-lg`}>₺{finalTotal.toFixed(2)}</span></p>
 
                             {/* Itemized Split Section */}
-                            <div className="mb-6 max-h-60 overflow-y-auto border rounded-xl p-2 bg-gray-50 space-y-2">
+                            <div className={`mb-6 max-h-60 overflow-y-auto border ${themeStyles.border} rounded-xl p-2 ${themeStyles.searchBg} space-y-2`}>
                                 <div className="flex justify-between items-center px-1 mb-1">
-                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Ürünlere Göre Dağıt</p>
+                                    <p className={`text-xs font-bold ${themeStyles.subText} uppercase tracking-widest`}>Ürünlere Göre Dağıt</p>
                                     <div className="flex gap-2">
                                         <button
                                             onClick={() => {
@@ -1184,13 +1202,13 @@ export default function POSPage() {
                                     };
 
                                     return (
-                                        <div key={item.id} className="bg-white p-3 rounded-lg border border-gray-100 flex flex-col gap-2">
+                                        <div key={item.id} className={`${themeStyles.cardBg} p-3 rounded-lg border ${themeStyles.border} flex flex-col gap-2 shadow-sm`}>
                                             <div className="flex justify-between items-start">
                                                 <div>
-                                                    <p className="font-bold text-gray-800 text-sm leading-tight">{item.name}</p>
-                                                    <p className="text-[10px] text-gray-500">{item.size} • ₺{unitPrice.toFixed(2)}/adet</p>
+                                                    <p className={`font-bold ${themeStyles.text} text-sm leading-tight`}>{item.name}</p>
+                                                    <p className={`text-[10px] ${themeStyles.subText}`}>{item.size} • ₺{unitPrice.toFixed(2)}/adet</p>
                                                 </div>
-                                                <div className="text-xs font-bold text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">
+                                                <div className={`text-xs font-bold ${themeStyles.subText} ${themeStyles.searchBg} px-2 py-0.5 rounded-full border ${themeStyles.border}`}>
                                                     {assignment.cash + assignment.card}/{item.quantity}
                                                 </div>
                                             </div>
@@ -1227,98 +1245,68 @@ export default function POSPage() {
 
                             <div className="space-y-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Nakit Tutar</label>
+                                    <label className={`block text-sm font-medium ${themeStyles.subText} mb-1`}>Nakit Tutar</label>
                                     <div className="relative">
-                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                            <span className="text-gray-500">₺</span>
+                                        <div className={`absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none ${themeStyles.subText}`}>
+                                            ₺
                                         </div>
                                         <input
                                             type="number"
-                                            value={splitCash === 0 ? '' : splitCash}
-                                            onChange={(e) => {
-                                                const val = e.target.value === '' ? 0 : parseFloat(e.target.value);
-                                                setSplitCash(val);
-                                                // Auto-calculate remaining for card if possible, but let user type freely for now or implement smart fill
-                                            }}
-                                            className="pl-8 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-lg border p-2"
+                                            value={splitCash || ''}
+                                            onChange={(e) => setSplitCash(Number(e.target.value))}
+                                            className={`block w-full pl-7 pr-3 py-3 border ${themeStyles.border} rounded-xl focus:ring-brand-secondary focus:border-brand-secondary sm:text-sm font-bold ${themeStyles.inputBg} ${themeStyles.text}`}
                                             placeholder="0.00"
                                         />
-                                        <button
-                                            onClick={() => {
-                                                const remain = Math.max(0, finalTotal - splitCard);
-                                                setSplitCash(Number(remain.toFixed(2)));
-                                            }}
-                                            className="absolute right-2 top-2 text-xs bg-gray-100 px-2 py-1 rounded hover:bg-gray-200"
-                                        >
-                                            Kalanı Ekle
-                                        </button>
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Kredi Kartı Tutar</label>
+                                    <label className={`block text-sm font-medium ${themeStyles.subText} mb-1`}>Kart Tutarı</label>
                                     <div className="relative">
-                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                            <span className="text-gray-500">₺</span>
+                                        <div className={`absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none ${themeStyles.subText}`}>
+                                            ₺
                                         </div>
                                         <input
                                             type="number"
-                                            value={splitCard === 0 ? '' : splitCard}
-                                            onChange={(e) => {
-                                                const val = e.target.value === '' ? 0 : parseFloat(e.target.value);
-                                                setSplitCard(val);
-                                            }}
-                                            className="pl-8 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-lg border p-2"
+                                            value={splitCard || ''}
+                                            onChange={(e) => setSplitCard(Number(e.target.value))}
+                                            className={`block w-full pl-7 pr-3 py-3 border ${themeStyles.border} rounded-xl focus:ring-brand-secondary focus:border-brand-secondary sm:text-sm font-bold ${themeStyles.inputBg} ${themeStyles.text}`}
                                             placeholder="0.00"
                                         />
-                                        <button
-                                            onClick={() => {
-                                                const remain = Math.max(0, finalTotal - splitCash);
-                                                setSplitCard(Number(remain.toFixed(2)));
-                                            }}
-                                            className="absolute right-2 top-2 text-xs bg-gray-100 px-2 py-1 rounded hover:bg-gray-200"
-                                        >
-                                            Kalanı Ekle
-                                        </button>
                                     </div>
                                 </div>
+                                {Math.abs((splitCash + splitCard) - finalTotal) > 0.01 && (
+                                    <p className="mt-4 text-xs text-red-500 font-bold bg-red-50 p-2 rounded-lg border border-red-100 text-center animate-pulse">
+                                        Uyarı: Toplam tutar (₺{finalTotal.toFixed(2)}) ile girilen tutarlar (₺{(splitCash + splitCard).toFixed(2)}) eşleşmiyor!
+                                    </p>
+                                )}
 
-                                <div className="pt-4 border-t border-gray-100">
-                                    <div className="flex justify-between items-center mb-2">
-                                        <span className="text-sm text-gray-600">Girilen Toplam:</span>
-                                        <span className={`font-bold ${(splitCash + splitCard).toFixed(2) === finalTotal.toFixed(2) ? 'text-green-600' : 'text-red-500'}`}>
-                                            ₺{(splitCash + splitCard).toFixed(2)}
-                                        </span>
-                                    </div>
-                                    <div className="flex justify-between items-center mb-4">
-                                        <span className="text-sm text-gray-600">Kalan:</span>
-                                        <span className="font-bold text-gray-800">
+                                <div className={`mt-6 p-4 rounded-xl border border-dashed ${themeStyles.border} ${themeStyles.searchBg}`}>
+                                    <div className="flex justify-between items-center">
+                                        <span className={`text-sm font-bold ${themeStyles.text}`}>Kalan Tutar</span>
+                                        <span className={`text-xl font-black ${Math.abs(finalTotal - (splitCash + splitCard)) < 0.01 ? 'text-green-600' : 'text-orange-500'}`}>
                                             ₺{Math.max(0, finalTotal - (splitCash + splitCard)).toFixed(2)}
                                         </span>
                                     </div>
-
-                                    <button
-                                        onClick={() => {
-                                            const totalEntered = splitCash + splitCard;
-                                            if (Math.abs(totalEntered - finalTotal) > 0.01) {
-                                                alert(`Girilen tutar (${totalEntered.toFixed(2)}) toplam tutara (${finalTotal.toFixed(2)}) eşit değil!`);
-                                                return;
-                                            }
-
-                                            // Construct payments array
-                                            const payments = [];
-                                            if (splitCash > 0) payments.push({ method: 'CASH', amount: splitCash });
-                                            if (splitCard > 0) payments.push({ method: 'CREDIT_CARD', amount: splitCard });
-
-                                            setShowSplitModal(false);
-                                            handleCreateOrder('SPLIT', payments);
-                                        }}
-                                        disabled={Math.abs((splitCash + splitCard) - finalTotal) > 0.01}
-                                        className="w-full bg-purple-600 text-white py-3 rounded-xl font-bold hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                                    >
-                                        ÖDEMEYİ TAMAMLA
-                                    </button>
                                 </div>
+
+                                <button
+                                    onClick={() => {
+                                        if (Math.abs((splitCash + splitCard) - finalTotal) > 0.1) {
+                                            toast.error('Toplam tutar ile parçalı ödeme tutarları eşleşmiyor!');
+                                            return;
+                                        }
+                                        handleCreateOrder('SPLIT', [
+                                            { method: 'CASH', amount: splitCash },
+                                            { method: 'CREDIT_CARD', amount: splitCard }
+                                        ]);
+                                        setShowSplitModal(false);
+                                    }}
+                                    disabled={processingPayment}
+                                    className={`w-full mt-6 py-4 ${themeStyles.accent} text-white rounded-xl font-black text-lg shadow-lg hover:opacity-90 transition-all disabled:opacity-50 uppercase tracking-widest`}
+                                >
+                                    ÖDEMEYİ TAMAMLA
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -1326,34 +1314,34 @@ export default function POSPage() {
 
                 {/* Size Selection Modal */}
                 {selectedProductForSize && (
-                    <div className="absolute inset-0 bg-black/50 z-50 flex items-center justify-center backdrop-blur-sm animate-fade-in">
-                        <div className="bg-white p-6 rounded-2xl shadow-2xl max-w-sm w-full relative">
+                    <div className="absolute inset-0 bg-black/60 z-[70] flex items-center justify-center backdrop-blur-sm animate-fade-in">
+                        <div className={`${themeStyles.cardBg} p-6 rounded-2xl shadow-2xl max-w-sm w-full relative border ${themeStyles.border}`}>
                             <button
                                 onClick={() => setSelectedProductForSize(null)}
-                                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+                                className={`absolute top-4 right-4 ${themeStyles.subText} hover:text-red-500`}
                             >
                                 <FaTimes />
                             </button>
 
-                            <h3 className="text-xl font-bold text-gray-800 mb-4">{selectedProductForSize.name}</h3>
-                            <p className="text-gray-500 mb-6 text-sm">Lütfen boy seçiniz:</p>
+                            <h3 className={`text-xl font-bold ${themeStyles.text} mb-4`}>{selectedProductForSize.name}</h3>
+                            <p className={`${themeStyles.subText} mb-6 text-sm`}>Lütfen boy seçiniz:</p>
 
                             <div className="grid grid-cols-1 gap-3">
                                 {selectedProductForSize.sizes?.map((size) => (
                                     <button
                                         key={size.size}
                                         onClick={() => addToCart(selectedProductForSize, size.size)}
-                                        className="flex justify-between items-center p-4 rounded-xl border-2 border-gray-100 hover:border-brand-primary hover:bg-green-50 transition-all group"
+                                        className={`flex justify-between items-center p-4 rounded-xl border-2 ${themeStyles.border} hover:border-brand-primary hover:bg-green-50 transition-all group ${themeStyles.cardBg}`}
                                     >
                                         <div className="flex items-center">
-                                            <span className="w-8 h-8 rounded-full bg-gray-100 text-gray-600 font-bold flex items-center justify-center group-hover:bg-brand-primary group-hover:text-white transition-colors">
+                                            <span className={`w-8 h-8 rounded-full ${themeStyles.searchBg} ${themeStyles.subText} font-bold flex items-center justify-center group-hover:bg-brand-primary group-hover:text-white transition-colors`}>
                                                 {size.size}
                                             </span>
-                                            <span className="ml-3 font-medium text-gray-700 group-hover:text-brand-primary">
+                                            <span className={`ml-3 font-medium ${themeStyles.text} group-hover:text-brand-primary`}>
                                                 {size.size === 'S' ? 'Küçük Boy' : size.size === 'M' ? 'Orta Boy' : 'Büyük Boy'}
                                             </span>
                                         </div>
-                                        <span className="font-bold text-gray-900">₺{(size.price ?? 0).toFixed(2)}</span>
+                                        <span className={`font-bold ${themeStyles.text}`}>₺{(size.price ?? 0).toFixed(2)}</span>
                                     </button>
                                 ))}
                             </div>
@@ -1437,6 +1425,33 @@ export default function POSPage() {
                                         <span>{pendingOrdersCount}</span>
                                     </button>
                                 )}
+
+                                {/* Theme Selector Buttons */}
+                                <div className="hidden lg:flex items-center gap-2 bg-black/5 p-1 rounded-xl ml-2 border border-black/5">
+                                    {Object.entries(THEMES).map(([name, theme]) => (
+                                        <button
+                                            key={name}
+                                            onClick={async () => {
+                                                setActiveTheme(name);
+                                                try {
+                                                    await fetch('/api/admin/settings', {
+                                                        method: 'PUT',
+                                                        headers: { 'Content-Type': 'application/json' },
+                                                        body: JSON.stringify({ activeTheme: name })
+                                                    });
+                                                } catch (e) { console.error('Theme save error:', e); }
+                                            }}
+                                            className={`w-5 h-5 rounded-full border-2 transition-all hover:scale-125 ${activeTheme === name ? 'border-brand-primary scale-110 shadow-sm ring-2 ring-brand-primary/20' : 'border-transparent opacity-40 hover:opacity-100'}`}
+                                            title={name}
+                                            style={{
+                                                backgroundColor: name === 'Nordic' ? '#2563eb' :
+                                                    name === 'Midnight' ? '#1e1b4b' :
+                                                        name === 'Bistro' ? '#3E2723' :
+                                                            name === 'Vibrant' ? '#ec4899' : '#6366f1'
+                                            }}
+                                        />
+                                    ))}
+                                </div>
                             </div>
                             <div className="hidden md:block text-sm text-gray-500" suppressHydrationWarning>
                                 {new Date().toLocaleDateString('tr-TR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
@@ -1445,27 +1460,27 @@ export default function POSPage() {
                     </div>
 
                     {/* Search Bar */}
-                    <div className="bg-white px-2 md:px-4 pb-2 md:pb-4 shadow-sm z-10 border-t border-gray-100">
-                        <div className="relative">
-                            <FaSearch className="absolute left-3 top-2 md:top-3 text-brand-primary text-sm" />
+                    <div className={`${themeStyles.sidebarBg} px-2 md:px-4 pb-2 md:pb-4 shadow-sm z-10 border-t ${themeStyles.border}`}>
+                        <div className="relative mt-2">
+                            <FaSearch className={`absolute left-3 top-2 md:top-3 ${themeStyles.accent.replace('bg-', 'text-')} text-sm`} />
                             <input
                                 type="text"
                                 placeholder="Ürün Ara..."
                                 value={productSearch}
                                 onChange={(e) => setProductSearch(e.target.value)}
-                                className="w-full pl-8 md:pl-10 pr-4 py-1.5 md:py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:outline-none bg-gray-50 transition-all font-medium text-gray-800 placeholder-gray-400 text-sm"
+                                className={`w-full pl-8 md:pl-10 pr-4 py-1.5 md:py-2 border ${themeStyles.border} rounded-xl focus:ring-2 focus:ring-green-500 focus:outline-none ${themeStyles.inputBg} ${themeStyles.text} transition-all font-medium placeholder-gray-400 text-sm`}
                             />
                         </div>
 
                         {/* Category Filter - Wrapped to show all in one glance */}
-                        <div className="flex flex-wrap gap-2 mb-4 bg-white p-2 rounded-xl shadow-sm">
+                        <div className={`flex flex-wrap gap-2 mt-4 ${themeStyles.sidebarBg} p-2 rounded-xl`}>
                             {dynamicCategories.map((category) => (
                                 <button
                                     key={category}
                                     onClick={() => setActiveCategory(category)}
                                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${activeCategory === category
-                                        ? 'bg-brand-primary text-white shadow-md'
-                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                        ? `${themeStyles.accent} text-white shadow-md`
+                                        : `${themeStyles.cardBg} ${themeStyles.subText} hover:${themeStyles.text} border ${themeStyles.border}`
                                         }`}
                                 >
                                     {category}
@@ -1486,7 +1501,7 @@ export default function POSPage() {
                                         key={item.id}
                                         onClick={() => handleProductClick(item)}
                                         disabled={isOutOfStock}
-                                        className={`bg-white p-1.5 md:p-3 rounded-lg shadow hover:shadow-md transition-all text-left flex flex-col h-full active:scale-95 border border-transparent hover:border-brand-secondary relative ${isOutOfStock ? 'opacity-70 grayscale' : ''}`}
+                                        className={`${themeStyles.cardBg} p-1.5 md:p-3 rounded-lg shadow hover:shadow-md transition-all text-left flex flex-col h-full active:scale-95 border border-transparent hover:border-brand-secondary relative ${isOutOfStock ? 'opacity-70 grayscale' : ''}`}
                                     >
                                         {isOutOfStock && (
                                             <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 z-10 flex justify-center pointer-events-none">
@@ -1538,15 +1553,15 @@ export default function POSPage() {
                 {/* RIGHT: Cart & Checkout */}
                 <div className={`w-full md:w-96 h-[45vh] md:h-full ${themeStyles.sidebarBg} shadow-2xl flex flex-col z-20 border-t md:border-t-0 md:border-l ${themeStyles.border}`}>
                     {/* Table Selection */}
-                    <div className="p-2 md:p-4 border-b border-gray-100 bg-indigo-50/30">
+                    <div className={`p-2 md:p-4 border-b ${themeStyles.border} ${themeStyles.searchBg}`}>
                         <div className="flex items-center gap-3">
-                            <div className="p-2 bg-indigo-100 rounded-lg text-indigo-600">
+                            <div className={`p-2 rounded-lg ${themeStyles.accent} text-white`}>
                                 <span className="text-xl">🪑</span>
                             </div>
                             <select
                                 value={selectedTableId || ''}
                                 onChange={(e) => setSelectedTableId(e.target.value || null)}
-                                className="flex-1 bg-white border border-indigo-200 rounded-xl px-4 py-2 text-sm font-bold text-gray-800 focus:ring-2 focus:ring-indigo-500 outline-none transition-all cursor-pointer"
+                                className={`${themeStyles.inputBg} border ${themeStyles.border} rounded-xl px-4 py-2 text-sm font-bold ${themeStyles.text} focus:ring-2 focus:ring-indigo-500 outline-none transition-all cursor-pointer`}
                             >
                                 <option value="">Masa Seçilmedi</option>
                                 {allTables.map(table => (
@@ -1559,21 +1574,21 @@ export default function POSPage() {
                     </div>
 
                     {/* Customer Search */}
-                    <div className="p-2 md:p-4 border-b border-gray-100 bg-gray-50">
+                    <div className={`p-2 md:p-4 border-b ${themeStyles.border} ${themeStyles.bg}`}>
                         {selectedCustomer ? (
-                            <div className="flex items-center justify-between p-2 md:p-3 bg-green-50 border border-green-200 rounded-lg">
+                            <div className={`flex items-center justify-between p-2 md:p-3 border ${themeStyles.border} rounded-lg ${themeStyles.cardBg}`}>
                                 <div className="flex items-center">
-                                    <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 mr-2 md:mr-3">
+                                    <div className={`w-6 h-6 md:w-8 md:h-8 rounded-full ${themeStyles.accent} flex items-center justify-center text-white mr-2 md:mr-3`}>
                                         <FaUser className="text-xs md:text-base" />
                                     </div>
                                     <div>
-                                        <p className="font-semibold text-gray-800 text-xs md:text-sm">{selectedCustomer.firstName} {selectedCustomer.lastName}</p>
+                                        <p className={`font-semibold ${themeStyles.text} text-xs md:text-sm`}>{selectedCustomer.firstName} {selectedCustomer.lastName}</p>
                                         {selectedCustomer.userPoints && (
-                                            <p className="text-[10px] text-green-600 font-medium">{selectedCustomer.userPoints.points} Puan ({selectedCustomer.userPoints.tier})</p>
+                                            <p className={`text-[10px] ${themeStyles.accent.replace('bg-', 'text-')} font-medium`}>{selectedCustomer.userPoints.points} Puan ({selectedCustomer.userPoints.tier})</p>
                                         )}
                                     </div>
                                 </div>
-                                <button onClick={() => setSelectedCustomer(null)} className="text-gray-400 hover:text-red-500">
+                                <button onClick={() => setSelectedCustomer(null)} className={`${themeStyles.subText} hover:text-red-500`}>
                                     <FaTimes className="text-sm md:text-base" />
                                 </button>
                             </div>
@@ -1584,11 +1599,11 @@ export default function POSPage() {
                                         <input
                                             type="text"
                                             placeholder="Müşteri Ara..."
-                                            className="w-full pl-8 md:pl-10 pr-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-secondary focus:border-transparent text-sm"
+                                            className={`w-full pl-8 md:pl-10 pr-4 py-2 md:py-3 border ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-brand-secondary focus:border-transparent text-sm ${themeStyles.inputBg} ${themeStyles.text}`}
                                             value={customerSearch}
                                             onChange={(e) => setCustomerSearch(e.target.value)}
                                         />
-                                        <FaSearch className="absolute left-3 top-2.5 md:top-3.5 text-gray-400 text-sm md:text-base" />
+                                        <FaSearch className={`absolute left-3 top-2.5 md:top-3.5 ${themeStyles.subText} text-sm md:text-base`} />
                                     </div>
                                     <button
                                         onClick={() => setShowPinModal(true)}
@@ -1633,10 +1648,10 @@ export default function POSPage() {
                         ) : (
                             <div className="space-y-2 md:space-y-3">
                                 {cart.map(item => (
-                                    <div key={item.id} className="flex flex-col sm:flex-row sm:items-center justify-between bg-white p-2 rounded border border-gray-100 shadow-sm gap-2">
+                                    <div key={item.id} className={`flex flex-col sm:flex-row sm:items-center justify-between ${themeStyles.cardBg} p-2 rounded border ${themeStyles.border} shadow-sm gap-2`}>
                                         {/* Product Info & Options */}
                                         <div className="flex-1 min-w-0 flex flex-col gap-1">
-                                            <p className="font-semibold text-gray-800 text-xs md:text-sm truncate">{item.name}</p>
+                                            <p className={`font-semibold ${themeStyles.text} text-xs md:text-sm truncate`}>{item.name}</p>
 
                                             <div className="flex flex-wrap items-center gap-2">
                                                 {item.size && (
@@ -1714,7 +1729,7 @@ export default function POSPage() {
                     </div>
 
                     {/* Totals & Payment */}
-                    <div className="p-3 md:p-4 bg-white border-t border-gray-200 shadow-inner">
+                    <div className={`p-3 md:p-4 ${themeStyles.cardBg} border-t ${themeStyles.border} shadow-inner`}>
 
                         {/* Discount Control */}
                         <div className="flex justify-between items-center mb-1 md:mb-2 text-[10px] md:text-xs">
@@ -1784,8 +1799,8 @@ export default function POSPage() {
                         </div>
 
                         <div className="flex justify-between items-center mb-0.5 md:mb-1">
-                            <span className="text-gray-500 text-[10px] md:text-sm">Ara Toplam</span>
-                            <span className="font-medium text-gray-700 text-[10px] md:text-sm">₺{(cartTotal ?? 0).toFixed(2)}</span>
+                            <span className={`${themeStyles.subText} text-[10px] md:text-sm`}>Ara Toplam</span>
+                            <span className={`font-medium ${themeStyles.text} text-[10px] md:text-sm`}>₺{(cartTotal ?? 0).toFixed(2)}</span>
                         </div>
 
                         {totalDiscount > 0 && (
@@ -1811,8 +1826,8 @@ export default function POSPage() {
                             </div>
                         )}
 
-                        <div className="flex justify-between items-end mb-2 md:mb-4 pt-1 md:pt-2 border-t border-dashed border-gray-300">
-                            <span className="text-gray-800 font-bold text-sm md:text-lg">Genel Toplam</span>
+                        <div className={`flex justify-between items-end mb-2 md:mb-4 pt-1 md:pt-2 border-t border-dashed ${themeStyles.border}`}>
+                            <span className={`${themeStyles.text} font-bold text-sm md:text-lg`}>Genel Toplam</span>
                             <div className="flex flex-col items-end">
                                 {totalDiscount > 0 && (
                                     <span className="text-xs md:text-sm text-gray-400 line-through font-medium">
@@ -1902,37 +1917,42 @@ export default function POSPage() {
                 {/* Recent Orders Modal */}
                 {
                     showRecentOrders && (
-                        <div className="absolute inset-0 bg-black/50 z-50 flex items-center justify-center backdrop-blur-sm animate-fade-in print:hidden">
-                            <div className="bg-white p-6 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[85vh] flex flex-col relative">
+                        <div className="absolute inset-0 bg-black/60 z-50 flex items-center justify-center backdrop-blur-sm animate-fade-in print:hidden">
+                            <div className={`${themeStyles.cardBg} p-6 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[85vh] flex flex-col relative border ${themeStyles.border}`}>
                                 <button
                                     onClick={() => setShowRecentOrders(false)}
-                                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+                                    className={`absolute top-4 right-4 ${themeStyles.subText} hover:text-red-500`}
                                 >
                                     <FaTimes size={24} />
                                 </button>
+                                <h2 className={`text-2xl font-black ${themeStyles.text} mb-6 tracking-tight flex items-center gap-3`}>
+                                    <span className={`p-2 rounded-xl ${themeStyles.accent} text-white`}>📦</span>
+                                    Son Siparişler
+                                </h2>
 
-                                <div className="flex items-center justify-between mb-6">
-                                    <h3 className="text-2xl font-bold text-gray-800">Son Siparişler</h3>
+                                <div className="flex items-center justify-between mb-2">
                                     <button
                                         onClick={() => fetchRecentOrders()}
-                                        className="text-sm bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-lg text-gray-600 flex items-center gap-1"
+                                        disabled={recentOrdersLoading}
+                                        className={`flex items-center gap-2 ${themeStyles.subText} hover:${themeStyles.text} transition-colors text-sm font-bold uppercase tracking-wider`}
                                     >
-                                        <FaSync size={12} /> Yenile
+                                        <FaSync className={recentOrdersLoading ? 'animate-spin' : ''} />
+                                        YENİLE
                                     </button>
                                 </div>
 
                                 <div className="overflow-y-auto flex-1 border rounded-xl">
                                     {recentOrdersLoading ? (
                                         <div className="flex justify-center items-center h-40">
-                                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+                                            <div className={`animate-spin rounded-full h-8 w-8 border-b-2 ${themeStyles.accent.replace('bg-', 'border-')}`}></div>
                                         </div>
                                     ) : recentOrders.length === 0 ? (
-                                        <div className="flex flex-col items-center justify-center h-40 text-gray-500">
+                                        <div className={`flex flex-col items-center justify-center h-40 ${themeStyles.subText}`}>
                                             <p>Henüz sipariş bulunmuyor.</p>
                                         </div>
                                     ) : (
                                         <table className="w-full text-left">
-                                            <thead className="bg-gray-50 text-gray-600 text-xs uppercase sticky top-0">
+                                            <thead className={`${themeStyles.searchBg} ${themeStyles.subText} text-xs uppercase sticky top-0`}>
                                                 <tr>
                                                     <th className="px-4 py-3 font-semibold">Tarih</th>
                                                     <th className="px-4 py-3 font-semibold">Müşteri</th>
@@ -1941,18 +1961,18 @@ export default function POSPage() {
                                                     <th className="px-4 py-3 font-semibold text-right">İşlem</th>
                                                 </tr>
                                             </thead>
-                                            <tbody className="divide-y divide-gray-100">
+                                            <tbody className={`divide-y ${themeStyles.border}`}>
                                                 {recentOrders.map((order) => (
-                                                    <tr key={order.id} className="hover:bg-gray-50 transition-colors">
-                                                        <td className="px-4 py-3 text-sm text-gray-500 whitespace-nowrap">
+                                                    <tr key={order.id} className={`hover:${themeStyles.searchBg} transition-colors`}>
+                                                        <td className={`px-4 py-3 text-xs ${themeStyles.subText} whitespace-nowrap`}>
                                                             {new Date(order.createdAt).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}
-                                                            <div className="text-[10px] text-gray-400">#{order.orderNumber?.split('-').pop()}</div>
+                                                            <div className="text-[10px] opacity-60">#{order.orderNumber?.split('-').pop()}</div>
                                                         </td>
-                                                        <td className="px-4 py-3 text-sm font-medium text-gray-800">
+                                                        <td className={`px-4 py-3 text-sm font-medium ${themeStyles.text}`}>
                                                             {order.customerName || 'Misafir'}
-                                                            <div className="text-xs text-gray-400 line-clamp-1">{order.items?.map((i: any) => i.productName).join(', ')}</div>
+                                                            <div className={`text-xs ${themeStyles.subText} line-clamp-1`}>{order.items?.map((i: any) => i.productName).join(', ')}</div>
                                                         </td>
-                                                        <td className="px-4 py-3 text-sm font-bold text-gray-900 text-center">
+                                                        <td className={`px-4 py-3 text-sm font-bold ${themeStyles.text} text-center`}>
                                                             ₺{(order.finalAmount || 0).toFixed(2)}
                                                         </td>
                                                         <td className="px-4 py-3 text-sm text-center">
@@ -1990,25 +2010,46 @@ export default function POSPage() {
                 {/* Print Only Receipt - Visible only when printing */}
                 {
                     lastOrder && (
-                        <div className="hidden print:block absolute top-0 left-0 w-full h-full bg-white z-[9999] p-0 m-0">
+                        <div className="hidden print:block fixed inset-0 bg-white z-[99999] p-0 m-0 overflow-visible">
                             <style jsx global>{`
-                        @media print {
-                            body { margin: 0; padding: 0; }
-                            @page { margin: 0; size: 80mm 210mm; }
-                            .print\\:block { display: block !important; }
-                            .print\\:hidden { display: none !important; }
-                        }
-                    `}</style>
-                            <div style={{
-                                fontFamily: "'Courier New', Courier, monospace",
+                                @media print {
+                                    @page { 
+                                        margin: 0; 
+                                        size: 80mm auto; 
+                                    }
+                                    html, body { 
+                                        margin: 0 !important; 
+                                        padding: 0 !important; 
+                                        width: 80mm !important;
+                                        height: auto !important;
+                                        background: white !important;
+                                        -webkit-print-color-adjust: exact !important;
+                                        print-color-adjust: exact !important;
+                                    }
+                                    .print-root {
+                                        width: 80mm !important;
+                                        margin: 0 !important;
+                                        padding: 5mm !important;
+                                        background: white !important;
+                                    }
+                                    .print\:block { display: block !important; }
+                                    .print\:hidden { display: none !important; }
+                                    nav, header, footer, aside, .no-print { display: none !important; }
+                                }
+                            `}</style>
+                            <div className="print-root" style={{
+                                fontFamily: "'Inter', 'Segoe UI', Roboto, sans-serif",
                                 width: '80mm',
                                 margin: '0',
-                                padding: '10px 0',
+                                padding: '5mm',
                                 fontSize: '13px',
                                 lineHeight: '1.2',
                                 color: 'black'
                             }}>
                                 <div className="text-center mb-4 border-b border-black pb-2">
+                                    <div className="mb-2 flex justify-center">
+                                        <img src="/images/logo.png" alt="Logo" style={{ width: '40mm', height: 'auto' }} />
+                                    </div>
                                     <div className="text-lg font-bold">SİPARİŞ FİŞİ</div>
                                     <div className="text-[10px] uppercase font-bold tracking-widest mt-1">Bilgi Amaçlıdır</div>
                                 </div>
@@ -2196,8 +2237,8 @@ export default function POSPage() {
                 {
                     showStaffPinModal && (
                         <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/60 backdrop-blur-md animate-fade-in p-4">
-                            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden border-2 border-brand-primary animate-scale-up">
-                                <div className="bg-brand-primary p-6 text-white text-center">
+                            <div className={`${themeStyles.cardBg} rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden border-2 border-brand-primary animate-scale-up`}>
+                                <div className={`${themeStyles.accent} p-6 text-white text-center`}>
                                     <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">👤</div>
                                     <h3 className="text-xl font-black uppercase tracking-widest">Personel Onayı</h3>
                                     <p className="text-xs opacity-80 mt-1 uppercase">Satışı performansınıza kaydetmek için 4 haneli PIN kodunuzu giriniz.</p>
@@ -2209,8 +2250,8 @@ export default function POSPage() {
                                             <div
                                                 key={idx}
                                                 className={`w-12 h-16 rounded-2xl border-2 flex items-center justify-center text-3xl font-black transition-all ${idx < enteredPin.length
-                                                    ? 'border-brand-primary bg-brand-primary/10 text-brand-primary'
-                                                    : isPinError ? 'border-red-300' : 'border-gray-200'
+                                                    ? `border-brand-primary ${themeStyles.accent.replace('bg-', 'bg-')}/10 ${themeStyles.accent.replace('bg-', 'text-')}`
+                                                    : isPinError ? 'border-red-300' : `${themeStyles.border} ${themeStyles.searchBg}`
                                                     }`}
                                             >
                                                 {idx < enteredPin.length ? '●' : ''}
@@ -2254,7 +2295,7 @@ export default function POSPage() {
                                                 }}
                                                 className={`h-16 rounded-2xl flex items-center justify-center text-2xl font-black transition-all active:scale-95 ${num === 'C' ? 'bg-red-50 text-red-600' :
                                                     num === '⌫' ? 'bg-amber-50 text-amber-600' :
-                                                        'bg-gray-100 text-gray-800 hover:bg-gray-200'
+                                                        `${themeStyles.inputBg} ${themeStyles.text} hover:${themeStyles.searchBg} border ${themeStyles.border}`
                                                     }`}
                                             >
                                                 {num}
@@ -2269,7 +2310,7 @@ export default function POSPage() {
                                             setEnteredPin('');
                                             setPendingOrderArgs(null);
                                         }}
-                                        className="w-full mt-6 py-3 text-gray-500 font-bold hover:text-red-500 transition-colors"
+                                        className={`w-full mt-6 py-3 ${themeStyles.subText} font-bold hover:text-red-500 transition-colors`}
                                     >
                                         İşlemi İptal Et
                                     </button>
@@ -2283,15 +2324,15 @@ export default function POSPage() {
                 {
                     showConfirmModal && (
                         <div className="fixed inset-0 z-[120] flex items-center justify-center bg-black/70 backdrop-blur-sm animate-fade-in p-4">
-                            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden animate-scale-up">
-                                <div className="bg-gray-800 p-6 text-white text-center">
+                            <div className={`${themeStyles.cardBg} rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden animate-scale-up border ${themeStyles.border}`}>
+                                <div className={`${themeStyles.accent} p-6 text-white text-center`}>
                                     <h3 className="text-xl font-black uppercase tracking-widest">Siparişi Onayla</h3>
                                     <p className="text-xs opacity-80 mt-1 uppercase">Satış işlemi tamamlanacak ve fiş yazdırılacak.</p>
                                 </div>
                                 <div className="p-8">
                                     <div className="mb-6 text-center">
-                                        <p className="text-gray-500 text-sm mb-1 uppercase font-bold tracking-widest">Ödeme Yöntemi</p>
-                                        <p className="text-2xl font-black text-brand-primary uppercase">
+                                        <p className={`${themeStyles.subText} text-sm mb-1 uppercase font-bold tracking-widest`}>Ödeme Yöntemi</p>
+                                        <p className={`text-2xl font-black ${themeStyles.accent.replace('bg-', 'text-')} uppercase`}>
                                             {confirmingMethod === 'CASH' ? 'NAKİT' : confirmingMethod === 'CREDIT_CARD' ? 'KREDİ KARTI' : 'PARÇALI ÖDEME'}
                                         </p>
                                     </div>
@@ -2302,7 +2343,7 @@ export default function POSPage() {
                                                 // Trigger the PIN step (which is inside handleCreateOrder)
                                                 handleCreateOrder(confirmingMethod!, pendingOrderArgs?.payments);
                                             }}
-                                            className="w-full h-16 bg-brand-primary text-white rounded-2xl font-black text-xl hover:bg-brand-secondary transition-all shadow-lg active:scale-95 flex items-center justify-center"
+                                            className={`w-full h-16 ${themeStyles.accent} text-white rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-lg active:scale-95 flex items-center justify-center`}
                                         >
                                             EVET, ONAYLA
                                         </button>
@@ -2312,7 +2353,7 @@ export default function POSPage() {
                                                 setConfirmingMethod(null);
                                                 setPendingOrderArgs(null);
                                             }}
-                                            className="w-full py-4 text-gray-400 font-bold hover:text-red-500 transition-colors uppercase tracking-widest"
+                                            className={`w-full py-4 ${themeStyles.subText} font-bold hover:text-red-500 transition-colors uppercase tracking-widest`}
                                         >
                                             İPTAL ET
                                         </button>
@@ -2327,34 +2368,34 @@ export default function POSPage() {
                 {
                     showPinModal && (
                         <div className="fixed inset-0 z-[130] bg-black/60 backdrop-blur-md flex items-center justify-center p-4 animate-fade-in shadow-2xl">
-                            <div className="bg-white rounded-[2.5rem] shadow-2xl p-8 max-w-sm w-full animate-scale-up border-4 border-yellow-400">
+                            <div className={`${themeStyles.cardBg} rounded-[2.5rem] shadow-2xl p-8 max-w-sm w-full animate-scale-up border-4 ${themeStyles.accent.replace('bg-', 'border-')}`}>
                                 <div className="flex justify-between items-center mb-6">
                                     <div className="flex items-center gap-3">
-                                        <div className="p-2 bg-yellow-100 rounded-xl">
-                                            <FaKey className="text-yellow-600 w-5 h-5" />
+                                        <div className={`p-2 ${themeStyles.searchBg} rounded-xl`}>
+                                            <FaKey className={`${themeStyles.accent.replace('bg-', 'text-')} w-5 h-5`} />
                                         </div>
-                                        <h3 className="text-xl font-black text-gray-800 tracking-tight uppercase">Sadakat PIN</h3>
+                                        <h3 className={`text-xl font-black ${themeStyles.text} tracking-tight uppercase`}>Sadakat PIN</h3>
                                     </div>
                                     <button
                                         onClick={() => {
                                             setShowPinModal(false);
                                             setPinInput('');
                                         }}
-                                        className="text-gray-400 hover:text-black transition-colors"
+                                        className={`${themeStyles.subText} hover:${themeStyles.text} transition-colors`}
                                     >
                                         <FaTimes size={20} />
                                     </button>
                                 </div>
 
                                 <div className="space-y-6">
-                                    <p className="text-sm text-gray-500 text-center font-medium uppercase tracking-tighter">
+                                    <p className={`text-sm ${themeStyles.subText} text-center font-medium uppercase tracking-tighter`}>
                                         Müşterinin 4 haneli kodunu girin
                                     </p>
 
                                     <div className="flex justify-center gap-3">
-                                        <div className="w-full h-20 text-4xl font-black text-center tracking-[0.5em] bg-gray-50 border-2 border-gray-100 rounded-3xl flex items-center justify-center text-yellow-600 shadow-inner">
+                                        <div className={`w-full h-20 text-4xl font-black text-center tracking-[0.5em] ${themeStyles.searchBg} border-2 ${themeStyles.border} rounded-3xl flex items-center justify-center ${themeStyles.accent.replace('bg-', 'text-')} shadow-inner`}>
                                             {pinInput.padEnd(4, '•').split('').map((char, i) => (
-                                                <span key={i} className={i < pinInput.length ? 'text-yellow-600' : 'text-gray-200'}>{char}</span>
+                                                <span key={i} className={i < pinInput.length ? themeStyles.accent.replace('bg-', 'text-') : themeStyles.subText}>{char}</span>
                                             ))}
                                         </div>
                                     </div>
@@ -2375,8 +2416,8 @@ export default function POSPage() {
                                                     }
                                                 }}
                                                 className={`h-16 rounded-2xl flex items-center justify-center font-black transition-all active:scale-95 shadow-sm ${typeof num === 'string'
-                                                    ? 'bg-gray-100 text-gray-400 text-[10px]'
-                                                    : 'bg-gray-100 text-gray-800 text-2xl hover:bg-yellow-400 hover:text-white'
+                                                    ? `${themeStyles.searchBg} ${themeStyles.subText} text-[10px]`
+                                                    : `${themeStyles.inputBg} ${themeStyles.text} text-2xl hover:${themeStyles.accent} hover:text-white`
                                                     }`}
                                             >
                                                 {num}
@@ -2386,7 +2427,7 @@ export default function POSPage() {
 
                                     {loyaltyLoading && (
                                         <div className="flex justify-center">
-                                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-500"></div>
+                                            <div className={`animate-spin rounded-full h-8 w-8 border-b-2 ${themeStyles.accent.replace('bg-', 'border-')}`}></div>
                                         </div>
                                     )}
                                 </div>

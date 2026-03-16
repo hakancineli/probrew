@@ -33,6 +33,56 @@ export default function CustomerDisplayPage() {
     const [showSuccess, setShowSuccess] = useState(false);
     const [lastOrderId, setLastOrderId] = useState<string | null>(null);
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [activeTheme, setActiveTheme] = useState('Nordic');
+
+    const THEMES = {
+        Nordic: {
+            bg: 'bg-slate-50',
+            sidebarBg: 'bg-white',
+            accent: 'bg-blue-600',
+            button: 'bg-blue-500',
+            border: 'border-slate-200',
+            text: 'text-slate-900',
+            subText: 'text-slate-500',
+            cardBg: 'bg-white',
+            cardText: 'text-slate-900'
+        },
+        Midnight: {
+            bg: 'bg-[#020617]',
+            sidebarBg: 'bg-slate-900',
+            accent: 'bg-indigo-600',
+            button: 'bg-indigo-500',
+            border: 'border-slate-800',
+            text: 'text-slate-100',
+            subText: 'text-slate-400',
+            cardBg: 'bg-slate-800',
+            cardText: 'text-slate-100'
+        },
+        Bistro: {
+            bg: 'bg-[#E5D9C8]',
+            sidebarBg: 'bg-[#3E2723]',
+            accent: 'bg-[#8D6E63]',
+            button: 'bg-[#6D4C41]',
+            border: 'border-[#5C4033]',
+            text: 'text-[#EAD8C0]',
+            subText: 'text-[#A1887F]',
+            cardBg: 'bg-[#4E342E]',
+            cardText: 'text-[#F5F5F5]'
+        },
+        Vibrant: {
+            bg: 'bg-purple-50',
+            sidebarBg: 'bg-white',
+            accent: 'bg-pink-500',
+            button: 'bg-pink-500',
+            border: 'border-purple-100',
+            text: 'text-slate-900',
+            subText: 'text-slate-500',
+            cardBg: 'bg-white',
+            cardText: 'text-slate-900'
+        }
+    };
+
+    const themeStyles = THEMES[activeTheme as keyof typeof THEMES] || THEMES.Nordic;
 
     const campaigns = [
         {
@@ -132,6 +182,7 @@ export default function CustomerDisplayPage() {
                 setLoyaltyMessage(data.loyaltyMessage || null);
                 setIsIdle(data.cart.length === 0);
                 setShowSuccess(false);
+                if (data.theme) setActiveTheme(data.theme);
             } else if (type === 'ORDER_COMPLETED') {
                 setLastOrderId(data?.orderId || null);
                 setShowSuccess(true);
@@ -143,6 +194,8 @@ export default function CustomerDisplayPage() {
                     setShowSuccess(false);
                     setIsIdle(true);
                 }, 10000);
+            } else if (type === 'THEME_CHANGED') {
+                setActiveTheme(data.theme);
             }
         };
 
@@ -156,7 +209,7 @@ export default function CustomerDisplayPage() {
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="min-h-screen bg-brand-primary flex flex-col items-center justify-center text-white p-10 overflow-hidden text-center"
+                className={`min-h-screen ${themeStyles.accent} flex flex-col items-center justify-center text-white p-10 overflow-hidden text-center`}
             >
                 <motion.div
                     initial={{ scale: 0.5, opacity: 0 }}
@@ -201,17 +254,17 @@ export default function CustomerDisplayPage() {
 
     if (isIdle) {
         return (
-            <div className="min-h-screen bg-[#0a0a0a] flex overflow-hidden relative">
-                {/* Left Side: Dynamic Slider */}
-                <div className="w-2/3 relative overflow-hidden">
+            <div className={`flex h-screen overflow-hidden ${themeStyles.bg}`}>
+                {/* Left: Promotions / Branding */}
+                <div className="flex-1 relative overflow-hidden flex flex-col">
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={currentSlide}
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
-                            transition={{ duration: 0.8, ease: "circOut" }}
-                            className={`absolute inset-0 bg-gradient-to-br ${campaigns[currentSlide].color} p-24 flex flex-col justify-center`}
+                            transition={{ duration: 0.8, ease: "easeOut" }}
+                            className={`absolute inset-0 bg-gradient-to-br ${campaigns[currentSlide].color} flex flex-col items-center justify-center p-12 text-center text-white`}
                         >
                             <div className="relative z-10">
                                 <motion.span
@@ -261,7 +314,7 @@ export default function CustomerDisplayPage() {
                 </div>
 
                 {/* Right Side: Info & QR */}
-                <div className="w-1/3 bg-white flex flex-col items-center justify-between p-16 border-l border-white/10">
+                <div className={`w-1/3 ${themeStyles.sidebarBg} flex flex-col items-center justify-between p-16 border-l ${themeStyles.border}`}>
                     <div className="relative w-48 h-48 mb-6">
                         <Image src="/images/logo.png" alt="Logo" fill className="object-contain" />
                     </div>
@@ -269,53 +322,53 @@ export default function CustomerDisplayPage() {
                     <div className="flex flex-col items-center text-center gap-12 w-full mt-8">
                         {/* Instagram Block */}
                         <div>
-                            <div className="bg-gray-50 p-4 rounded-[30px] shadow-sm mb-4 relative group inline-block">
+                            <div className={`p-4 rounded-[30px] shadow-sm mb-4 relative group inline-block ${themeStyles.cardBg}`}>
                                 <img src={instagramQR} alt="Instagram QR" className="w-32 h-32 rounded-xl" />
                                 <div className="absolute -top-3 -right-3 bg-gradient-to-tr from-purple-600 to-pink-500 p-3 rounded-2xl shadow-lg border-2 border-white">
                                     <FaInstagram className="text-xl text-white" />
                                 </div>
                             </div>
-                            <h3 className="text-xl font-black text-gray-900 mb-1">Bizi Takip Edin</h3>
-                            <span className="text-pink-600 font-bold text-lg">@probrew</span>
+                            <h3 className={`text-xl font-black ${themeStyles.text} mb-1`}>Bizi Takip Edin</h3>
+                            <span className={`font-bold text-lg ${themeStyles.accent.replace('bg-', 'text-')}`}>@probrew</span>
                         </div>
 
                         {/* Loyalty Join QR */}
                         <div>
-                            <div className="bg-gray-50 p-4 rounded-[30px] shadow-sm mb-4 relative group inline-block">
+                            <div className={`p-4 rounded-[30px] shadow-sm mb-4 relative group inline-block ${themeStyles.cardBg}`}>
                                 <img src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent('https://probrew.com.tr/login?register=true')}&bgcolor=ffffff&color=000000&margin=10`} alt="Loyalty QR" className="w-32 h-32 rounded-xl" />
                                 <div className="absolute -top-3 -right-3 bg-brand-primary p-3 rounded-2xl shadow-lg border-2 border-white">
                                     <FaStar className="text-xl text-white" />
                                 </div>
                             </div>
-                            <h3 className="text-xl font-black text-gray-900 mb-1">Hemen Üye Ol</h3>
-                            <span className="text-brand-primary font-bold text-lg">İndirimi Yakala</span>
+                            <h3 className={`text-xl font-black ${themeStyles.text} mb-1`}>Hemen Üye Ol</h3>
+                            <span className={`font-bold text-lg ${themeStyles.accent.replace('bg-', 'text-')}`}>İndirimi Yakala</span>
                         </div>
 
                         {/* Wi-Fi Block */}
                         <div>
-                            <div className="bg-gray-50 p-4 rounded-[30px] shadow-sm mb-4 relative group inline-block">
+                            <div className={`p-4 rounded-[30px] shadow-sm mb-4 relative group inline-block ${themeStyles.cardBg}`}>
                                 <img src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=WIFI:T:WPA;S:ProBrewCafe;P:ProBrew1608;;&bgcolor=ffffff&color=000000&margin=10`} alt="Wi-Fi QR" className="w-32 h-32 rounded-xl" />
                                 <div className="absolute -top-3 -right-3 bg-blue-500 p-3 rounded-2xl shadow-lg border-2 border-white">
                                     <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.906 14.142 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" /></svg>
                                 </div>
                             </div>
-                            <h3 className="text-xl font-black text-gray-900 mb-1">Ücretsiz Wi-Fi</h3>
-                            <div className="text-gray-600 font-medium text-sm flex flex-col gap-1.5 mt-2">
-                                <div className="bg-gray-100 px-3 py-1.5 rounded-lg inline-flex gap-2 items-center mx-auto">
+                            <h3 className={`text-xl font-black ${themeStyles.text} mb-1`}>Ücretsiz Wi-Fi</h3>
+                            <div className={`font-medium text-sm flex flex-col gap-1.5 mt-2 ${themeStyles.subText}`}>
+                                <div className={`px-3 py-1.5 rounded-lg inline-flex gap-2 items-center mx-auto ${themeStyles.cardBg}`}>
                                     <span className="opacity-60 text-xs uppercase tracking-wider">Ağ:</span>
-                                    <span className="font-bold text-gray-900">ProBrewCafe</span>
+                                    <span className={`font-bold ${themeStyles.text}`}>ProBrewCafe</span>
                                 </div>
-                                <div className="bg-gray-100 px-3 py-1.5 rounded-lg inline-flex gap-2 items-center mx-auto">
+                                <div className={`px-3 py-1.5 rounded-lg inline-flex gap-2 items-center mx-auto ${themeStyles.cardBg}`}>
                                     <span className="opacity-60 text-xs uppercase tracking-wider">Şifre:</span>
-                                    <span className="font-bold text-gray-900">ProBrew1608</span>
+                                    <span className={`font-bold ${themeStyles.text}`}>ProBrew1608</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="w-full h-px bg-gray-100 my-8"></div>
+                    <div className={`w-full h-px ${themeStyles.border} my-8`}></div>
 
-                    <div className="text-gray-400 font-black text-xs uppercase tracking-[0.4em] animate-pulse">
+                    <div className={`font-black text-xs uppercase tracking-[0.4em] animate-pulse ${themeStyles.subText}`}>
                         Siparişe Hazır
                     </div>
                 </div>
@@ -326,7 +379,7 @@ export default function CustomerDisplayPage() {
     return (
         <div className="h-screen bg-gray-50 flex overflow-hidden">
             {/* Left Side: Status & Personalization */}
-            <div className={`w-1/2 relative p-16 flex flex-col justify-between overflow-hidden transition-colors duration-700 ${customer ? 'bg-[#0f172a]' : 'bg-brand-primary'}`}>
+            <div className={`w-1/2 relative p-16 flex flex-col justify-between overflow-hidden transition-colors duration-700 ${customer ? themeStyles.sidebarBg : themeStyles.accent}`}>
                 <div className="flex justify-between items-start z-10">
                     <div className="relative w-32 h-32">
                         <Image
@@ -404,85 +457,74 @@ export default function CustomerDisplayPage() {
             </div>
 
             {/* Right Side: Order Summary */}
-            <div className="w-1/2 bg-white flex flex-col p-16 shadow-[-40px_0_80px_rgba(0,0,0,0.08)] relative z-20 h-full">
-                <div className="flex justify-between items-end mb-12 pb-8 border-b-2 border-gray-100 shrink-0">
-                    <div>
-                        <h1 className="text-5xl font-black text-gray-900 tracking-tight mb-2">Sipariş Özeti</h1>
-                        <p className="text-gray-400 font-bold uppercase text-sm tracking-[0.2em]">Seçtiğiniz Ürünler</p>
+            <div className={`w-[450px] ${themeStyles.sidebarBg} border-l ${themeStyles.border} shadow-2xl flex flex-col z-10`}>
+                <div className={`p-8 border-b ${themeStyles.border} ${themeStyles.accent} text-white`}>
+                    <div className="flex items-center gap-4">
+                        <div className="p-3 bg-white/20 rounded-2xl">
+                            <FaReceipt className="text-3xl" />
+                        </div>
+                        <div>
+                            <h2 className="text-3xl font-black tracking-tighter">SİPARİŞİNİZ</h2>
+                            <p className="text-sm font-medium opacity-80 uppercase tracking-widest">PROBREW COFFEE ROOM</p>
+                        </div>
                     </div>
-                    <span className="bg-gray-900 text-white px-5 py-2 rounded-full font-black text-sm tracking-widest">{cart.length} ÜRÜN</span>
                 </div>
 
-                <div className="flex-1 overflow-y-auto pr-6 space-y-8 custom-scrollbar min-h-0">
-                    <AnimatePresence>
-                        {cart.map((item) => (
-                            <motion.div
-                                layout
-                                initial={{ x: 20, opacity: 0 }}
-                                animate={{ x: 0, opacity: 1 }}
-                                exit={{ x: -20, opacity: 0 }}
-                                key={item.id}
-                                className="flex gap-6 items-center"
-                            >
-                                <div className="relative w-24 h-24 bg-gray-50 rounded-[30px] overflow-hidden border border-gray-100 flex-shrink-0 shadow-sm">
-                                    <Image
-                                        src={item.image || '/images/products/beverages-collection.png'}
-                                        alt={item.name}
-                                        fill
-                                        className="object-cover scale-110"
-                                    />
-                                    <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm w-7 h-7 flex items-center justify-center rounded-full text-xs font-black shadow-sm">
-                                        {item.quantity}
-                                    </div>
-                                </div>
-                                <div className="flex-1">
-                                    <h3 className="text-3xl font-black text-gray-800 leading-none mb-2">
-                                        {item.name}
-                                    </h3>
-                                    <div className="flex items-center gap-3">
-                                        {item.size && (
-                                            <span className="text-[10px] font-black bg-gray-100 text-gray-500 px-3 py-1 rounded-lg uppercase tracking-widest">
-                                                {item.size} BOY
-                                            </span>
+                <div className="flex-1 overflow-y-auto px-6 py-4">
+                    {cart.length === 0 ? (
+                        <div className={`h-full flex flex-col items-center justify-center ${themeStyles.subText}`}>
+                            <div className={`w-24 h-24 mb-6 rounded-full ${themeStyles.bg} flex items-center justify-center opacity-50`}>
+                                <FaReceipt className="text-5xl" />
+                            </div>
+                            <p className="text-xl font-bold opacity-50">Sipariş bekleniyor...</p>
+                        </div>
+                    ) : (
+                        <div className="space-y-4">
+                            {cart.map((item) => (
+                                <motion.div
+                                    layout
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    key={item.id}
+                                    className={`flex items-center gap-4 p-4 rounded-3xl ${themeStyles.cardBg} border ${themeStyles.border} shadow-sm`}
+                                >
+                                    <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-slate-50 shrink-0">
+                                        {item.image ? (
+                                            <Image src={item.image} alt={item.name} fill className="object-cover" />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center text-slate-300">
+                                                <FaReceipt size={24} />
+                                            </div>
                                         )}
-                                        <span className="text-lg font-black text-brand-primary">
-                                            ₺{item.price}
-                                        </span>
+                                        <div className={`absolute bottom-0 right-0 ${themeStyles.accent} text-white px-2 py-1 text-xs font-black rounded-tl-xl`}>
+                                            x{item.quantity}
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="text-3xl font-black text-gray-900">
-                                    ₺{(item.price * item.quantity).toLocaleString('tr-TR', { minimumFractionDigits: 2 })}
-                                </div>
-                            </motion.div>
-                        ))}
-                    </AnimatePresence>
-                </div>
-
-                <div className="mt-auto pt-12 space-y-6 shrink-0 border-t-2 border-gray-100/50 mt-6">
-                    <div className="flex justify-between items-center px-4">
-                        <span className="text-gray-400 font-bold text-lg uppercase tracking-widest">Ara Toplam</span>
-                        <span className="text-2xl font-black text-gray-600">₺{totals.subtotal.toLocaleString('tr-TR', { minimumFractionDigits: 2 })}</span>
-                    </div>
-                    {totals.discount > 0 && (
-                        <div className="flex justify-between items-center bg-red-50 p-4 rounded-2xl border border-red-100">
-                            <span className="text-red-500 font-black text-lg uppercase tracking-widest flex items-center gap-3">
-                                <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                                Avantajlı İndirim
-                            </span>
-                            <span className="text-2xl font-black text-red-600">-₺{totals.discount.toLocaleString('tr-TR', { minimumFractionDigits: 2 })}</span>
+                                    <div className="flex-1 min-w-0">
+                                        <h3 className={`font-bold ${themeStyles.text} truncate text-lg`}>{item.name}</h3>
+                                        <p className={`text-sm ${themeStyles.subText} font-medium`}>{item.size}</p>
+                                        <p className={`text-xl font-black ${themeStyles.accent.replace('bg-', 'text-')} mt-1`}>₺{(item.price * item.quantity).toFixed(2)}</p>
+                                    </div>
+                                </motion.div>
+                            ))}
                         </div>
                     )}
-                    <div className="flex justify-between items-center bg-gray-900 text-white p-10 rounded-[45px] shadow-2xl relative overflow-hidden group">
-                        {/* Shimmer Effect */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                </div>
 
-                        <div className="relative">
-                            <p className="text-amber-400 font-black text-xs uppercase tracking-[0.4em] mb-2 leading-none">Toplam Tutar</p>
-                            <span className="text-3xl font-bold opacity-60 uppercase tracking-widest leading-none">ÖDENECEK</span>
+                <div className={`p-8 ${themeStyles.bg} border-t ${themeStyles.border} space-y-4`}>
+                    <div className="flex justify-between items-center text-lg font-medium">
+                        <span className={themeStyles.subText}>Ara Toplam</span>
+                        <span className={themeStyles.text}>₺{totals.subtotal.toFixed(2)}</span>
+                    </div>
+                    {totals.discount > 0 && (
+                        <div className="flex justify-between items-center text-lg font-medium text-red-500">
+                            <span>İndirim</span>
+                            <span>-₺{totals.discount.toFixed(2)}</span>
                         </div>
-                        <span className="text-7xl font-black tracking-tighter relative">
-                            ₺{totals.total.toLocaleString('tr-TR', { minimumFractionDigits: 2 })}
-                        </span>
+                    )}
+                    <div className={`flex justify-between items-center pt-4 border-t ${themeStyles.border}`}>
+                        <span className={`text-2xl font-black ${themeStyles.text}`}>TOPLAM</span>
+                        <span className={`text-4xl font-black ${themeStyles.accent.replace('bg-', 'text-')}`}>₺{totals.total.toFixed(2)}</span>
                     </div>
                 </div>
             </div>
