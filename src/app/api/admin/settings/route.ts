@@ -19,10 +19,23 @@ export async function GET(request: NextRequest) {
     if (!user?.businessId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
     const settings = await prisma.systemSettings.findUnique({
-      where: { businessId: user.businessId }
+      where: { businessId: user.businessId },
+      include: {
+        business: {
+          select: { slug: true }
+        }
+      }
     });
 
-    return NextResponse.json(settings);
+    if (!settings) return NextResponse.json({});
+
+    // Flatten for easier client access
+    const response = {
+        ...settings,
+        slug: settings.business?.slug
+    };
+
+    return NextResponse.json(response);
   } catch (error) {
     return NextResponse.json({ error: 'Settings fetch error' }, { status: 500 });
   }

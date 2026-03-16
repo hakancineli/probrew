@@ -2255,7 +2255,7 @@ export default function POSPage() {
                                 <div className="text-center mt-2 pt-2 border-t border-dashed border-black">
                                     <div className="my-1 flex justify-center">
                                         <img
-                                            src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://www.probrew.com.tr/menu`}
+                                            src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://probrew.com.tr/feedback/${businessSettings?.slug || ''}`}
                                             alt="Menu QR"
                                             style={{
                                                 width: '25mm',
