@@ -13,8 +13,16 @@ export default function MenuClient({ business, categories, table }: any) {
     const [orderSuccess, setOrderSuccess] = useState(false);
     
     // Theme Logic
+    const THEME_COLORS: any = {
+        Nordic: '#2563eb', // blue-600
+        Midnight: '#4f46e5', // indigo-600
+        Bistro: '#8d6e63',
+        Vibrant: '#ec4899', // pink-500
+        Turkish: '#dc2626', // red-600
+        Custom: business.primaryColor
+    };
     const activeTheme = business.systemSettings?.activeTheme || 'Nordic';
-    const themePrimary = activeTheme === 'Turkish' ? '#dc2626' : business.primaryColor;
+    const themePrimary = THEME_COLORS[activeTheme] || business.primaryColor;
 
     const totalAmount = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
@@ -203,7 +211,7 @@ export default function MenuClient({ business, categories, table }: any) {
                     style={{ backgroundColor: themePrimary }}
                 >
                     <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center font-black text-sm">
+                        <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center font-black text-sm" style={{ color: themePrimary }}>
                             {cart.reduce((a, b) => a + b.quantity, 0)}
                         </div>
                         <span className="font-black text-sm uppercase tracking-widest">SİPARİŞİ TAMAMLA</span>
@@ -235,7 +243,7 @@ export default function MenuClient({ business, categories, table }: any) {
                                         </div>
                                         <div>
                                             <h4 className="font-bold text-slate-800">{item.name}</h4>
-                                            <p className="text-xs text-slate-400 font-bold">₺{item.price * item.quantity}</p>
+                                            <p className="text-xs font-bold" style={{ color: themePrimary }}>₺{item.price * item.quantity}</p>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-3 bg-slate-50 p-2 rounded-xl border border-slate-100">
@@ -254,7 +262,7 @@ export default function MenuClient({ business, categories, table }: any) {
                         <footer className="p-8 bg-slate-50 border-t border-slate-100">
                             <div className="flex justify-between items-center mb-8">
                                 <span className="text-slate-400 font-black uppercase tracking-widest text-xs">Toplam Tutar</span>
-                                <span className="text-3xl font-black tracking-tighter">₺{totalAmount}</span>
+                                <span className="text-3xl font-black tracking-tighter" style={{ color: themePrimary }}>₺{totalAmount}</span>
                             </div>
                             <button 
                                 onClick={handleCheckout}

@@ -125,11 +125,13 @@ export default function KitchenPage() {
         fetchSettings();
     }, []);
 
+    const [businessSettings, setBusinessSettings] = useState<any>(null);
     const fetchSettings = async () => {
         try {
             const res = await fetch('/api/admin/settings');
             if (res.ok) {
                 const data = await res.json();
+                setBusinessSettings(data);
                 if (data.activeTheme) setActiveTheme(data.activeTheme);
             }
         } catch (e) { console.error(e); }
@@ -332,9 +334,22 @@ export default function KitchenPage() {
             textColor: 'text-slate-900',
             accent: 'bg-red-700',
             accentText: 'text-white',
-            // Order Type Colors
             posCard: { bg: 'bg-white', border: 'border-red-500', text: 'text-slate-800', subText: 'text-slate-500', labelBg: 'bg-red-50', labelText: 'text-red-600', itemText: 'text-slate-900' },
             tableCard: { bg: 'bg-white', border: 'border-slate-800', text: 'text-slate-800', subText: 'text-slate-500', labelBg: 'bg-slate-100', labelText: 'text-slate-700', itemText: 'text-slate-900' },
+            qrCard: { bg: 'bg-white', border: 'border-emerald-500', text: 'text-slate-800', subText: 'text-slate-500', labelBg: 'bg-emerald-50', labelText: 'text-emerald-600', itemText: 'text-slate-900' }
+        },
+        Custom: {
+            appBg: 'bg-[#F1F5F9]',
+            headerBg: 'bg-white',
+            headerText: 'text-slate-900',
+            headerSub: 'text-slate-500',
+            cardContainer: 'bg-white',
+            cardBorder: 'border-slate-200',
+            textColor: 'text-slate-800',
+            accent: 'bg-[var(--primary)]',
+            accentText: 'text-white',
+            posCard: { bg: 'bg-white', border: 'border-[var(--secondary)]', text: 'text-slate-800', subText: 'text-slate-500', labelBg: 'bg-slate-50', labelText: 'text-[var(--primary)]', itemText: 'text-slate-900' },
+            tableCard: { bg: 'bg-white', border: 'border-[var(--primary)]', text: 'text-slate-800', subText: 'text-slate-500', labelBg: 'bg-slate-50', labelText: 'text-[var(--primary)]', itemText: 'text-slate-900' },
             qrCard: { bg: 'bg-white', border: 'border-emerald-500', text: 'text-slate-800', subText: 'text-slate-500', labelBg: 'bg-emerald-50', labelText: 'text-emerald-600', itemText: 'text-slate-900' }
         }
     };
@@ -365,6 +380,17 @@ export default function KitchenPage() {
 
     return (
         <div className={`min-h-screen ${themeStyles.appBg} ${themeStyles.textColor} p-6 font-sans transition-colors duration-500`}>
+            <style jsx global>{`
+                :root {
+                    --primary: ${businessSettings?.primaryColor || '#3E2723'};
+                    --secondary: ${businessSettings?.secondaryColor || '#FF8A65'};
+                }
+                .bg-\[var\(--primary\)\] { background-color: var(--primary) !important; }
+                .text-\[var\(--primary\)\] { color: var(--primary) !important; }
+                .border-\[var\(--primary\)\] { border-color: var(--primary) !important; }
+                .ring-\[var\(--primary\)\] { --tw-ring-color: var(--primary) !important; }
+                .border-\[var\(--secondary\)\] { border-color: var(--secondary) !important; }
+            `}</style>
             {/* Header */}
             <div className={`flex justify-between items-center mb-8 ${themeStyles.headerBg} p-4 rounded-2xl shadow-lg border ${themeStyles.cardBorder}`}>
                 <div className="flex items-center">

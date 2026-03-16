@@ -75,6 +75,19 @@ const THEMES = {
         cardText: 'text-slate-900',
         searchBg: 'bg-red-50',
         inputBg: 'bg-white'
+    },
+    Custom: {
+        bg: 'bg-slate-50',
+        sidebarBg: 'bg-white',
+        accent: 'bg-[var(--primary)]',
+        button: 'bg-[var(--primary)]',
+        border: 'border-slate-200',
+        text: 'text-slate-900',
+        subText: 'text-slate-500',
+        cardBg: 'bg-white',
+        cardText: 'text-slate-900',
+        searchBg: 'bg-slate-50',
+        inputBg: 'bg-white'
     }
 };
 
@@ -1104,6 +1117,18 @@ export default function POSPage() {
 
     return (
         <>
+            <style jsx global>{`
+                :root {
+                    --primary: ${businessSettings?.primaryColor || '#3E2723'};
+                    --secondary: ${businessSettings?.secondaryColor || '#FF8A65'};
+                }
+                .bg-\[var\(--primary\)\] { background-color: var(--primary) !important; }
+                .text-\[var\(--primary\)\] { color: var(--primary) !important; }
+                .border-\[var\(--primary\)\] { border-color: var(--primary) !important; }
+                .bg-\[var\(--secondary\)\] { background-color: var(--secondary) !important; }
+                .text-\[var\(--secondary\)\] { color: var(--secondary) !important; }
+                .border-\[var\(--secondary\)\] { border-color: var(--secondary) !important; }
+            `}</style>
             <div className={`flex flex-col md:flex-row h-screen h-[100dvh] ${themeStyles.bg} overflow-hidden relative print:hidden transition-colors duration-500`}>
                 {/* Staff Selection Modal */}
                 {showStaffModal && (

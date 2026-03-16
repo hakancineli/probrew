@@ -198,7 +198,8 @@ export default function AdminSettingsPage() {
                  { id: 'Midnight', label: 'Midnight', desc: 'Lüks & Karanlık', icon: '🌙' },
                  { id: 'Bistro', label: 'Bistro Classic', desc: 'Sıcak & Rustik', icon: '🍷' },
                  { id: 'Vibrant', label: 'Vibrant Pop', desc: 'Enerjik & Canlı', icon: '⚡' },
-                 { id: 'Turkish', label: 'Turkish Spirit', desc: 'Kırmızı & Beyaz', icon: '🇹🇷' }
+                 { id: 'Turkish', label: 'Turkish Spirit', desc: 'Kırmızı & Beyaz', icon: '🇹🇷' },
+                 { id: 'Custom', label: 'Kişisel Marka', desc: 'Sizin Renkleriniz', icon: '🎨' }
                ].map((theme) => (
                   <div 
                     key={theme.id}
