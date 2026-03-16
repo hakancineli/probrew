@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
-import { FiCheckCircle, FiTrendingUp, FiSettings, FiUsers, FiShoppingBag, FiArrowRight, FiSmartphone, FiPieChart, FiCpu, FiGlobe, FiTarget, FiZap, FiLayout } from 'react-icons/fi';
+import { FiCheckCircle, FiTrendingUp, FiSettings, FiUsers, FiShoppingBag, FiArrowRight, FiSmartphone, FiPieChart, FiCpu, FiGlobe, FiTarget, FiZap, FiLayout, FiShield } from 'react-icons/fi';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -406,6 +406,43 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+        
+        {/* --- BRANDING & TRUST SECTION --- */}
+        <section className="py-24 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-3 gap-8">
+              <motion.div {...fadeInUp} className="p-10 rounded-[3rem] bg-slate-50 border border-slate-100 hover:shadow-2xl transition-all">
+                <div className="w-16 h-16 bg-blue-600 rounded-3xl flex items-center justify-center text-white mb-8 shadow-lg">
+                  <FiSettings size={28} />
+                </div>
+                <h3 className="text-2xl font-black text-slate-900 mb-4">Senin Markan, Senin Kurallarun</h3>
+                <p className="text-slate-500 font-medium leading-relaxed">
+                  İşletme logonuzdan ana renklerinize, fiş tasarımınızdan 6 farklı özel temaya kadar her detayı markanızın kimliğiyle eşleştirin.
+                </p>
+              </motion.div>
+
+              <motion.div {...fadeInUp} className="p-10 rounded-[3rem] bg-slate-50 border border-slate-100 hover:shadow-2xl transition-all">
+                <div className="w-16 h-16 bg-emerald-600 rounded-3xl flex items-center justify-center text-white mb-8 shadow-lg">
+                  <FiShield size={28} />
+                </div>
+                <h3 className="text-2xl font-black text-slate-900 mb-4">Hukuki Güvence Altındasınız</h3>
+                <p className="text-slate-500 font-medium leading-relaxed">
+                  Dinamik MSS ve KVKK altyapısı ile dijital satışlarınızı yasal zemine oturtun. Her siparişte hukuki onay mekanizması otomatik çalışır.
+                </p>
+              </motion.div>
+
+              <motion.div {...fadeInUp} className="p-10 rounded-[3rem] bg-slate-50 border border-slate-100 hover:shadow-2xl transition-all">
+                <div className="w-16 h-16 bg-brand-dark rounded-3xl flex items-center justify-center text-white mb-8 shadow-lg">
+                  <FiTarget size={28} />
+                </div>
+                <h3 className="text-2xl font-black text-slate-900 mb-4">Enterprice Seviye Güvenlik</h3>
+                <p className="text-slate-500 font-medium leading-relaxed">
+                  SuperAdmin katmanı ve çok aşamalı şifre doğrulama protokolleri ile işletme verileriniz en üst düzeyde koruma altında tutulur.
+                </p>
               </motion.div>
             </div>
           </div>
