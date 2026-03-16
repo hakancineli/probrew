@@ -419,7 +419,7 @@ export default function Home() {
                 <div className="w-16 h-16 bg-blue-600 rounded-3xl flex items-center justify-center text-white mb-8 shadow-lg">
                   <FiSettings size={28} />
                 </div>
-                <h3 className="text-2xl font-black text-slate-900 mb-4">Senin Markan, Senin Kurallarun</h3>
+                <h3 className="text-2xl font-black text-slate-900 mb-4">Senin Markan, Senin Kuralların</h3>
                 <p className="text-slate-500 font-medium leading-relaxed">
                   İşletme logonuzdan ana renklerinize, fiş tasarımınızdan 6 farklı özel temaya kadar her detayı markanızın kimliğiyle eşleştirin.
                 </p>
@@ -439,7 +439,7 @@ export default function Home() {
                 <div className="w-16 h-16 bg-brand-dark rounded-3xl flex items-center justify-center text-white mb-8 shadow-lg">
                   <FiTarget size={28} />
                 </div>
-                <h3 className="text-2xl font-black text-slate-900 mb-4">Enterprice Seviye Güvenlik</h3>
+                <h3 className="text-2xl font-black text-slate-900 mb-4">Enterprise Seviye Güvenlik</h3>
                 <p className="text-slate-500 font-medium leading-relaxed">
                   SuperAdmin katmanı ve çok aşamalı şifre doğrulama protokolleri ile işletme verileriniz en üst düzeyde koruma altında tutulur.
                 </p>
