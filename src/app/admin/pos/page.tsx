@@ -141,6 +141,7 @@ export default function POSPage() {
 
     const [productSearch, setProductSearch] = useState('');
     const [discountRate, setDiscountRate] = useState(0);
+    const [orderNote, setOrderNote] = useState('');
     const [showDiscountInput, setShowDiscountInput] = useState(false);
     const [isBOGOActive, setIsBOGOActive] = useState(false);
 
@@ -947,7 +948,7 @@ export default function POSPage() {
             customerPhone: selectedCustomer?.phone || '',
             customerEmail: selectedCustomer?.email || '',
             tableId: selectedTableId,
-            notes: isBOGOActive ? 'POS Satışı (1 ALANA 1 BEDAVA, OFFLINE_SUPPORT)' : 'POS Satışı (OFFLINE_SUPPORT)',
+            notes: `${orderNote} ${isBOGOActive ? '[1 ALANA 1 BEDAVA]' : ''}`.trim() || 'POS Satışı',
             offlineTempId: tempId,
             createdAt: new Date().toISOString()
         };
@@ -1058,6 +1059,7 @@ export default function POSPage() {
         setCustomerSearch('');
         setDiscountRate(0);
         setIsBOGOActive(false);
+        setOrderNote('');
         setSelectedTableId(null);
     };
 
@@ -1777,6 +1779,21 @@ export default function POSPage() {
                                 ))}
                             </div>
                         )}
+                    </div>
+
+                    {/* Order Note */}
+                    <div className={`px-4 pb-2 ${themeStyles.cardBg} border-t border-dashed ${themeStyles.border}`}>
+                        <div className="flex items-center gap-2 mt-3 mb-2">
+                             <span className="text-xs">📝</span>
+                             <span className={`text-[10px] font-black uppercase tracking-widest ${themeStyles.subText}`}>Sipariş Notu</span>
+                        </div>
+                        <input 
+                            type="text"
+                            placeholder="Örn: Az buzlu, Şekersiz..."
+                            value={orderNote}
+                            onChange={(e) => setOrderNote(e.target.value)}
+                            className={`w-full ${themeStyles.inputBg} border ${themeStyles.border} rounded-lg px-3 py-2 text-xs ${themeStyles.text} focus:ring-2 focus:ring-[var(--primary)] outline-none transition-all duration-300`}
+                        />
                     </div>
 
                     {/* Totals & Payment */}

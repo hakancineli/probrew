@@ -53,8 +53,16 @@ export default async function PublicMenuPage({
   if (!data?.business) notFound();
   
   const { business, table } = data;
+  const THEME_COLORS: any = {
+    Nordic: '#2563eb',
+    Midnight: '#4f46e5',
+    Bistro: '#8d6e63',
+    Vibrant: '#ec4899',
+    Turkish: '#dc2626',
+    Custom: business.primaryColor
+  };
   const activeTheme = business.systemSettings?.activeTheme || 'Nordic';
-  const themePrimary = activeTheme === 'Turkish' ? '#dc2626' : business.primaryColor;
+  const themePrimary = THEME_COLORS[activeTheme] || business.primaryColor;
 
   // Group products by category
   const categories = business.products.reduce((acc: any, product) => {

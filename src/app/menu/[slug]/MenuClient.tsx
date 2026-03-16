@@ -11,6 +11,7 @@ export default function MenuClient({ business, categories, table }: any) {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [isCheckingOut, setIsCheckingOut] = useState(false);
     const [orderSuccess, setOrderSuccess] = useState(false);
+    const [orderNote, setOrderNote] = useState('');
     
     // Theme Logic
     const THEME_COLORS: any = {
@@ -91,6 +92,7 @@ export default function MenuClient({ business, categories, table }: any) {
                     totalAmount,
                     status: 'PENDING',
                     source: 'WEBSITE',
+                    notes: orderNote,
                     paymentMethod: 'CASH' // Changed at register for table service
                 })
             });
@@ -98,6 +100,7 @@ export default function MenuClient({ business, categories, table }: any) {
             if (res.ok) {
                 setOrderSuccess(true);
                 setCart([]);
+                setOrderNote('');
                 setIsCartOpen(false);
             } else {
                 toast.error('Sipariş iletilemedi.');
@@ -132,6 +135,11 @@ export default function MenuClient({ business, categories, table }: any) {
 
     return (
         <>
+            <style jsx>{`
+                :root {
+                    --primary: ${themePrimary};
+                }
+            `}</style>
             {/* Table Information & Actions */}
             {table && (
                 <div className="sticky top-20 z-40 bg-white/90 backdrop-blur-md px-4 py-3 border-b border-slate-100 flex items-center justify-between">
@@ -207,8 +215,11 @@ export default function MenuClient({ business, categories, table }: any) {
             {cart.length > 0 && (
                 <button 
                     onClick={() => setIsCartOpen(true)}
-                    className="fixed bottom-6 left-6 right-6 z-50 text-white rounded-[2rem] py-5 px-8 flex items-center justify-between shadow-2xl animate-in slide-in-from-bottom duration-300"
-                    style={{ backgroundColor: themePrimary }}
+                    className="fixed bottom-6 left-6 right-6 z-50 text-white rounded-[2rem] py-5 px-8 flex items-center justify-between shadow-2xl animate-in slide-in-from-bottom duration-300 active:scale-95"
+                    style={{ 
+                        backgroundColor: themePrimary,
+                        boxShadow: `0 20px 40px -10px ${themePrimary}60`
+                    }}
                 >
                     <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center font-black text-sm" style={{ color: themePrimary }}>
@@ -233,7 +244,6 @@ export default function MenuClient({ business, categories, table }: any) {
                                 <FaTimes size={20} />
                             </button>
                         </header>
-
                         <div className="flex-1 overflow-y-auto p-8 space-y-6">
                             {cart.map((item) => (
                                 <div key={item.id} className="flex justify-between items-center">
@@ -257,6 +267,17 @@ export default function MenuClient({ business, categories, table }: any) {
                                     </div>
                                 </div>
                             ))}
+
+                            {/* Order Note */}
+                            <div className="mt-8 p-6 bg-slate-50 rounded-[2rem] border border-slate-100">
+                                <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-2">Sipariş Notunuz</label>
+                                <textarea 
+                                    value={orderNote}
+                                    onChange={(e) => setOrderNote(e.target.value)}
+                                    placeholder="Örn: Az şekerli, Soğuk olsun..."
+                                    className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 text-sm focus:border-[var(--primary)] focus:ring-4 focus:ring-[var(--primary)]/10 outline-none transition-all min-h-[100px] resize-none font-medium text-slate-900"
+                                />
+                            </div>
                         </div>
 
                         <footer className="p-8 bg-slate-50 border-t border-slate-100">
