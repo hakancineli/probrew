@@ -21,7 +21,12 @@ export function useRealtime(onEvent: (payload: RealtimeEvent) => void) {
                 eventSourceRef.current.close();
             }
 
-            const eventSource = new EventSource('/api/realtime');
+            const eventSource = new EventSource(`/api/realtime?v=${Date.now()}`);
+            
+            eventSource.onopen = () => {
+                console.log('Realtime stream connected');
+                isStopped = false;
+            };
 
             eventSource.onmessage = (event) => {
                 try {
@@ -32,11 +37,12 @@ export function useRealtime(onEvent: (payload: RealtimeEvent) => void) {
                 }
             };
 
-            eventSource.onerror = (err) => {
-                console.error('Realtime connection error, retrying...', err);
-                eventSource.close();
-                // Retry after 5 seconds
-                setTimeout(connect, 5000);
+            eventSource.onerror = (err: any) => {
+                // Ignore silent errors/reconnaissance
+                if (eventSource.readyState === EventSource.CLOSED) {
+                    console.warn('Realtime connection closed, retrying in 2s...');
+                    setTimeout(connect, 2000);
+                }
             };
 
             eventSourceRef.current = eventSource;

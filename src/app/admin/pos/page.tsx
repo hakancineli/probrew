@@ -869,7 +869,7 @@ export default function POSPage() {
             // Small delay to ensure DOM and external images (QR) are updated/loaded
             const timer = setTimeout(() => {
                 window.print();
-            }, 1500);
+            }, 500);
             return () => clearTimeout(timer);
         }
     }, [lastOrder]);
@@ -932,6 +932,7 @@ export default function POSPage() {
         };
 
         setProcessingPayment(true);
+        const loadingToast = toast.loading('İşlem yapılıyor...');
         try {
             // First, try to send to server if online
             if (navigator.onLine) {
@@ -942,6 +943,7 @@ export default function POSPage() {
                 });
 
                 if (res.ok) {
+                    toast.dismiss(loadingToast);
                     const createdOrder = await res.json();
 
                     // Success! Show receipt
@@ -963,6 +965,7 @@ export default function POSPage() {
                     finalizeOrderSuccess();
                     return;
                 } else {
+                    toast.dismiss(loadingToast);
                     const errorData = await res.json().catch(() => ({}));
                     if (errorData.error === 'Hatalı Personel PIN kodu!') {
                         setIsPinError(true);
@@ -1013,6 +1016,7 @@ export default function POSPage() {
 
             finalizeOrderSuccess();
         } finally {
+            toast.dismiss(loadingToast);
             setProcessingPayment(false);
         }
     };
@@ -2314,7 +2318,7 @@ export default function POSPage() {
                                                                 // We need to wait slightly so the UI shows the 4th dot
                                                                 setTimeout(() => {
                                                                     handleCreateOrder(pendingOrderArgs.method, pendingOrderArgs.payments, nextPin);
-                                                                }, 300);
+                                                                }, 100);
                                                             }
                                                         }
                                                     }

@@ -23,10 +23,10 @@ export async function GET(request: NextRequest) {
         start(controller) {
             const encoder = new TextEncoder();
 
-            // Heartbeat to keep connection alive
+            // Heartbeat to keep connection alive (Vercel optimization)
             const heartbeat = setInterval(() => {
                 controller.enqueue(encoder.encode(': heartbeat\n\n'));
-            }, 30000);
+            }, 15000);
 
             const unsubscribe = realtimeBus.subscribe(businessId, (payload) => {
                 const message = `data: ${JSON.stringify(payload)}\n\n`;
