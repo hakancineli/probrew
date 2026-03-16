@@ -62,6 +62,19 @@ const THEMES = {
         cardText: 'text-slate-900',
         searchBg: 'bg-purple-50',
         inputBg: 'bg-white'
+    },
+    Turkish: {
+        bg: 'bg-red-50',
+        sidebarBg: 'bg-white',
+        accent: 'bg-red-600',
+        button: 'bg-red-600',
+        border: 'border-red-100',
+        text: 'text-slate-900',
+        subText: 'text-slate-500',
+        cardBg: 'bg-white',
+        cardText: 'text-slate-900',
+        searchBg: 'bg-red-50',
+        inputBg: 'bg-white'
     }
 };
 
@@ -1447,7 +1460,8 @@ export default function POSPage() {
                                                 backgroundColor: name === 'Nordic' ? '#2563eb' :
                                                     name === 'Midnight' ? '#1e1b4b' :
                                                         name === 'Bistro' ? '#3E2723' :
-                                                            name === 'Vibrant' ? '#ec4899' : '#6366f1'
+                                                            name === 'Vibrant' ? '#ec4899' :
+                                                                name === 'Turkish' ? '#dc2626' : '#6366f1'
                                             }}
                                         />
                                     ))}
