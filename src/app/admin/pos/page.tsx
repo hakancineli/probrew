@@ -181,6 +181,7 @@ export default function POSPage() {
     const [allTables, setAllTables] = useState<any[]>([]);
     const [selectedTableId, setSelectedTableId] = useState<string | null>(null);
     const [activeTheme, setActiveTheme] = useState('Nordic');
+    const [businessSettings, setBusinessSettings] = useState<any>(null);
 
     // Monitor Online Status
     useEffect(() => {
@@ -209,9 +210,16 @@ export default function POSPage() {
             const res = await fetch('/api/admin/settings');
             if (res.ok) {
                 const data = await res.json();
+                setBusinessSettings(data);
+                localStorage.setItem('business_settings', JSON.stringify(data));
                 if (data.activeTheme) setActiveTheme(data.activeTheme);
             }
-        } catch (e) { console.error(e); }
+        } catch (e) {
+            console.error('POS: Settings fetch error:', e);
+            // Try to recover from localStorage if offline
+            const cached = localStorage.getItem('business_settings');
+            if (cached) setBusinessSettings(JSON.parse(cached));
+        }
     };
 
 
@@ -2078,7 +2086,16 @@ export default function POSPage() {
                             }}>
                                 <div className="text-center mb-4 border-b border-black pb-2">
                                     <div className="mb-2 flex justify-center">
-                                        <img src="/images/logo/logo.png" alt="Logo" style={{ width: '40mm', height: 'auto' }} />
+                                        <img 
+                                            src={businessSettings?.logoUrl || "/images/logo/logo.png"} 
+                                            alt="Logo" 
+                                            style={{ 
+                                                width: '40mm', 
+                                                height: 'auto', 
+                                                maxHeight: '25mm', 
+                                                objectFit: 'contain' 
+                                            }} 
+                                        />
                                     </div>
                                     <div className="text-lg font-bold">SİPARİŞ FİŞİ</div>
                                     <div className="text-[10px] uppercase font-bold tracking-widest mt-1">Bilgi Amaçlıdır</div>
