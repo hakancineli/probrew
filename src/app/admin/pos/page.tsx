@@ -1344,13 +1344,13 @@ export default function POSPage() {
                                     <button
                                         key={size.size}
                                         onClick={() => addToCart(selectedProductForSize, size.size)}
-                                        className={`flex justify-between items-center p-4 rounded-xl border-2 ${themeStyles.border} hover:border-brand-primary hover:bg-green-50 transition-all group ${themeStyles.cardBg}`}
+                                        className={`flex justify-between items-center p-4 rounded-xl border-2 ${themeStyles.border} hover:${themeStyles.accent.replace('bg-', 'border-')} hover:bg-green-50 transition-all group ${themeStyles.cardBg}`}
                                     >
                                         <div className="flex items-center">
-                                            <span className={`w-8 h-8 rounded-full ${themeStyles.searchBg} ${themeStyles.subText} font-bold flex items-center justify-center group-hover:bg-brand-primary group-hover:text-white transition-colors`}>
+                                            <span className={`w-8 h-8 rounded-full ${themeStyles.searchBg} ${themeStyles.subText} font-bold flex items-center justify-center group-hover:${themeStyles.accent} group-hover:text-white transition-colors`}>
                                                 {size.size}
                                             </span>
-                                            <span className={`ml-3 font-medium ${themeStyles.text} group-hover:text-brand-primary`}>
+                                            <span className={`ml-3 font-medium ${themeStyles.text} group-hover:${themeStyles.accent.replace('bg-', 'text-')}`}>
                                                 {size.size === 'S' ? 'Küçük Boy' : size.size === 'M' ? 'Orta Boy' : 'Büyük Boy'}
                                             </span>
                                         </div>
@@ -1454,7 +1454,7 @@ export default function POSPage() {
                                                     });
                                                 } catch (e) { console.error('Theme save error:', e); }
                                             }}
-                                            className={`w-5 h-5 rounded-full border-2 transition-all hover:scale-125 ${activeTheme === name ? 'border-brand-primary scale-110 shadow-sm ring-2 ring-brand-primary/20' : 'border-transparent opacity-40 hover:opacity-100'}`}
+                                            className={`w-5 h-5 rounded-full border-2 transition-all hover:scale-125 ${activeTheme === name ? `${themeStyles.accent.replace('bg-', 'border-')} scale-110 shadow-sm ring-2 ${themeStyles.accent.replace('bg-', 'ring-')}/20` : 'border-transparent opacity-40 hover:opacity-100'}`}
                                             title={name}
                                             style={{
                                                 backgroundColor: name === 'Nordic' ? '#2563eb' :
@@ -1724,7 +1724,7 @@ export default function POSPage() {
 
                                             <div className="flex items-center gap-3">
                                                 <div className="text-right min-w-[60px]">
-                                                    <p className="font-bold text-gray-800 text-sm">₺{((item.price ?? 0) * (item.quantity ?? 0)).toFixed(0)}</p>
+                                                    <p className={`font-bold ${themeStyles.accent.replace('bg-', 'text-')} text-sm`}>₺{((item.price ?? 0) * (item.quantity ?? 0)).toFixed(0)}</p>
                                                 </div>
 
                                                 <button
@@ -1749,7 +1749,7 @@ export default function POSPage() {
                         <div className="flex justify-between items-center mb-1 md:mb-2 text-[10px] md:text-xs">
                             <button
                                 onClick={() => setShowDiscountInput(!showDiscountInput)}
-                                className="font-semibold text-brand-primary hover:underline flex items-center"
+                                className={`font-semibold ${themeStyles.accent.replace('bg-', 'text-')} hover:underline flex items-center`}
                             >
                                 {showDiscountInput ? 'İskontoyu Kapat' : '+ İskonto Uygula'}
                             </button>
@@ -1760,8 +1760,8 @@ export default function POSPage() {
                                         <button
                                             onClick={() => setDiscountRate(20)}
                                             className={`py-1 text-[10px] md:text-sm font-bold rounded border transition-all ${discountRate === 20
-                                                ? 'bg-brand-primary text-white border-brand-primary'
-                                                : 'bg-white text-gray-600 border-gray-300 hover:border-brand-primary'
+                                                ? `${themeStyles.accent} text-white ${themeStyles.accent.replace('bg-', 'border-')}`
+                                                : `bg-white text-gray-600 border-gray-300 hover:${themeStyles.accent.replace('bg-', 'border-')}`
                                                 }`}
                                         >
                                             %20 İSKONTO
@@ -1832,7 +1832,7 @@ export default function POSPage() {
                                     </div>
                                 )}
                                 {loyaltyEligible && loyaltyDiscountAmount > 0 && (
-                                    <div className="flex justify-between items-center text-brand-primary text-[10px] md:text-sm font-bold animate-pulse">
+                                    <div className={`flex justify-between items-center ${themeStyles.accent.replace('bg-', 'text-')} text-[10px] md:text-sm font-bold animate-pulse`}>
                                         <span>Sadakat İndirimi (%{loyaltyDiscountRateState})</span>
                                         <span>-₺{loyaltyDiscountAmount.toFixed(2)}</span>
                                     </div>
@@ -1848,7 +1848,7 @@ export default function POSPage() {
                                         ₺{(cartTotal ?? 0).toFixed(2)}
                                     </span>
                                 )}
-                                <span className={`text-xl md:text-3xl font-black ${totalDiscount > 0 ? 'text-brand-primary' : 'text-gray-900'}`}>
+                                <span className={`text-xl md:text-3xl font-black ${themeStyles.accent.replace('bg-', 'text-')}`}>
                                     ₺{(finalTotal ?? 0).toFixed(2)}
                                 </span>
                             </div>
@@ -2020,6 +2020,7 @@ export default function POSPage() {
                         </div>
                     )
                 }
+            </div> {/* End of main dashboard div - Isolation for printing */}
 
                 {/* Print Styles - Always in DOM for readiness */}
                 <style jsx global>{`
@@ -2031,35 +2032,26 @@ export default function POSPage() {
                         html, body { 
                             margin: 0 !important; 
                             padding: 0 !important; 
-                            width: 80mm !important;
                             height: auto !important;
                             background: white !important;
                             -webkit-print-color-adjust: exact !important;
                             print-color-adjust: exact !important;
                         }
-                        .print-root {
-                            width: 80mm !important;
-                            margin: 0 !important;
-                            padding: 5mm !important;
-                            background: white !important;
-                            color: black !important;
+                        /* Visibility hack for printing specific elements */
+                        body {
+                            visibility: hidden !important;
                         }
-                        /* Correct Print Visibility */
-                        body > * { 
-                            display: none !important; 
-                        }
-                        body > #print-receipt-container { 
-                            display: block !important; 
+                        #print-receipt-container, #print-receipt-container * {
+                            visibility: visible !important;
                         }
                         #print-receipt-container {
-                            display: block !important;
                             position: absolute !important;
                             left: 0 !important;
                             top: 0 !important;
                             width: 80mm !important;
-                            z-index: 99999 !important;
-                            background: white !important;
-                            visibility: visible !important;
+                            margin: 0 !important;
+                            padding: 0 !important;
+                            display: block !important;
                         }
                         .no-print, .print-hidden { 
                             display: none !important; 
@@ -2271,7 +2263,7 @@ export default function POSPage() {
                 {
                     showStaffPinModal && (
                         <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/60 backdrop-blur-md animate-fade-in p-4">
-                            <div className={`${themeStyles.cardBg} rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden border-2 border-brand-primary animate-scale-up`}>
+                            <div className={`${themeStyles.cardBg} rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden border-2 ${themeStyles.accent.replace('bg-', 'border-')} animate-scale-up`}>
                                 <div className={`${themeStyles.accent} p-6 text-white text-center`}>
                                     <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">👤</div>
                                     <h3 className="text-xl font-black uppercase tracking-widest">Personel Onayı</h3>
@@ -2284,7 +2276,7 @@ export default function POSPage() {
                                             <div
                                                 key={idx}
                                                 className={`w-12 h-16 rounded-2xl border-2 flex items-center justify-center text-3xl font-black transition-all ${idx < enteredPin.length
-                                                    ? `border-brand-primary ${themeStyles.accent.replace('bg-', 'bg-')}/10 ${themeStyles.accent.replace('bg-', 'text-')}`
+                                                    ? `${themeStyles.accent.replace('bg-', 'border-')} ${themeStyles.accent.replace('bg-', 'bg-')}/10 ${themeStyles.accent.replace('bg-', 'text-')}`
                                                     : isPinError ? 'border-red-300' : `${themeStyles.border} ${themeStyles.searchBg}`
                                                     }`}
                                             >
@@ -2469,7 +2461,6 @@ export default function POSPage() {
                         </div>
                     )
                 }
-            </div>
-        </>
-    );
-}
+            </>
+        );
+    }

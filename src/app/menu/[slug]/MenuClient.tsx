@@ -128,7 +128,7 @@ export default function MenuClient({ business, categories, table }: any) {
             {table && (
                 <div className="sticky top-20 z-40 bg-white/90 backdrop-blur-md px-4 py-3 border-b border-slate-100 flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: `${themePrimary}15`, color: themePrimary }}>
                             <FaUtensils size={16} />
                         </div>
                         <div>
@@ -178,7 +178,12 @@ export default function MenuClient({ business, categories, table }: any) {
                                         </p>
                                         <button 
                                             onClick={() => addToCart(product)}
-                                            className="inline-flex items-center gap-2 px-4 py-2 bg-slate-50 hover:bg-slate-100 text-slate-600 rounded-xl font-bold text-xs transition-colors active:scale-95"
+                                            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-xs transition-all active:scale-95 border hover:shadow-md"
+                                            style={{ 
+                                                backgroundColor: `${themePrimary}10`, 
+                                                color: themePrimary,
+                                                borderColor: `${themePrimary}20`
+                                            }}
                                         >
                                             <FaPlus size={10} /> SEPETE EKLE
                                         </button>

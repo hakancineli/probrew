@@ -83,7 +83,7 @@ export default async function PublicMenuPage({
         )}
         
         <div className="relative z-10 text-center px-6">
-          <div className="w-28 h-28 bg-white/10 backdrop-blur-xl rounded-[2.5rem] mx-auto mb-6 p-1 border border-white/20 shadow-2xl overflow-hidden flex items-center justify-center">
+          <div className="w-28 h-28 bg-white/10 backdrop-blur-xl rounded-[2.5rem] mx-auto mb-6 border border-white/20 shadow-2xl overflow-hidden flex items-center justify-center">
              {business.logoUrl ? (
                 <img src={business.logoUrl} alt={business.name} className="w-full h-full object-cover" />
              ) : (
