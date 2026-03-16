@@ -52,8 +52,13 @@ export const metadata = {
     },
   },
   manifest: '/manifest.json',
+};
+
+export const viewport = {
   themeColor: '#2563EB',
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 import SuspensionWrapper from '@/components/SuspensionWrapper';
