@@ -1,0 +1,293 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../node_modules/@prisma/client-mm"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Merchant {
+  id        String   @id @default(cuid())
+  name      String
+  plan      String   @default("FREE")
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  branches  Branch[]
+  products  Product[]
+  users     User[]
+  customers Customer[]
+  caris     Cari[]
+  cariTransactions CariTransaction[]
+  merchantTransactions MerchantTransaction[]
+  suppliers Supplier[]
+  supplierTransactions SupplierTransaction[]
+  stockTransfers StockTransfer[]
+
+  @@map("mm_merchants")
+}
+
+model Branch {
+  id         String   @id @default(cuid())
+  merchantId String
+  name       String
+  address    String?
+  phone      String?
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  merchant   Merchant @relation(fields: [merchantId], references: [id])
+  stocks     Stock[]
+  sales      Sale[]
+  merchantTransactions MerchantTransaction[]
+  supplierTransactions SupplierTransaction[]
+  sentTransfers      StockTransfer[] @relation("FromBranch")
+  receivedTransfers  StockTransfer[] @relation("ToBranch")
+
+  @@map("mm_branches")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  merchantId   String
+  branchId     String?
+  email        String   @unique
+  passwordHash String
+  name         String?
+  role         String   @default("STAFF") // OWNER, ADMIN, MANAGER, STAFF
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  merchant     Merchant @relation(fields: [merchantId], references: [id])
+  
+  @@map("mm_users")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  merchantId  String
+  sku         String?
+  barcode     String?  @unique
+  name        String
+  description String?
+  category    String?
+  brand       String?
+  baseUnit    String   @default("adet")
+  units       String?  // Stringified JSON: [{ unit: "paket", factor: 50 }]
+  buyPrice    Float    @default(0)
+  sellPrice   Float    @default(0)
+  taxRate     Float    @default(20)
+  minStock    Float    @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  merchant    Merchant @relation(fields: [merchantId], references: [id])
+  stocks      Stock[]
+  saleItems   SaleItem[]
+  transferItems StockTransferItem[]
+
+  @@map("mm_products")
+}
+
+model Stock {
+  id        String   @id @default(cuid())
+  productId String
+  branchId  String
+  quantity  Float    @default(0)
+  updatedAt DateTime @updatedAt
+
+  product   Product  @relation(fields: [productId], references: [id])
+  branch    Branch   @relation(fields: [branchId], references: [id])
+
+  @@unique([productId, branchId])
+  @@map("mm_stocks")
+}
+
+model Customer {
+  id         String   @id @default(cuid())
+  merchantId String
+  name       String
+  phone      String?
+  email      String?
+  address    String?
+  taxOffice  String?
+  taxNumber  String?
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  merchant   Merchant @relation(fields: [merchantId], references: [id])
+  caris      Cari[]
+  sales      Sale[]
+  cariTransactions CariTransaction[]
+
+  @@map("mm_customers")
+}
+
+model Cari {
+  id          String   @id @default(cuid())
+  merchantId  String
+  customerId  String
+  balance     Float    @default(0) 
+  limit       Float    @default(0) 
+  updatedAt   DateTime @updatedAt
+
+  merchant    Merchant @relation(fields: [merchantId], references: [id])
+  customer    Customer @relation(fields: [customerId], references: [id])
+  transactions CariTransaction[]
+
+  @@unique([customerId, merchantId], name: "customerId_merchantId")
+  @@map("mm_caris")
+}
+
+model CariTransaction {
+  id          String   @id @default(cuid())
+  merchantId  String
+  customerId  String
+  cariId      String
+  amount      Float
+  type        String   // PAYMENT, DEBIT
+  description String?
+  createdAt   DateTime @default(now())
+
+  merchant    Merchant @relation(fields: [merchantId], references: [id])
+  customer    Customer @relation(fields: [customerId], references: [id])
+  cari        Cari     @relation(fields: [cariId], references: [id])
+
+  @@map("mm_cari_transactions")
+}
+
+model Sale {
+  id            String      @id @default(cuid())
+  branchId      String
+  customerId    String?
+  totalAmount   Float
+  discount      Float       @default(0)
+  finalAmount   Float
+  paymentMethod String      
+  status        String      @default("COMPLETED")
+  createdAt     DateTime    @default(now())
+
+  branch        Branch      @relation(fields: [branchId], references: [id])
+  customer      Customer?   @relation(fields: [customerId], references: [id])
+  items         SaleItem[]
+  payments      SalePayment[]
+
+  @@map("mm_sales")
+}
+
+model SalePayment {
+  id        String   @id @default(cuid())
+  saleId    String
+  method    String   // CASH, CARD, CARI
+  amount    Float
+  createdAt DateTime @default(now())
+
+  sale      Sale     @relation(fields: [saleId], references: [id])
+
+  @@map("mm_sale_payments")
+}
+
+model SaleItem {
+  id        String   @id @default(cuid())
+  saleId    String
+  productId String
+  quantity  Float
+  unit      String
+  buyPrice  Float    
+  unitPrice Float
+  total     Float
+
+  sale      Sale     @relation(fields: [saleId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+
+  @@map("mm_sale_items")
+}
+
+model MerchantTransaction {
+  id          String   @id @default(cuid())
+  merchantId  String
+  branchId    String?
+  amount      Float
+  type        String   // INCOME, EXPENSE
+  category    String   
+  description String?
+  createdAt   DateTime @default(now())
+
+  merchant    Merchant @relation(fields: [merchantId], references: [id])
+  branch      Branch?  @relation(fields: [branchId], references: [id])
+
+  @@map("mm_transactions")
+}
+
+model Supplier {
+  id         String   @id @default(cuid())
+  merchantId String
+  name       String
+  contactName String?
+  phone      String?
+  email      String?
+  address    String?
+  taxOffice  String?
+  taxNumber  String?
+  balance    Float    @default(0) // Borç bakiyesi
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  merchant   Merchant @relation(fields: [merchantId], references: [id])
+  transactions SupplierTransaction[]
+
+  @@map("mm_suppliers")
+}
+
+model SupplierTransaction {
+  id          String   @id @default(cuid())
+  merchantId  String
+  branchId    String?
+  supplierId  String
+  amount      Float
+  type        String   // PURCHASE (Alım - Borç Artar), PAYMENT (Ödeme - Borç Azalır)
+  description String?
+  createdAt   DateTime @default(now())
+
+  merchant    Merchant @relation(fields: [merchantId], references: [id])
+  branch      Branch?  @relation(fields: [branchId], references: [id])
+  supplier    Supplier @relation(fields: [supplierId], references: [id])
+
+  @@map("mm_supplier_transactions")
+}
+
+model StockTransfer {
+  id            String   @id @default(cuid())
+  merchantId    String
+  fromBranchId  String
+  toBranchId    String
+  status        String   @default("COMPLETED") // PENDING, COMPLETED, CANCELLED
+  description   String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  merchant      Merchant @relation(fields: [merchantId], references: [id])
+  fromBranch    Branch   @relation("FromBranch", fields: [fromBranchId], references: [id])
+  toBranch      Branch   @relation("ToBranch", fields: [toBranchId], references: [id])
+  items         StockTransferItem[]
+
+  @@map("mm_stock_transfers")
+}
+
+model StockTransferItem {
+  id          String   @id @default(cuid())
+  transferId  String
+  productId   String
+  quantity    Float
+  unit        String
+
+  transfer    StockTransfer @relation(fields: [transferId], references: [id])
+  product     Product       @relation(fields: [productId], references: [id])
+
+  @@map("mm_stock_transfer_items")
+}

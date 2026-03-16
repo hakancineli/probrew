@@ -1,0 +1,29 @@
+{
+    "name": "ProBrew POS",
+    "short_name": "ProBrew",
+    "description": "ProBrew - Kafe İşletme Yönetim Sistemi",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#2563EB",
+    "icons": [
+        {
+            "src": "/images/logo/probrew-logo.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/images/logo/probrew-logo.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/images/logo/probrew-logo.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}

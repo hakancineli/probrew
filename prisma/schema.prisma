@@ -1,0 +1,654 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
+}
+
+model Business {
+  id                 String          @id @default(cuid())
+  name               String
+  slug               String          @unique
+  logoUrl            String?         @map("logo_url")
+  primaryColor       String          @default("#2563EB") @map("primary_color")
+  secondaryColor     String          @default("#1E40AF") @map("secondary_color")
+  
+  // SaaS Subscription Fields
+  subscriptionStatus String          @default("TRIAL") @map("subscription_status") // TRIAL, ACTIVE, SUSPENDED, CANCELLED
+  subscriptionEnd    DateTime?       @map("subscription_end")
+  trialEndsAt        DateTime?       @map("trial_ends_at")
+  contactEmail       String?         @map("contact_email")
+  contactPhone       String?         @map("contact_phone")
+  taxNumber          String?         @map("tax_number")
+  billingAddress     String?         @map("billing_address")
+
+  createdAt          DateTime        @default(now()) @map("created_at")
+  updatedAt          DateTime        @updatedAt @map("updated_at")
+  
+  auditLogs          AuditLog[]
+  baristas           Barista[]
+  campaigns          Campaign[]
+  expenses           Expense[]
+  feedbacks          Feedback[]
+  fixtures           Fixture[]
+  ingredients        Ingredient[]
+  orders             Order[]
+  products           Product[]
+  rewards            Reward[]
+  systemSettings     SystemSettings?
+  users              User[]
+  wasteLogs          WasteLog[]
+  tables             Table[]
+  cashRegisters      CashRegister[]
+  shifts             Shift[]
+  cashMovements      CashMovement[]
+  inventoryTransactions InventoryTransaction[]
+
+  @@map("businesses")
+}
+
+model SystemAdmin {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("system_admins")
+}
+
+model User {
+  id                String             @id @default(cuid())
+  email             String             @unique
+  passwordHash      String             @map("password_hash")
+  firstName         String?            @map("first_name")
+  lastName          String?            @map("last_name")
+  phone             String?
+  loyaltyPin        String?            @unique @map("loyalty_pin")
+  birthDate         DateTime?          @map("birth_date") @db.Date
+  businessId        String             @map("business_id")
+  createdAt         DateTime           @default(now()) @map("created_at")
+  updatedAt         DateTime           @updatedAt @map("updated_at")
+  orders            Order[]
+  pointTransactions PointTransaction[]
+  userPoints        UserPoints?
+  userRewards       UserReward[]
+  business          Business           @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@map("users")
+}
+
+model SystemSettings {
+  id                    String   @id @default(cuid())
+  businessId            String   @unique @map("business_id")
+  
+  // Branding
+  brandName             String?  @map("brand_name")
+  primaryColor          String   @default("#3E2723") @map("primary_color")
+  secondaryColor        String   @default("#FF8A65") @map("secondary_color")
+  logoUrl               String?  @map("logo_url")
+  
+  // Features
+  loyaltyEnabled        Boolean  @default(false) @map("loyalty_enabled")
+  loyaltyDiscountRate   Float    @default(50) @map("loyalty_discount_rate")
+  isKitchenEnabled      Boolean  @default(true) @map("is_kitchen_enabled")
+  isInventoryEnabled    Boolean  @default(true) @map("is_inventory_enabled")
+  isShiftEnabled        Boolean  @default(true) @map("is_shift_enabled")
+  
+  // Contact
+  orderNotificationEmail String? @map("order_notification_email")
+  
+  // Theme selection
+  activeTheme           String   @default("Nordic") @map("active_theme")
+  
+  updatedAt             DateTime @updatedAt @map("updated_at")
+  business              Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@map("system_settings")
+}
+
+model UserPoints {
+  id        String   @id @default(cuid())
+  userId    String   @unique @map("user_id")
+  points    Int      @default(0)
+  tier      Tier     @default(BRONZE)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_points")
+}
+
+model PointTransaction {
+  id              String          @id @default(cuid())
+  userId          String          @map("user_id")
+  points          Int
+  transactionType TransactionType @map("transaction_type")
+  description     String?
+  referenceId     String?         @map("reference_id")
+  createdAt       DateTime        @default(now()) @map("created_at")
+  user            User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("point_transactions")
+}
+
+model Reward {
+  id          String       @id @default(cuid())
+  businessId  String       @map("business_id")
+  name        String
+  description String?
+  type        RewardType
+  pointsCost  Int          @map("points_cost")
+  imageUrl    String?      @map("image_url")
+  isActive    Boolean      @default(true) @map("is_active")
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+  business    Business     @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  userRewards UserReward[]
+
+  @@map("rewards")
+}
+
+model UserReward {
+  id         String       @id @default(cuid())
+  userId     String       @map("user_id")
+  rewardId   String       @map("reward_id")
+  status     RewardStatus @default(AVAILABLE)
+  redeemedAt DateTime?    @map("redeemed_at")
+  expiresAt  DateTime?    @map("expires_at")
+  createdAt  DateTime     @default(now()) @map("created_at")
+  reward     Reward       @relation(fields: [rewardId], references: [id], onDelete: Cascade)
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_rewards")
+}
+
+model Campaign {
+  id             String         @id @default(cuid())
+  businessId     String         @map("business_id")
+  name           String
+  description    String?
+  type           CampaignType
+  targetAudience TargetAudience @map("target_audience")
+  startDate      DateTime       @map("start_date") @db.Date
+  endDate        DateTime       @map("end_date") @db.Date
+  isActive       Boolean        @default(true) @map("is_active")
+  createdAt      DateTime       @default(now()) @map("created_at")
+  updatedAt      DateTime       @updatedAt @map("updated_at")
+  business       Business       @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@map("campaigns")
+}
+
+model Order {
+  id             String         @id @default(cuid())
+  orderNumber    String         @unique @map("order_number")
+  businessId     String         @map("business_id")
+  userId         String?        @map("user_id")
+  customerName   String?        @map("customer_name")
+  customerPhone  String?        @map("customer_phone")
+  customerEmail  String?        @map("customer_email")
+  status         OrderStatus    @default(PENDING)
+  totalAmount    Float          @map("total_amount")
+  discountAmount Float?         @default(0) @map("discount_amount")
+  finalAmount    Float          @map("final_amount")
+  paymentMethod  PaymentMethod? @map("payment_method")
+  paymentStatus  PaymentStatus  @default(PENDING) @map("payment_status")
+  notes          String?
+  staffId        String?        @map("staff_id")
+  preparedById   String?        @map("prepared_by_id")
+  source         OrderSource    @default(POS)
+  externalId     String?        @unique @map("external_id")
+  createdAt      DateTime       @default(now()) @map("created_at")
+  updatedAt      DateTime       @updatedAt @map("updated_at")
+  isDeleted      Boolean        @default(false) @map("is_deleted")
+  orderItems     OrderItem[]
+  business       Business       @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  preparedBy     Barista?       @relation("PreparedOrders", fields: [preparedById], references: [id])
+  staff          Barista?       @relation("CashierOrders", fields: [staffId], references: [id])
+  user           User?          @relation(fields: [userId], references: [id])
+  payments       Payment[]
+  tableId        String?        @map("table_id")
+  table          Table?         @relation(fields: [tableId], references: [id])
+
+  @@index([businessId, createdAt])
+  @@index([businessId, status])
+  @@index([userId])
+  @@index([createdAt])
+  @@index([status])
+  @@map("orders")
+}
+
+model Table {
+  id         String   @id @default(cuid())
+  businessId String   @map("business_id")
+  name       String
+  capacity   Int?
+  status     String   @default("AVAILABLE") // AVAILABLE, OCCUPIED, RESERVED
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  orders     Order[]
+
+  @@map("tables")
+}
+
+model CashRegister {
+  id             String         @id @default(cuid())
+  businessId     String         @map("business_id")
+  name           String
+  currentBalance Float          @default(0) @map("current_balance")
+  business       Business       @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  shifts         Shift[]
+  movements      CashMovement[]
+
+  @@map("cash_registers")
+}
+
+model Shift {
+  id             String         @id @default(cuid())
+  businessId     String         @map("business_id")
+  registerId     String         @map("register_id")
+  staffId        String         @map("staff_id")
+  openedAt       DateTime       @default(now()) @map("opened_at")
+  closedAt       DateTime?      @map("closed_at")
+  openingBalance Float          @map("opening_balance")
+  closingBalance Float?         @map("closing_balance")
+  expectedCash   Float?         @map("expected_cash")
+  actualCash     Float?         @map("actual_cash")
+  difference     Float?
+  notes          String?
+  status         ShiftStatus    @default(OPEN)
+  business       Business       @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  register       CashRegister   @relation(fields: [registerId], references: [id])
+  staff          Barista        @relation(fields: [staffId], references: [id])
+  movements      CashMovement[]
+
+  @@index([businessId, status])
+  @@map("shifts")
+}
+
+model CashMovement {
+  id          String       @id @default(cuid())
+  businessId  String       @map("business_id")
+  registerId  String       @map("register_id")
+  shiftId     String?      @map("shift_id")
+  amount      Float
+  type        MovementType
+  reason      String?      // SALE, EXPENSE, CASH_IN, CASH_OUT
+  notes       String?
+  createdAt   DateTime     @default(now()) @map("created_at")
+  business    Business     @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  register    CashRegister @relation(fields: [registerId], references: [id])
+  shift       Shift?       @relation(fields: [shiftId], references: [id])
+
+  @@map("cash_movements")
+}
+
+model InventoryTransaction {
+  id             String                   @id @default(cuid())
+  businessId     String                   @map("business_id")
+  type           InventoryTransactionType // SALE, MANUAL_ADJUST, WASTE, PURCHASE
+  ingredientId   String?                  @map("ingredient_id")
+  productId      String?                  @map("product_id")
+  quantity       Float
+  previousStock  Float                    @map("previous_stock")
+  newStock       Float                    @map("new_stock")
+  notes          String?
+  createdAt      DateTime                 @default(now()) @map("created_at")
+  business       Business                 @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  ingredient     Ingredient?              @relation(fields: [ingredientId], references: [id])
+  product        Product?                 @relation(fields: [productId], references: [id])
+
+  @@index([businessId, createdAt])
+  @@map("inventory_transactions")
+}
+
+model AuditLog {
+  id         String    @id @default(cuid())
+  businessId String?   @map("business_id")
+  action     String
+  entity     String
+  entityId   String    @map("entity_id")
+  oldData    Json?     @map("old_data")
+  newData    Json?     @map("new_data")
+  userId     String?   @map("user_id")
+  userEmail  String?   @map("user_email")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  business   Business? @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@map("audit_logs")
+}
+
+model WasteLog {
+  id             String   @id @default(cuid())
+  businessId     String   @map("business_id")
+  productId      String?  @map("product_id")
+  productName    String?  @map("product_name")
+  ingredientId   String?  @map("ingredient_id")
+  ingredientName String?  @map("ingredient_name")
+  quantity       Float
+  unit           String?
+  reason         String?
+  userId         String?  @map("user_id")
+  userEmail      String?  @map("user_email")
+  createdAt      DateTime @default(now()) @map("created_at")
+  business       Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@map("waste_logs")
+}
+
+model OrderItem {
+  id          String   @id @default(cuid())
+  orderId     String   @map("order_id")
+  productId   String   @map("product_id")
+  productName String   @map("product_name")
+  quantity    Int
+  unitPrice   Float    @map("unit_price")
+  totalPrice  Float    @map("total_price")
+  notes       String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  size        String?
+  isPorcelain Boolean  @default(false) @map("is_porcelain")
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+  @@map("order_items")
+}
+
+model Product {
+  id          String      @id @default(cuid())
+  businessId  String      @map("business_id")
+  name        String
+  description String?
+  category    String
+  price       Float
+  imageUrl    String?     @map("image_url")
+  isActive    Boolean     @default(true) @map("is_active")
+  stock       Int         @default(0)
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+  soldCount   Int         @default(0) @map("sold_count")
+  prices      Json?       @map("prices")
+  unit        String      @default("adet")
+  orderItems  OrderItem[]
+  business    Business    @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  recipes     Recipe[]
+  inventoryTransactions InventoryTransaction[]
+
+  @@index([businessId])
+  @@map("products")
+}
+
+model Ingredient {
+  id          String       @id @default(cuid())
+  businessId  String       @map("business_id")
+  name        String
+  unit        String
+  stock       Float        @default(0)
+  costPerUnit Float        @default(0)
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+  business    Business     @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  recipeItems RecipeItem[]
+  inventoryTransactions InventoryTransaction[]
+
+  @@index([businessId])
+  @@map("ingredients")
+}
+
+model Recipe {
+  id        String       @id @default(cuid())
+  productId String       @map("product_id")
+  size      String?
+  createdAt DateTime     @default(now()) @map("created_at")
+  updatedAt DateTime     @updatedAt @map("updated_at")
+  items     RecipeItem[]
+  product   Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, size])
+  @@map("recipes")
+}
+
+model RecipeItem {
+  id           String     @id @default(cuid())
+  recipeId     String     @map("recipe_id")
+  ingredientId String     @map("ingredient_id")
+  quantity     Float
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+  recipe       Recipe     @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@map("recipe_items")
+}
+
+model Payment {
+  id            String        @id @default(cuid())
+  orderId       String        @map("order_id")
+  amount        Float
+  method        PaymentMethod
+  status        PaymentStatus @default(PENDING)
+  transactionId String?       @map("transaction_id")
+  bankResponse  Json?         @map("bank_response")
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+  order         Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@map("payments")
+}
+
+model Barista {
+  id             String             @id @default(cuid())
+  businessId     String             @map("business_id")
+  name           String
+  email          String             @unique
+  passwordHash   String             @map("password_hash")
+  isActive       Boolean            @default(true) @map("is_active")
+  createdAt      DateTime           @default(now()) @map("created_at")
+  updatedAt      DateTime           @updatedAt @map("updated_at")
+  phone          String?
+  role           StaffRole          @default(BARISTA)
+  salary         Float              @default(0)
+  startDate      DateTime           @default(now()) @map("start_date")
+  pinCode        String?            @map("pin_code")
+  business       Business           @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  expenses       Expense[]
+  preparedOrders Order[]            @relation("PreparedOrders")
+  orders         Order[]            @relation("CashierOrders")
+  consumptions   StaffConsumption[]
+  shifts         Shift[]
+
+  @@map("baristas")
+}
+
+model StaffConsumption {
+  id            String                 @id @default(cuid())
+  staffId       String                 @map("staff_id")
+  paymentMethod PaymentMethod          @default(CASH) @map("payment_method")
+  createdAt     DateTime               @default(now()) @map("created_at")
+  items         StaffConsumptionItem[]
+  staff         Barista                @relation(fields: [staffId], references: [id], onDelete: Cascade)
+
+  @@map("staff_consumptions")
+}
+
+model StaffConsumptionItem {
+  id            String           @id @default(cuid())
+  consumptionId String           @map("consumption_id")
+  productId     String           @map("product_id")
+  productName   String           @map("product_name")
+  quantity      Int
+  originalPrice Float            @map("original_price")
+  staffPrice    Float            @map("staff_price")
+  size          String?
+  consumption   StaffConsumption @relation(fields: [consumptionId], references: [id], onDelete: Cascade)
+
+  @@map("staff_consumption_items")
+}
+
+model Expense {
+  id          String          @id @default(cuid())
+  businessId  String          @map("business_id")
+  description String
+  amount      Float
+  category    ExpenseCategory
+  date        DateTime        @default(now())
+  createdAt   DateTime        @default(now()) @map("created_at")
+  updatedAt   DateTime        @updatedAt @map("updated_at")
+  staffId     String?         @map("staff_id")
+  business    Business        @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  staff       Barista?        @relation(fields: [staffId], references: [id])
+
+  @@index([businessId, date])
+  @@index([date])
+  @@map("expenses")
+}
+
+model Fixture {
+  id            String    @id @default(cuid())
+  businessId    String    @map("business_id")
+  name          String
+  category      String?
+  quantity      Int       @default(1)
+  purchasePrice Float?    @map("purchase_price")
+  purchaseDate  DateTime? @map("purchase_date") @db.Date
+  status        String    @default("Kullanımda")
+  notes         String?
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  business      Business  @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@map("fixtures")
+}
+
+model Feedback {
+  id              String       @id @default(cuid())
+  businessId      String       @map("business_id")
+  type            FeedbackType @default(SUGGESTION)
+  content         String
+  customerName    String?      @map("customer_name")
+  customerContact String?      @map("customer_contact")
+  isRead          Boolean      @default(false) @map("is_read")
+  createdAt       DateTime     @default(now()) @map("created_at")
+  updatedAt       DateTime     @updatedAt @map("updated_at")
+  business        Business     @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@map("feedbacks")
+}
+
+enum OrderSource {
+  POS
+  WEBSITE
+  TRENDYOL
+  GETIR
+  YEMEKSEPETI
+}
+
+enum Tier {
+  BRONZE
+  SILVER
+  GOLD
+  PLATINUM
+}
+
+enum TransactionType {
+  EARNED
+  REDEEMED
+  BONUS
+}
+
+enum RewardType {
+  PRODUCT
+  DISCOUNT
+  COUPON
+  EXPERIENCE
+}
+
+enum RewardStatus {
+  AVAILABLE
+  REDEEMED
+  EXPIRED
+}
+
+enum CampaignType {
+  POINT_MULTIPLIER
+  BONUS_POINTS
+  FREE_PRODUCT
+  DISCOUNT
+}
+
+enum TargetAudience {
+  ALL
+  TIER_BASED
+  NEW_CUSTOMERS
+}
+
+enum OrderStatus {
+  PENDING
+  PREPARING
+  READY
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentMethod {
+  CASH
+  CREDIT_CARD
+  DEBIT_CARD
+  MOBILE_PAYMENT
+  BANK_TRANSFER
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+enum StaffRole {
+  MANAGER
+  BARISTA
+  WAITER
+  CLEANER
+  KITCHEN
+}
+
+enum ExpenseCategory {
+  RENT
+  UTILITIES
+  SUPPLIES
+  SALARY
+  MAINTENANCE
+  OTHER
+  MARKETING
+  ADVANCE
+  WASTE
+}
+
+enum FeedbackType {
+  COMPLAINT
+  SUGGESTION
+  REQUEST
+  OTHER
+}
+
+enum ShiftStatus {
+  OPEN
+  CLOSED
+}
+
+enum MovementType {
+  IN
+  OUT
+}
+
+enum InventoryTransactionType {
+  SALE
+  MANUAL_ADJUST
+  WASTE
+  PURCHASE
+}

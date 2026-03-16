@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
+
+  /* ProBrew Global Brand Colors - CSS Variables for Multi-Tenant Theming */
+  --brand-primary: #2563EB;      /* Main brand color */
+  --brand-secondary: #1E40AF;    /* Darker shade */
+  --brand-dark: #1E3A5F;         /* Darkest shade */
+  --brand-accent: #F59E0B;       /* Accent / Gold */
+  --brand-light: #EFF6FF;        /* Light background */
+  --brand-surface: #F8FAFC;      /* Surface color */
+  --brand-text: #1E293B;         /* Primary text */
+  --brand-text-muted: #64748B;   /* Muted text */
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--brand-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-secondary);
+}
+
+/* Progress bar styles for rewards dashboard */
+.progress-bar {
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: white;
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+  width: var(--progress-width, 0%);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
