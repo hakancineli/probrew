@@ -18,25 +18,48 @@ export async function GET(request: NextRequest) {
     const user = getUser(request);
     if (!user?.businessId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-    const settings = await prisma.systemSettings.findUnique({
-      where: { businessId: user.businessId },
+    const businessId = user.businessId;
+
+    let settings = await prisma.systemSettings.findUnique({
+      where: { businessId },
       include: {
         business: {
-          select: { slug: true }
+          select: { name: true, slug: true, primaryColor: true, logoUrl: true }
         }
       }
     });
 
-    if (!settings) return NextResponse.json({});
+    // Lazy initialization for existing businesses without settings
+    if (!settings) {
+      const business = await prisma.business.findUnique({
+        where: { id: businessId }
+      });
 
-    // Flatten for easier client access
+      if (!business) {
+        return NextResponse.json({ error: 'Business not found' }, { status: 404 });
+      }
+
+      settings = await prisma.systemSettings.create({
+        data: {
+          businessId: businessId,
+          brandName: business.name,
+          primaryColor: business.primaryColor,
+          logoUrl: business.logoUrl,
+        },
+        include: {
+          business: { select: { slug: true } }
+        }
+      }) as any;
+    }
+
     const response = {
         ...settings,
-        slug: settings.business?.slug
+        slug: (settings as any).business?.slug
     };
 
     return NextResponse.json(response);
   } catch (error) {
+    console.error('Settings fetch error:', error);
     return NextResponse.json({ error: 'Settings fetch error' }, { status: 500 });
   }
 }
