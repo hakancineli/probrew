@@ -2007,36 +2007,52 @@ export default function POSPage() {
                     )
                 }
 
+                {/* Print Styles - Always in DOM for readiness */}
+                <style jsx global>{`
+                    @media print {
+                        @page { 
+                            margin: 0; 
+                            size: 80mm auto; 
+                        }
+                        html, body { 
+                            margin: 0 !important; 
+                            padding: 0 !important; 
+                            width: 80mm !important;
+                            height: auto !important;
+                            background: white !important;
+                            -webkit-print-color-adjust: exact !important;
+                            print-color-adjust: exact !important;
+                        }
+                        #print-receipt-container {
+                            display: block !important;
+                            position: absolute !important;
+                            left: 0 !important;
+                            top: 0 !important;
+                            width: 80mm !important;
+                            z-index: 99999 !important;
+                            background: white !important;
+                        }
+                        .print-root {
+                            width: 80mm !important;
+                            margin: 0 !important;
+                            padding: 5mm !important;
+                            background: white !important;
+                            color: black !important;
+                        }
+                        /* Hide everything else */
+                        body > *:not(#print-receipt-container) {
+                            display: none !important;
+                        }
+                        nav, header, footer, aside, .no-print, .print-hidden { 
+                            display: none !important; 
+                        }
+                    }
+                `}</style>
+
                 {/* Print Only Receipt - Visible only when printing */}
                 {
                     lastOrder && (
-                        <div className="hidden print:block fixed inset-0 bg-white z-[99999] p-0 m-0 overflow-visible">
-                            <style jsx global>{`
-                                @media print {
-                                    @page { 
-                                        margin: 0; 
-                                        size: 80mm auto; 
-                                    }
-                                    html, body { 
-                                        margin: 0 !important; 
-                                        padding: 0 !important; 
-                                        width: 80mm !important;
-                                        height: auto !important;
-                                        background: white !important;
-                                        -webkit-print-color-adjust: exact !important;
-                                        print-color-adjust: exact !important;
-                                    }
-                                    .print-root {
-                                        width: 80mm !important;
-                                        margin: 0 !important;
-                                        padding: 5mm !important;
-                                        background: white !important;
-                                    }
-                                    .print\:block { display: block !important; }
-                                    .print\:hidden { display: none !important; }
-                                    nav, header, footer, aside, .no-print { display: none !important; }
-                                }
-                            `}</style>
+                        <div id="print-receipt-container" className="hidden print:block fixed inset-0 bg-white z-[99999] p-0 m-0 overflow-visible">
                             <div className="print-root" style={{
                                 fontFamily: "'Inter', 'Segoe UI', Roboto, sans-serif",
                                 width: '80mm',
@@ -2048,7 +2064,7 @@ export default function POSPage() {
                             }}>
                                 <div className="text-center mb-4 border-b border-black pb-2">
                                     <div className="mb-2 flex justify-center">
-                                        <img src="/images/logo.png" alt="Logo" style={{ width: '40mm', height: 'auto' }} />
+                                        <img src="/images/logo/logo.png" alt="Logo" style={{ width: '40mm', height: 'auto' }} />
                                     </div>
                                     <div className="text-lg font-bold">SİPARİŞ FİŞİ</div>
                                     <div className="text-[10px] uppercase font-bold tracking-widest mt-1">Bilgi Amaçlıdır</div>
