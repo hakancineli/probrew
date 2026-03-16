@@ -59,6 +59,19 @@ export async function POST(request: NextRequest) {
     });
 
     if (staff && staff.isActive) {
+      // Check business status
+      const business = await prisma.business.findUnique({
+        where: { id: staff.businessId },
+        select: { subscriptionStatus: true }
+      });
+
+      if (business?.subscriptionStatus === 'SUSPENDED') {
+        return NextResponse.json(
+          { error: 'İşletme hesabı askıya alınmıştır. Lütfen yönetici ile iletişime geçin.' },
+          { status: 403 }
+        );
+      }
+
       const isStaffPasswordValid = await bcrypt.compare(password, staff.passwordHash);
 
       if (isStaffPasswordValid) {
@@ -99,15 +112,26 @@ export async function POST(request: NextRequest) {
     // 2. Fallback to Customer/User Table
     const user = await prisma.user.findUnique({
       where: { email },
-      include: {
-        userPoints: true
-      }
+      include: { userPoints: true }
     });
 
     if (!user) {
       return NextResponse.json(
         { error: 'Kullanıcı veya personel bulunamadı' },
         { status: 401 }
+      );
+    }
+
+    // Check business status for customers
+    const business = await prisma.business.findUnique({
+      where: { id: user.businessId },
+      select: { subscriptionStatus: true }
+    });
+
+    if (business?.subscriptionStatus === 'SUSPENDED') {
+      return NextResponse.json(
+        { error: 'Hizmet geçici olarak durdurulmuştur.' },
+        { status: 403 }
       );
     }
 
