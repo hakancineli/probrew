@@ -7,16 +7,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum SubscriptionStatus {
+  TRIAL
+  ACTIVE
+  SUSPENDED
+  CANCELLED
+}
+
 model Business {
   id                 String          @id @default(cuid())
   name               String
   slug               String          @unique
   logoUrl            String?         @map("logo_url")
   primaryColor       String          @default("#2563EB") @map("primary_color")
-  secondaryColor     String          @default("#1E40AF") @map("secondary_color")
-  
-  // SaaS Subscription Fields
-  subscriptionStatus String          @default("TRIAL") @map("subscription_status") // TRIAL, ACTIVE, SUSPENDED, CANCELLED
+  customDomain       String?         @unique @map("custom_domain")
+  paymentSettings    Json?           @map("payment_settings") // Virtual POS keys, provider name
+  subscriptionStatus SubscriptionStatus @default(TRIAL) @map("subscription_status")
   subscriptionEnd    DateTime?       @map("subscription_end")
   trialEndsAt        DateTime?       @map("trial_ends_at")
   contactEmail       String?         @map("contact_email")
@@ -102,8 +108,13 @@ model SystemSettings {
   // Contact
   orderNotificationEmail String? @map("order_notification_email")
   
-  // Theme selection
-  activeTheme           String   @default("Nordic") @map("active_theme")
+  // Payment & Legal
+  isPaymentEnabled      Boolean  @default(false) @map("is_payment_enabled")
+  officialName          String?  @map("official_name")
+  officialAddress       String?  @map("official_address")
+  officialPhone         String?  @map("official_phone")
+  taxOffice             String?  @map("tax_office")
+  taxNumber             String?  @map("tax_number")
   
   updatedAt             DateTime @updatedAt @map("updated_at")
   business              Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
@@ -320,6 +331,19 @@ model AuditLog {
   business   Business? @relation(fields: [businessId], references: [id], onDelete: Cascade)
 
   @@map("audit_logs")
+}
+
+model SystemAnnouncement {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  type      String   @default("INFO") // INFO, WARNING, SUCCESS, DANGER
+  isActive  Boolean  @default(true) @map("is_active")
+  target    String   @default("ALL") // ALL, MANAGERS, BARISTAS
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("system_announcements")
 }
 
 model WasteLog {

@@ -39,13 +39,46 @@ export default function SuperAdminDashboard() {
   const [updating, setUpdating] = useState(false);
 
   // Stats & Tabs
-  const [activeTab, setActiveTab] = useState<'businesses' | 'analytics' | 'logs'>('businesses');
+  const [activeTab, setActiveTab] = useState<'businesses' | 'analytics' | 'logs' | 'support'>('businesses');
   const [globalData, setGlobalData] = useState<any>(null);
+  const [announcements, setAnnouncements] = useState<any[]>([]);
+  const [newAnnouncement, setNewAnnouncement] = useState({ title: '', content: '', type: 'INFO' });
 
   useEffect(() => {
     fetchBusinesses();
     fetchGlobalStats();
+    fetchAnnouncements();
   }, []);
+
+  const fetchAnnouncements = async () => {
+    const res = await fetch('/api/superadmin/announcements', { headers: { 'x-user-role': 'SUPERADMIN' } });
+    if (res.ok) setAnnouncements(await res.json());
+  };
+
+  const handleCreateAnnouncement = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const res = await fetch('/api/superadmin/announcements', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-user-role': 'SUPERADMIN' },
+        body: JSON.stringify(newAnnouncement)
+    });
+    if (res.ok) {
+        toast.success('Duyuru yayınlandı');
+        setNewAnnouncement({ title: '', content: '', type: 'INFO' });
+        fetchAnnouncements();
+    }
+  };
+
+  const handleDeleteAnnouncement = async (id: string) => {
+    const res = await fetch(`/api/superadmin/announcements?id=${id}`, {
+        method: 'DELETE',
+        headers: { 'x-user-role': 'SUPERADMIN' }
+    });
+    if (res.ok) {
+        toast.success('Duyuru silindi');
+        fetchAnnouncements();
+    }
+  };
 
   const fetchGlobalStats = async () => {
     try {
@@ -98,6 +131,30 @@ export default function SuperAdminDashboard() {
       toast.error('Bağlantı hatası.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleImpersonate = async (businessId: string) => {
+    const loadingToast = toast.loading('İşletmeye bağlanılıyor...');
+    try {
+      const res = await fetch('/api/superadmin/impersonate', {
+          method: 'POST',
+          headers: { 
+              'Content-Type': 'application/json',
+              'x-user-role': 'SUPERADMIN',
+              'x-user-email': 'superadmin@probrew.com' // Should be from session
+          },
+          body: JSON.stringify({ businessId })
+      });
+      const data = await res.json();
+      if (res.ok) {
+          toast.success(data.message, { id: loadingToast });
+          window.location.href = data.redirect;
+      } else {
+          toast.error(data.error, { id: loadingToast });
+      }
+    } catch (e) {
+      toast.error('Bağlantı hatası', { id: loadingToast });
     }
   };
 
@@ -250,6 +307,15 @@ export default function SuperAdminDashboard() {
           📜 Sistem Logları
           {activeTab === 'logs' && <div className="absolute bottom-0 left-0 right-0 h-1 bg-emerald-500 rounded-t-full shadow-[0_0_15px_rgba(16,185,129,0.5)]" />}
         </button>
+        <button 
+          onClick={() => setActiveTab('support')}
+          className={`pb-4 px-2 text-sm font-black uppercase tracking-widest transition-all relative ${
+            activeTab === 'support' ? 'text-orange-400' : 'text-slate-500 hover:text-slate-300'
+          }`}
+        >
+          🛠️ Sistem Destek
+          {activeTab === 'support' && <div className="absolute bottom-0 left-0 right-0 h-1 bg-orange-500 rounded-t-full shadow-[0_0_15px_rgba(249,115,22,0.5)]" />}
+        </button>
       </div>
 
       {activeTab === 'businesses' && (
@@ -358,17 +424,26 @@ export default function SuperAdminDashboard() {
                 <td className="px-6 py-4 text-xs text-slate-500 font-medium">
                   {new Date(business.createdAt).toLocaleDateString('tr-TR')}
                 </td>
-                <td className="px-6 py-4 text-right">
-                  <button 
-                    onClick={() => {
-                        setSelectedBusiness(business);
-                        setIsManaging(true);
-                    }}
-                    className="text-blue-500 hover:text-blue-400 font-bold text-sm transition-colors border border-blue-500/20 px-4 py-2 rounded-lg hover:bg-blue-500/10"
-                  >
-                    Yönet
-                  </button>
-                </td>
+                 <td className="px-6 py-4 text-right">
+                   <div className="flex justify-end gap-2">
+                     <button 
+                       onClick={() => handleImpersonate(business.id)}
+                       className="p-3 bg-indigo-500/10 text-indigo-400 rounded-xl hover:bg-indigo-500 hover:text-white transition-all border border-indigo-500/20"
+                       title="İşletme Olarak Giriş Yap"
+                     >
+                       🧙‍♂️
+                     </button>
+                     <button 
+                       onClick={() => {
+                           setSelectedBusiness(business);
+                           setIsManaging(true);
+                       }}
+                       className="text-blue-500 hover:text-blue-400 font-bold text-sm transition-colors border border-blue-500/20 px-4 py-2 rounded-lg hover:bg-blue-500/10"
+                     >
+                       Yönet
+                     </button>
+                   </div>
+                 </td>
               </tr>
             ))}
           </tbody>
@@ -483,6 +558,82 @@ export default function SuperAdminDashboard() {
                        </table>
                    </div>
                </div>
+          </div>
+      )}
+      {activeTab === 'support' && (
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 animate-in fade-in duration-500">
+              <div className="lg:col-span-1 space-y-6">
+                  <div className="bg-slate-800/30 rounded-3xl border border-slate-700/50 p-8">
+                      <h3 className="text-xl font-black mb-6">📢 Yeni Merkezi Duyuru</h3>
+                      <form onSubmit={handleCreateAnnouncement} className="space-y-4">
+                          <input 
+                              type="text" 
+                              placeholder="Duyuru Başlığı"
+                              required
+                              value={newAnnouncement.title}
+                              onChange={e => setNewAnnouncement({...newAnnouncement, title: e.target.value})}
+                              className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white outline-none focus:ring-2 focus:ring-orange-500"
+                          />
+                          <textarea 
+                              placeholder="Duyuru İçeriği..."
+                              required
+                              rows={4}
+                              value={newAnnouncement.content}
+                              onChange={e => setNewAnnouncement({...newAnnouncement, content: e.target.value})}
+                              className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white outline-none focus:ring-2 focus:ring-orange-500 resize-none"
+                          ></textarea>
+                          <select 
+                             value={newAnnouncement.type}
+                             onChange={e => setNewAnnouncement({...newAnnouncement, type: e.target.value})}
+                             className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white outline-none"
+                          >
+                              <option value="INFO">Bilgi (INFO)</option>
+                              <option value="WARNING">Uyarı (WARNING)</option>
+                              <option value="SUCCESS">Yeni Özellik (SUCCESS)</option>
+                              <option value="DANGER">Acil/Bakım (DANGER)</option>
+                          </select>
+                          <button className="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-4 rounded-xl transition-all">
+                              Yayınla
+                          </button>
+                      </form>
+                  </div>
+              </div>
+
+              <div className="lg:col-span-2 space-y-4">
+                   <h3 className="text-lg font-black text-slate-400 px-4 uppercase tracking-[0.2em]">Aktif Duyurular</h3>
+                   {announcements.length === 0 && (
+                       <div className="bg-slate-800/10 border border-dashed border-slate-700 p-12 text-center rounded-3xl text-slate-500">
+                           Henüz yayında bir duyuru yok.
+                       </div>
+                   )}
+                   {announcements.map((ann) => (
+                       <div key={ann.id} className="bg-slate-800/30 border border-slate-700/50 p-6 rounded-3xl flex justify-between items-start group">
+                           <div className="flex gap-4">
+                               <div className={`p-3 rounded-2xl ${
+                                   ann.type === 'DANGER' ? 'bg-red-500/10 text-red-400' :
+                                   ann.type === 'WARNING' ? 'bg-orange-500/10 text-orange-400' :
+                                   ann.type === 'SUCCESS' ? 'bg-emerald-500/10 text-emerald-400' :
+                                   'bg-blue-500/10 text-blue-400'
+                               }`}>
+                                   <FaClock size={24} />
+                               </div>
+                               <div>
+                                   <h4 className="font-black text-white text-lg">{ann.title}</h4>
+                                   <p className="text-slate-400 text-sm mt-1">{ann.content}</p>
+                                   <div className="mt-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                                       {new Date(ann.createdAt).toLocaleString('tr-TR')}
+                                   </div>
+                               </div>
+                           </div>
+                           <button 
+                               onClick={() => handleDeleteAnnouncement(ann.id)}
+                               className="p-2 text-slate-600 hover:text-red-400 transition-colors"
+                           >
+                               <FaTimesCircle size={20} />
+                           </button>
+                       </div>
+                   ))}
+              </div>
           </div>
       )}
 

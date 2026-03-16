@@ -21,12 +21,21 @@ export default function AdminDashboard() {
     lowStockCount: 0,
     lowIngredientCount: 0,
   });
+  const [announcement, setAnnouncement] = useState<any>(null);
   const router = useRouter();
 
   useEffect(() => {
     checkAdminAccess();
     fetchDashboardStats();
+    fetchAnnouncement();
   }, []);
+
+  const fetchAnnouncement = async () => {
+    try {
+      const res = await fetch('/api/public/announcements');
+      if (res.ok) setAnnouncement(await res.json());
+    } catch (e) { /* ignore */ }
+  };
 
   const checkAdminAccess = async () => {
     try {
@@ -363,8 +372,32 @@ export default function AdminDashboard() {
 
         {/* Recent Orders */}
         <div className="bg-white shadow rounded-lg">
-          <div className="px-4 py-5 sm:p-6">
-            <div className="flex justify-between items-center mb-4">
+          <div className="flex-1 overflow-auto p-4 md:p-8">
+        {/* System Announcement Banner */}
+        {announcement && (
+          <div className={`mb-8 p-4 rounded-2xl border flex items-center gap-4 animate-in slide-in-from-top-4 duration-500 ${
+            announcement.type === 'DANGER' ? 'bg-red-500/10 border-red-500/20 text-red-700' :
+            announcement.type === 'WARNING' ? 'bg-orange-500/10 border-orange-500/20 text-orange-700' :
+            announcement.type === 'SUCCESS' ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-700' :
+            'bg-blue-500/10 border-blue-500/20 text-blue-700'
+          }`}>
+            <span className="text-2xl">
+               {announcement.type === 'SUCCESS' ? '🚀' : announcement.type === 'DANGER' ? '⚠️' : '📢'}
+            </span>
+            <div className="flex-1">
+              <h4 className="font-black text-sm uppercase tracking-wider">{announcement.title}</h4>
+              <p className="text-sm font-medium opacity-80">{announcement.content}</p>
+            </div>
+            <button
+              onClick={() => setAnnouncement(null)}
+              className="p-2 hover:bg-black/5 rounded-lg transition-colors"
+            >
+              ✕
+            </button>
+          </div>
+        )}
+
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
               <h3 className="text-lg leading-6 font-medium text-gray-900">Son Siparişler</h3>
               <Link href="/admin/orders" className="text-sm text-green-600 hover:text-green-500">
                 Tümünü Gör →

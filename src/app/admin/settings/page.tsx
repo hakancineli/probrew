@@ -15,6 +15,12 @@ interface Settings {
   isShiftEnabled: boolean;
   orderNotificationEmail: string;
   activeTheme: string;
+  isPaymentEnabled: boolean;
+  officialName: string;
+  officialAddress: string;
+  officialPhone: string;
+  taxOffice: string;
+  taxNumber: string;
 }
 
 export default function AdminSettingsPage() {
@@ -28,7 +34,13 @@ export default function AdminSettingsPage() {
     isInventoryEnabled: true,
     isShiftEnabled: true,
     orderNotificationEmail: '',
-    activeTheme: 'Nordic'
+    activeTheme: 'Nordic',
+    isPaymentEnabled: false,
+    officialName: '',
+    officialAddress: '',
+    officialPhone: '',
+    taxOffice: '',
+    taxNumber: ''
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -267,6 +279,87 @@ export default function AdminSettingsPage() {
                 placeholder="order@business.com"
               />
               <p className="mt-4 text-xs text-slate-500 italic">Müşteri sipariş verdiğinde bu adrese bildirim gönderilir.</p>
+            </div>
+          </section>
+
+          {/* Ödeme & Hukuki Bilgiler */}
+          <section className="bg-slate-900/40 border border-slate-800 rounded-[2.5rem] p-8">
+            <div className="flex items-center justify-between mb-8">
+              <div className="flex items-center gap-3">
+                <FaPowerOff className={settings.isPaymentEnabled ? "text-emerald-500" : "text-slate-600"} />
+                <h2 className="text-xl font-bold">Ödeme & Hukuki Bilgiler</h2>
+              </div>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input 
+                  type="checkbox" 
+                  checked={settings.isPaymentEnabled}
+                  onChange={e => setSettings({ ...settings, isPaymentEnabled: e.target.checked })}
+                  className="sr-only peer" 
+                />
+                <div className="w-14 h-7 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-slate-400 after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-emerald-600 peer-checked:after:bg-white"></div>
+              </label>
+            </div>
+
+            <p className="text-sm text-slate-400 mb-8 border-l-2 border-emerald-500/50 pl-4">
+              Banka Sanal POS onayları için aşağıdaki bilgilerin doğruluğu ve hukuki metinlerin (Mesafeli Satış Sözleşmesi vb.) 
+              son kullanıcıya sunulması zorunludur.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="md:col-span-2">
+                <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Resmi Ticari Ünvan</label>
+                <input 
+                  type="text"
+                  value={settings.officialName}
+                  onChange={e => setSettings({ ...settings, officialName: e.target.value })}
+                  className="w-full bg-slate-950/50 border border-slate-800 rounded-2xl px-5 py-4 focus:border-emerald-500 outline-none transition-all font-medium"
+                  placeholder="ProBrew Kahve Gıda Ltd. Şti."
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Vergi Dairesi</label>
+                <input 
+                  type="text"
+                  value={settings.taxOffice}
+                  onChange={e => setSettings({ ...settings, taxOffice: e.target.value })}
+                  className="w-full bg-slate-950/50 border border-slate-800 rounded-2xl px-5 py-4 focus:border-emerald-500 outline-none transition-all font-medium"
+                  placeholder="Karaköy V.D."
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Vergi Numarası</label>
+                <input 
+                  type="text"
+                  value={settings.taxNumber}
+                  onChange={e => setSettings({ ...settings, taxNumber: e.target.value })}
+                  className="w-full bg-slate-950/50 border border-slate-800 rounded-2xl px-5 py-4 focus:border-emerald-500 outline-none transition-all font-medium font-mono"
+                  placeholder="1234567890"
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Resmi Tebligat Adresi</label>
+                <textarea 
+                  value={settings.officialAddress}
+                  onChange={e => setSettings({ ...settings, officialAddress: e.target.value })}
+                  rows={3}
+                  className="w-full bg-slate-950/50 border border-slate-800 rounded-2xl px-5 py-4 focus:border-emerald-500 outline-none transition-all font-medium resize-none"
+                  placeholder="Karaköy Mah. Rıhtım Cad. No:1 Beyoğlu/İstanbul"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Resmi İletişim Telefonu</label>
+                <input 
+                  type="text"
+                  value={settings.officialPhone}
+                  onChange={e => setSettings({ ...settings, officialPhone: e.target.value })}
+                  className="w-full bg-slate-950/50 border border-slate-800 rounded-2xl px-5 py-4 focus:border-emerald-500 outline-none transition-all font-medium font-mono"
+                  placeholder="+90 212 --- -- --"
+                />
+              </div>
             </div>
           </section>
 

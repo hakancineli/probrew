@@ -12,6 +12,7 @@ export default function MenuClient({ business, categories, table }: any) {
     const [isCheckingOut, setIsCheckingOut] = useState(false);
     const [orderSuccess, setOrderSuccess] = useState(false);
     const [orderNote, setOrderNote] = useState('');
+    const [isMssAccepted, setIsMssAccepted] = useState(false);
     
     // Theme Logic
     const THEME_COLORS: any = {
@@ -73,7 +74,12 @@ export default function MenuClient({ business, categories, table }: any) {
 
     const handleCheckout = async () => {
         if (cart.length === 0) return;
+        if (business.systemSettings?.isPaymentEnabled && !isMssAccepted) {
+            toast.error('Lütfen satış sözleşmesini onaylayın.');
+            return;
+        }
         setIsCheckingOut(true);
+        // ... rest of logic
         try {
             const res = await fetch('/api/orders', {
                 method: 'POST',
@@ -211,6 +217,18 @@ export default function MenuClient({ business, categories, table }: any) {
                 ))}
             </div>
 
+            {/* Legal Footer */}
+            <footer className="max-w-3xl mx-auto px-8 py-12 mb-24 border-t border-slate-100 mt-12 text-center">
+                <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6">
+                    <a href={`/legal/${business.slug}/distance-sales`} className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors">Mesafeli Satış Sözleşmesi</a>
+                    <a href={`/legal/${business.slug}/return-policy`} className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors">İade ve İptal Koşulları</a>
+                    <a href={`/legal/${business.slug}/privacy-policy`} className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors">KVKK ve Gizlilik</a>
+                </div>
+                <p className="text-[10px] font-bold text-slate-300 uppercase tracking-[0.3em]">
+                    © 2026 {business.systemSettings?.officialName || business.name} • powered by probrew
+                </p>
+            </footer>
+
             {/* Cart FAB */}
             {cart.length > 0 && (
                 <button 
@@ -285,6 +303,22 @@ export default function MenuClient({ business, categories, table }: any) {
                                 <span className="text-slate-400 font-black uppercase tracking-widest text-xs">Toplam Tutar</span>
                                 <span className="text-3xl font-black tracking-tighter" style={{ color: themePrimary }}>₺{totalAmount}</span>
                             </div>
+                            {/* Legal Checkbox for Payments */}
+                            <div className="mb-4">
+                                <label className="flex items-start gap-3 cursor-pointer group">
+                                    <input 
+                                        type="checkbox" 
+                                        checked={isMssAccepted}
+                                        onChange={e => setIsMssAccepted(e.target.checked)}
+                                        className="mt-1 w-4 h-4 rounded border-slate-300 text-[var(--primary)] focus:ring-[var(--primary)]/20" 
+                                    />
+                                    <span className="text-[10px] text-slate-500 font-medium leading-tight">
+                                        <a href={`/legal/${business.slug}/distance-sales`} target="_blank" className="underline font-bold text-slate-700">Mesafeli Satış Sözleşmesi</a>'ni ve 
+                                        <a href={`/legal/${business.slug}/return-policy`} target="_blank" className="underline font-bold text-slate-700 ml-1">İptal Koşulları</a>'nı okudum, onaylıyorum.
+                                    </span>
+                                </label>
+                            </div>
+
                             <button 
                                 onClick={handleCheckout}
                                 disabled={isCheckingOut}
@@ -294,7 +328,7 @@ export default function MenuClient({ business, categories, table }: any) {
                                 {isCheckingOut ? (
                                      <div className="w-6 h-6 border-4 border-white/20 border-t-white rounded-full animate-spin" />
                                 ) : (
-                                    <>SİPARİŞİ MASAYA GÖNDER <FaUtensils /></>
+                                    <>SİPARİŞİ TAMAMLA <FaCheckCircle /></>
                                 )}
                             </button>
                         </footer>

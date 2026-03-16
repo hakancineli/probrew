@@ -58,7 +58,13 @@ export async function PUT(request: NextRequest) {
       isInventoryEnabled, 
       isShiftEnabled,
       orderNotificationEmail,
-      activeTheme
+      activeTheme,
+      isPaymentEnabled,
+      officialName,
+      officialAddress,
+      officialPhone,
+      taxOffice,
+      taxNumber
     } = body;
 
     const settings = await prisma.systemSettings.upsert({
@@ -73,7 +79,13 @@ export async function PUT(request: NextRequest) {
         isInventoryEnabled,
         isShiftEnabled,
         orderNotificationEmail,
-        activeTheme
+        activeTheme,
+        isPaymentEnabled,
+        officialName,
+        officialAddress,
+        officialPhone,
+        taxOffice,
+        taxNumber
       },
       create: {
         businessId,
@@ -86,7 +98,13 @@ export async function PUT(request: NextRequest) {
         isInventoryEnabled,
         isShiftEnabled,
         orderNotificationEmail,
-        activeTheme
+        activeTheme,
+        isPaymentEnabled,
+        officialName,
+        officialAddress,
+        officialPhone,
+        taxOffice,
+        taxNumber
       }
     });
 
