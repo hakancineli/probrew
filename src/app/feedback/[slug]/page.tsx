@@ -131,7 +131,7 @@ export default function TenantFeedbackPage({ params }: { params: { slug: string 
                 <div className="text-center mb-10">
                     <div className="w-24 h-24 bg-white rounded-[32px] shadow-2xl mx-auto mb-6 flex items-center justify-center overflow-hidden border-4 border-white ring-1 ring-black/5">
                         {business.systemSettings?.logoUrl || business.logoUrl ? (
-                            <img src={business.systemSettings?.logoUrl || business.logoUrl} alt={business.name} className="w-full h-full object-contain" />
+                            <img src={business.systemSettings?.logoUrl || business.logoUrl} alt={business.name} className="w-full h-full object-cover" />
                         ) : (
                             <span className="text-4xl">☕</span>
                         )}
