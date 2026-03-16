@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { FaFire, FaCheck, FaClock, FaBell, FaBellSlash, FaCashRegister, FaMobileAlt } from 'react-icons/fa';
+import { FaFire, FaCheck, FaClock, FaBell, FaBellSlash, FaCashRegister, FaMobileAlt, FaQrcode } from 'react-icons/fa';
 import { useRealtime } from '@/hooks/useRealtime';
 
 interface Order {
@@ -13,6 +13,7 @@ interface Order {
     notes?: string;
     createdAt: string;
     tableId?: string;
+    source?: string;
     table?: {
         name: string;
     };
@@ -273,7 +274,8 @@ export default function KitchenPage() {
             accentText: 'text-white',
             // Order Type Colors
             posCard: { bg: 'bg-white', border: 'border-orange-500', text: 'text-slate-800', subText: 'text-slate-500', labelBg: 'bg-orange-100', labelText: 'text-orange-700', itemText: 'text-slate-900' },
-            tableCard: { bg: 'bg-white', border: 'border-blue-500', text: 'text-slate-800', subText: 'text-slate-500', labelBg: 'bg-blue-100', labelText: 'text-blue-700', itemText: 'text-slate-900' }
+            tableCard: { bg: 'bg-white', border: 'border-blue-500', text: 'text-slate-800', subText: 'text-slate-500', labelBg: 'bg-blue-100', labelText: 'text-blue-700', itemText: 'text-slate-900' },
+            qrCard: { bg: 'bg-white', border: 'border-emerald-500', text: 'text-slate-800', subText: 'text-slate-500', labelBg: 'bg-emerald-100', labelText: 'text-emerald-700', itemText: 'text-slate-900' }
         },
         Midnight: {
             appBg: 'bg-[#020617]',
@@ -287,7 +289,8 @@ export default function KitchenPage() {
             accentText: 'text-white',
             // Order Type Colors
             posCard: { bg: 'bg-slate-900', border: 'border-orange-600', text: 'text-slate-200', subText: 'text-slate-500', labelBg: 'bg-orange-950/40', labelText: 'text-orange-400', itemText: 'text-white' },
-            tableCard: { bg: 'bg-slate-900', border: 'border-indigo-600', text: 'text-slate-200', subText: 'text-slate-500', labelBg: 'bg-indigo-950/40', labelText: 'text-indigo-400', itemText: 'text-white' }
+            tableCard: { bg: 'bg-slate-900', border: 'border-indigo-600', text: 'text-slate-200', subText: 'text-slate-500', labelBg: 'bg-indigo-950/40', labelText: 'text-indigo-400', itemText: 'text-white' },
+            qrCard: { bg: 'bg-slate-900', border: 'border-emerald-600', text: 'text-slate-200', subText: 'text-slate-500', labelBg: 'bg-emerald-950/40', labelText: 'text-emerald-400', itemText: 'text-white' }
         },
         Bistro: {
             appBg: 'bg-[#E5D9C8]',
@@ -301,7 +304,8 @@ export default function KitchenPage() {
             accentText: 'text-[#EAD8C0]',
             // Order Type Colors
             posCard: { bg: 'bg-[#4E342E]', border: 'border-[#FF8A65]', text: 'text-[#EAD8C0]', subText: 'text-[#A1887F]', labelBg: 'bg-orange-900/30', labelText: 'text-[#FF8A65]', itemText: 'text-white' },
-            tableCard: { bg: 'bg-[#263238]', border: 'border-[#4DB6AC]', text: 'text-[#EAD8C0]', subText: 'text-[#80CBC4]', labelBg: 'bg-teal-900/30', labelText: 'text-[#4DB6AC]', itemText: 'text-white' }
+            tableCard: { bg: 'bg-[#263238]', border: 'border-[#4DB6AC]', text: 'text-[#EAD8C0]', subText: 'text-[#80CBC4]', labelBg: 'bg-teal-900/30', labelText: 'text-[#4DB6AC]', itemText: 'text-white' },
+            qrCard: { bg: 'bg-[#1B5E20]', border: 'border-[#81C784]', text: 'text-[#E8F5E9]', subText: 'text-[#A5D6A7]', labelBg: 'bg-emerald-900/30', labelText: 'text-[#81C784]', itemText: 'text-white' }
         },
         Vibrant: {
             appBg: 'bg-purple-50',
@@ -315,7 +319,23 @@ export default function KitchenPage() {
             accentText: 'text-white',
             // Order Type Colors
             posCard: { bg: 'bg-white', border: 'border-pink-500', text: 'text-slate-900', subText: 'text-slate-500', labelBg: 'bg-pink-50', labelText: 'text-pink-600', itemText: 'text-purple-900' },
-            tableCard: { bg: 'bg-white', border: 'border-purple-500', text: 'text-slate-900', subText: 'text-slate-500', labelBg: 'bg-purple-50', labelText: 'text-purple-600', itemText: 'text-purple-900' }
+            tableCard: { bg: 'bg-white', border: 'border-purple-500', text: 'text-slate-900', subText: 'text-slate-500', labelBg: 'bg-purple-50', labelText: 'text-purple-600', itemText: 'text-purple-900' },
+            qrCard: { bg: 'bg-white', border: 'border-emerald-500', text: 'text-slate-900', subText: 'text-slate-500', labelBg: 'bg-emerald-50', labelText: 'text-emerald-600', itemText: 'text-emerald-900' }
+        },
+        Turkish: {
+            appBg: 'bg-red-50',
+            headerBg: 'bg-red-600',
+            headerText: 'text-white',
+            headerSub: 'text-red-100',
+            cardContainer: 'bg-white',
+            cardBorder: 'border-red-100',
+            textColor: 'text-slate-900',
+            accent: 'bg-red-700',
+            accentText: 'text-white',
+            // Order Type Colors
+            posCard: { bg: 'bg-white', border: 'border-red-500', text: 'text-slate-800', subText: 'text-slate-500', labelBg: 'bg-red-50', labelText: 'text-red-600', itemText: 'text-slate-900' },
+            tableCard: { bg: 'bg-white', border: 'border-slate-800', text: 'text-slate-800', subText: 'text-slate-500', labelBg: 'bg-slate-100', labelText: 'text-slate-700', itemText: 'text-slate-900' },
+            qrCard: { bg: 'bg-white', border: 'border-emerald-500', text: 'text-slate-800', subText: 'text-slate-500', labelBg: 'bg-emerald-50', labelText: 'text-emerald-600', itemText: 'text-slate-900' }
         }
     };
     const themeStyles = THEMES[activeTheme as keyof typeof THEMES] || THEMES.Nordic;
@@ -396,7 +416,11 @@ export default function KitchenPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-start">
                     {orders.map((order) => {
                         const isTable = !!order.tableId;
-                        const cTheme = isTable ? themeStyles.tableCard : themeStyles.posCard;
+                        const isQr = order.customerName?.toLowerCase().includes('qr') || order.customerName?.toLowerCase().includes('müşteri') || order.source === 'WEBSITE';
+                        
+                        let cTheme = themeStyles.posCard;
+                        if (isQr) cTheme = themeStyles.qrCard;
+                        else if (isTable) cTheme = themeStyles.tableCard;
 
                         return (
                             <div
@@ -432,7 +456,11 @@ export default function KitchenPage() {
                                         </div>
                                         
                                         <div className={`flex items-center px-2 py-1 rounded text-[10px] font-black tracking-widest ${cTheme.labelBg} ${cTheme.labelText} border ${cTheme.border}/30`}>
-                                            {isTable ? (
+                                            {isQr ? (
+                                                <>
+                                                    <FaQrcode className="mr-1.5" /> QR SİPARİŞ
+                                                </>
+                                            ) : isTable ? (
                                                 <>
                                                     <FaMobileAlt className="mr-1.5" /> MASA: {order.table?.name || 'Mobil'}
                                                 </>

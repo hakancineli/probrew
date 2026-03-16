@@ -78,6 +78,7 @@ export default function MenuClient({ business, categories, table }: any) {
                     })),
                     totalAmount,
                     status: 'PENDING',
+                    source: 'WEBSITE',
                     paymentMethod: 'CASH' // Changed at register for table service
                 })
             });

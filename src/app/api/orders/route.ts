@@ -198,6 +198,7 @@ export async function POST(request: NextRequest) {
                 status: orderStatus,
                 paymentMethod: method,
                 paymentStatus,
+                source: body.source || 'POS',
                 staffId: staffId || null,
                 tableId: body.tableId || null,
                 payments: {
