@@ -65,6 +65,20 @@ export async function PATCH(
             }
         });
 
+        // Add Audit Log
+        if (subscriptionStatus || trialEndsAt) {
+            await prisma.auditLog.create({
+                data: {
+                    businessId: params.id,
+                    action: `SUPERADMIN_UPDATE_${subscriptionStatus ? 'STATUS' : 'TRIAL'}`,
+                    entity: 'Business',
+                    entityId: params.id,
+                    userEmail: request.headers.get('x-user-email') || 'SuperAdmin',
+                    newData: { subscriptionStatus, trialEndsAt }
+                }
+            });
+        }
+
         return NextResponse.json(updated);
     } catch (error) {
         console.error('Superadmin business update error:', error);
@@ -79,9 +93,23 @@ export async function DELETE(
 ) {
     try {
         const role = request.headers.get('x-user-role');
+        const userEmail = request.headers.get('x-user-email') || 'SuperAdmin';
+        
         if (role !== 'SUPERADMIN') {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
+
+        // Add Audit Log BEFORE deletion because of cascade
+        await prisma.auditLog.create({
+            data: {
+                businessId: params.id,
+                action: 'SUPERADMIN_DELETE_BUSINESS',
+                entity: 'Business',
+                entityId: params.id,
+                userEmail,
+                newData: { info: 'Full tenant deletion' }
+            }
+        });
 
         // Deletion will cascade due to prisma schema (onDelete: Cascade)
         await prisma.business.delete({

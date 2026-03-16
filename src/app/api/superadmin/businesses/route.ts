@@ -19,12 +19,23 @@ export async function GET(request: NextRequest) {
             products: true,
             orders: true,
           }
+        },
+        orders: {
+            where: { isDeleted: false, status: 'COMPLETED' },
+            select: { finalAmount: true }
         }
       },
       orderBy: { createdAt: 'desc' }
     });
 
-    return NextResponse.json(businesses);
+    // Map revenue to each business
+    const businessesWithRevenue = businesses.map(b => {
+        const revenue = b.orders.reduce((sum, o) => sum + (o.finalAmount || 0), 0);
+        const { orders, ...rest } = b; // Don't send full orders array
+        return { ...rest, totalRevenue: revenue };
+    });
+
+    return NextResponse.json(businessesWithRevenue);
   } catch (error) {
     console.error('Superadmin fetch businesses error:', error);
     return NextResponse.json({ error: 'Failed to fetch businesses' }, { status: 500 });

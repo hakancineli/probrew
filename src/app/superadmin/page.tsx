@@ -18,6 +18,7 @@ interface Business {
   };
   trialEndsAt?: string;
   subscriptionEnd?: string;
+  totalRevenue?: number;
 }
 
 export default function SuperAdminDashboard() {
@@ -292,9 +293,9 @@ export default function SuperAdminDashboard() {
               <FaChartBar size={24} />
             </div>
           </div>
-          <p className="text-slate-400 text-sm">Toplam Sipariş (Global)</p>
+          <p className="text-slate-400 text-sm">Global Toplam Ciro</p>
           <h3 className="text-2xl font-bold mt-1">
-            {businesses.reduce((sum, b) => sum + (b._count?.orders || 0), 0)}
+            ₺{globalData?.stats?.totalRevenue?.toLocaleString('tr-TR') || '...'}
           </h3>
         </div>
       </div>
@@ -304,12 +305,13 @@ export default function SuperAdminDashboard() {
         <table className="w-full text-left">
           <thead>
             <tr className="bg-slate-800/80 text-slate-400 text-sm">
-              <th className="px-6 py-4 font-semibold uppercase tracking-wider">İşletme</th>
-              <th className="px-6 py-4 font-semibold uppercase tracking-wider">Durum</th>
-              <th className="px-6 py-4 font-semibold uppercase tracking-wider">İletişim</th>
-              <th className="px-6 py-4 font-semibold uppercase tracking-wider">Metrikler</th>
-              <th className="px-6 py-4 font-semibold uppercase tracking-wider">Kayıt</th>
-              <th className="px-6 py-4"></th>
+                <th className="px-6 py-4 font-semibold uppercase tracking-wider">İşletme</th>
+                <th className="px-6 py-4 font-semibold uppercase tracking-wider text-center">Durum</th>
+                <th className="px-6 py-4 font-semibold uppercase tracking-wider">İletişim</th>
+                <th className="px-6 py-4 font-semibold uppercase tracking-wider">Metrikler</th>
+                <th className="px-6 py-4 font-semibold uppercase tracking-wider">Ciro</th>
+                <th className="px-6 py-4 font-semibold uppercase tracking-wider">Kayıt</th>
+                <th className="px-6 py-4"></th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-700/50 text-slate-200">
@@ -336,19 +338,24 @@ export default function SuperAdminDashboard() {
                   {business.contactEmail}
                 </td>
                 <td className="px-6 py-4">
-                  <div className="flex gap-4 text-xs">
-                    <div className="flex items-center gap-1 text-blue-400" title="Personel">
+                  <div className="flex gap-4 text-xs font-mono">
+                    <div className="flex items-center gap-1 text-slate-400 group-hover:text-blue-400 transition-colors" title="Personel">
                       <FaUsers /> {business._count.baristas}
                     </div>
-                    <div className="flex items-center gap-1 text-emerald-400" title="Ürünler">
+                    <div className="flex items-center gap-1 text-slate-400 group-hover:text-emerald-400 transition-colors" title="Ürünler">
                       <FaCoffee /> {business._count.products}
                     </div>
-                    <div className="flex items-center gap-1 text-purple-400" title="Siparişler">
+                    <div className="flex items-center gap-1 text-slate-400 group-hover:text-purple-400 transition-colors" title="Siparişler">
                       <FaChartBar /> {business._count.orders}
                     </div>
                   </div>
                 </td>
-                <td className="px-6 py-4 text-sm text-slate-500">
+                <td className="px-6 py-4">
+                  <div className="text-sm font-black text-emerald-400 bg-emerald-500/5 px-3 py-1.5 rounded-xl border border-emerald-500/10 inline-block">
+                    ₺{business.totalRevenue?.toLocaleString('tr-TR') || 0}
+                  </div>
+                </td>
+                <td className="px-6 py-4 text-xs text-slate-500 font-medium">
                   {new Date(business.createdAt).toLocaleDateString('tr-TR')}
                 </td>
                 <td className="px-6 py-4 text-right">
@@ -603,7 +610,7 @@ export default function SuperAdminDashboard() {
               </div>
 
               {/* Stats Grid */}
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="bg-slate-950/50 p-4 rounded-2xl border border-slate-800/50 text-center">
                   <div className="text-blue-400 font-black text-xl mb-1">{selectedBusiness._count.baristas}</div>
                   <div className="text-[10px] font-black uppercase tracking-widest text-slate-500">Personel</div>
@@ -615,6 +622,10 @@ export default function SuperAdminDashboard() {
                 <div className="bg-slate-950/50 p-4 rounded-2xl border border-slate-800/50 text-center">
                   <div className="text-purple-400 font-black text-xl mb-1">{selectedBusiness._count.orders}</div>
                   <div className="text-[10px] font-black uppercase tracking-widest text-slate-500">Sipariş</div>
+                </div>
+                <div className="bg-slate-950/50 p-4 rounded-2xl border border-indigo-500/20 text-center">
+                  <div className="text-yellow-400 font-black text-xl mb-1">₺{selectedBusiness.totalRevenue?.toLocaleString('tr-TR') || 0}</div>
+                  <div className="text-[10px] font-black uppercase tracking-widest text-slate-500">Toplam Ciro</div>
                 </div>
               </div>
 
