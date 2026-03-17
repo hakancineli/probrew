@@ -290,7 +290,7 @@ export default function Home() {
                   <FiZap className="font-black" />
                   <span className="font-black text-xs uppercase tracking-widest">Süper Hızlı</span>
                 </div>
-                <p className="text-sm font-bold text-gray-600">Tek tıkla ödeme ve parça parça tahsilat özelliği.</p>
+                <p className="text-sm font-bold text-gray-600">Tek tıkla ödeme ve parça parça tahsilat ile kasa kuyruklarına son verin.</p>
               </div>
 
               <div className="absolute bottom-20 -left-10 bg-white p-6 rounded-3xl shadow-2xl border border-gray-50 max-w-[200px] hidden lg:block">
@@ -298,7 +298,7 @@ export default function Home() {
                   <FiLayout className="font-black" />
                   <span className="font-black text-xs uppercase tracking-widest">Görsel Menü</span>
                 </div>
-                <p className="text-sm font-bold text-gray-600">Ürün fotoğrafları ile hatasız sipariş yönetimi.</p>
+                <p className="text-sm font-bold text-gray-600">Ürün fotoğrafları ile hatasız ve yıldırım hızında sipariş yönetimi.</p>
               </div>
             </motion.div>
           </div>
