@@ -21,6 +21,7 @@ interface Settings {
   officialPhone: string;
   taxOffice: string;
   taxNumber: string;
+  isTableTransferEnabled: boolean;
 }
 
 export default function AdminSettingsPage() {
@@ -40,7 +41,8 @@ export default function AdminSettingsPage() {
     officialAddress: '',
     officialPhone: '',
     taxOffice: '',
-    taxNumber: ''
+    taxNumber: '',
+    isTableTransferEnabled: true
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -244,7 +246,8 @@ export default function AdminSettingsPage() {
                  { label: 'Mutfak Ekranı (KDS)', key: 'isKitchenEnabled', color: 'text-orange-500' },
                  { label: 'Envanter Denetimi', key: 'isInventoryEnabled', color: 'text-emerald-500' },
                  { label: 'Vardiya Yönetimi', key: 'isShiftEnabled', color: 'text-purple-500' },
-                 { label: 'Sadakat Programı (Loyalty)', key: 'loyaltyEnabled', color: 'text-yellow-500' }
+                 { label: 'Sadakat Programı (Loyalty)', key: 'loyaltyEnabled', color: 'text-yellow-500' },
+                 { label: 'Masa Taşıma & Birleştirme', key: 'isTableTransferEnabled', color: 'text-indigo-500' }
                ].map((mod) => (
                   <label key={mod.key} className="flex items-center justify-between p-6 bg-slate-950/50 rounded-3xl border border-slate-800 hover:border-slate-700 transition-all cursor-pointer group">
                     <div className="flex items-center gap-4">

@@ -104,6 +104,7 @@ model SystemSettings {
   isKitchenEnabled      Boolean  @default(true) @map("is_kitchen_enabled")
   isInventoryEnabled    Boolean  @default(true) @map("is_inventory_enabled")
   isShiftEnabled        Boolean  @default(true) @map("is_shift_enabled")
+  isTableTransferEnabled Boolean @default(true) @map("is_table_transfer_enabled")
   
   // Contact
   orderNotificationEmail String? @map("order_notification_email")

@@ -1778,13 +1778,15 @@ export default function POSPage() {
                                     </option>
                                 ))}
                             </select>
-                            <button
-                                onClick={() => setShowTransferModal(true)}
-                                title="Masa Taşıma / Birleştirme"
-                                className={`p-2.5 rounded-xl ${themeStyles.searchBg} border ${themeStyles.border} ${themeStyles.text} hover:bg-slate-100 transition-all shadow-sm`}
-                            >
-                                <span className="text-xl">🔄</span>
-                            </button>
+                            {businessSettings?.isTableTransferEnabled !== false && (
+                                <button
+                                    onClick={() => setShowTransferModal(true)}
+                                    title="Masa Taşıma / Birleştirme"
+                                    className={`p-2.5 rounded-xl ${themeStyles.searchBg} border ${themeStyles.border} ${themeStyles.text} hover:bg-slate-100 transition-all shadow-sm`}
+                                >
+                                    <span className="text-xl">🔄</span>
+                                </button>
+                            )}
                         </div>
                     </div>
 

@@ -20,6 +20,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Check if feature is enabled
+    const settings = await prisma.systemSettings.findUnique({
+      where: { businessId: user.businessId }
+    });
+
+    if (settings && settings.isTableTransferEnabled === false) {
+      return NextResponse.json({ error: 'Masa taşıma özelliği bu işletme için kapalıdır.' }, { status: 403 });
+    }
+
     const { sourceTableId, targetTableId } = await request.json();
 
     if (!sourceTableId || !targetTableId) {

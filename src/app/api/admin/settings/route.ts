@@ -90,7 +90,8 @@ export async function PUT(request: NextRequest) {
       officialAddress,
       officialPhone,
       taxOffice,
-      taxNumber
+      taxNumber,
+      isTableTransferEnabled
     } = body;
 
     const settings = await prisma.systemSettings.upsert({
@@ -111,7 +112,8 @@ export async function PUT(request: NextRequest) {
         officialAddress,
         officialPhone,
         taxOffice,
-        taxNumber
+        taxNumber,
+        isTableTransferEnabled
       },
       create: {
         businessId,
@@ -130,7 +132,8 @@ export async function PUT(request: NextRequest) {
         officialAddress,
         officialPhone,
         taxOffice,
-        taxNumber
+        taxNumber,
+        isTableTransferEnabled
       }
     });
 
