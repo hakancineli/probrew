@@ -349,7 +349,7 @@ export default function Home() {
               </div>
 
               {/* Floating feature tags for KDS */}
-              <div className="absolute top-12 -right-10 bg-white p-6 rounded-3xl shadow-2xl border border-gray-50 max-w-[200px] hidden lg:block z-10">
+              <div className="absolute top-32 -right-10 bg-white p-6 rounded-3xl shadow-2xl border border-gray-50 max-w-[200px] hidden lg:block z-10">
                 <div className="flex items-center space-x-3 text-orange-500 mb-2">
                   <FiZap className="font-black" />
                   <span className="font-black text-xs uppercase tracking-widest">Anlık İletişim</span>
@@ -357,7 +357,7 @@ export default function Home() {
                 <p className="text-sm font-bold text-gray-600">POS'tan girilen siparişler saniyeler içerisinde mutfak ekranına düşer.</p>
               </div>
 
-              <div className="absolute top-52 -right-10 bg-white p-6 rounded-3xl shadow-2xl border border-gray-50 max-w-[200px] hidden lg:block z-10">
+              <div className="absolute top-72 -right-10 bg-white p-6 rounded-3xl shadow-2xl border border-gray-50 max-w-[200px] hidden lg:block z-10">
                 <div className="flex items-center space-x-3 text-orange-500 mb-2">
                   <FiTarget className="font-black" />
                   <span className="font-black text-xs uppercase tracking-widest">Hatasız Teslimat</span>
