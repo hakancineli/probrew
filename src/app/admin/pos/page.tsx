@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaSearch, FaUser, FaTrash, FaCreditCard, FaMoneyBillWave, FaTimes, FaPrint, FaWifi, FaSync, FaClipboardList, FaFire, FaKey } from 'react-icons/fa';
+import { FaSearch, FaUser, FaTrash, FaCreditCard, FaMoneyBillWave, FaTimes, FaPrint, FaWifi, FaSync, FaClipboardList, FaFire, FaKey, FaArrowRight } from 'react-icons/fa';
 import { allMenuItems, categories, MenuItem } from '@/data/menuItems';
 import { proBrewDB } from '@/lib/db';
 import { toast } from 'react-hot-toast';
@@ -196,6 +196,12 @@ export default function POSPage() {
     const [selectedTableId, setSelectedTableId] = useState<string | null>(null);
     const [activeTheme, setActiveTheme] = useState('Nordic');
     const [businessSettings, setBusinessSettings] = useState<any>(null);
+    
+    // Table Transfer State
+    const [showTransferModal, setShowTransferModal] = useState(false);
+    const [transferSourceId, setTransferSourceId] = useState<string | null>(null);
+    const [transferTargetId, setTransferTargetId] = useState<string | null>(null);
+    const [isTransferring, setIsTransferring] = useState(false);
 
     // Monitor Online Status
     useEffect(() => {
@@ -294,11 +300,10 @@ export default function POSPage() {
                     setCurrentUserRole(data.role || 'BARISTA');
                 }
             } catch (error) {
-                console.error('Fetch me error:', error);
+                setCurrentUserRole('BARISTA');
             }
         };
 
-        // Fetch Istanbul Prayer Times (Diyanet Method - 13)
         const fetchPrayerTimes = async () => {
             try {
                 const res = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Istanbul&country=Turkey&method=13');
@@ -311,24 +316,74 @@ export default function POSPage() {
             }
         };
 
-        const fetchTables = async () => {
-            try {
-                const res = await fetch('/api/admin/tables');
-                if (res.ok) {
-                    const data = await res.json();
-                    setAllTables(data.tables || []);
-                }
-            } catch (error) {
-                console.error('Tables fetch error:', error);
-            }
-        };
-
         fetchProducts();
         fetchStaff();
         fetchMe();
         fetchPrayerTimes();
-        fetchTables();
+    }, [fetchProducts]);
+
+    const fetchTables = useCallback(async () => {
+        try {
+            const res = await fetch('/api/admin/tables');
+            if (res.ok) {
+                const data = await res.json();
+                setAllTables(data.tables || []);
+            }
+        } catch (error) {
+            console.error('Tables fetch error:', error);
+        }
     }, []);
+
+    useEffect(() => {
+        fetchTables();
+    }, [fetchTables]);
+
+    const handleTransferTable = async () => {
+        if (!transferSourceId || !transferTargetId) {
+            toast.error('Lütfen kaynak ve hedef masayı seçin.');
+            return;
+        }
+
+        if (transferSourceId === transferTargetId) {
+            toast.error('Aynı masaya transfer yapılamaz.');
+            return;
+        }
+
+        setIsTransferring(true);
+        const loading = toast.loading('Masalar aktarılıyor...');
+        try {
+            const res = await fetch('/api/admin/tables/transfer', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    sourceTableId: transferSourceId,
+                    targetTableId: transferTargetId
+                })
+            });
+
+            if (res.ok) {
+                toast.success('Masalar başarıyla aktarıldı.');
+                setShowTransferModal(false);
+                
+                // If the source table was selected, switch selection to the target table
+                if (selectedTableId === transferSourceId) {
+                    setSelectedTableId(transferTargetId);
+                }
+
+                setTransferSourceId(null);
+                setTransferTargetId(null);
+                fetchTables(); // Refresh table statuses
+            } else {
+                const err = await res.json();
+                toast.error(err.error || 'Aktarım sırasında bir hata oluştu.');
+            }
+        } catch (error) {
+            toast.error('Bağlantı hatası.');
+        } finally {
+            toast.dismiss(loading);
+            setIsTransferring(false);
+        }
+    };
 
     // Check for Ezan Alert - every minute
     useEffect(() => {
@@ -1400,6 +1455,106 @@ export default function POSPage() {
                         </div>
                     </div>
                 )}
+                {/* Table Transfer Modal */}
+                {showTransferModal && (
+                    <div className="absolute inset-0 bg-black/60 z-[70] flex items-center justify-center backdrop-blur-sm animate-fade-in">
+                        <div className={`${themeStyles.cardBg} p-8 rounded-3xl shadow-2xl max-w-lg w-full relative border ${themeStyles.border}`}>
+                            <button
+                                onClick={() => {
+                                    setShowTransferModal(false);
+                                    setTransferSourceId(null);
+                                    setTransferTargetId(null);
+                                }}
+                                className={`absolute top-6 right-6 ${themeStyles.subText} hover:text-red-500`}
+                            >
+                                <FaTimes size={20} />
+                            </button>
+
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className={`p-3 rounded-2xl ${themeStyles.accent} text-white`}>
+                                    <span className="text-2xl">🔄</span>
+                                </div>
+                                <div>
+                                    <h3 className={`text-2xl font-black ${themeStyles.text}`}>Masa Taşıma & Birleştirme</h3>
+                                    <p className={`text-sm ${themeStyles.subText}`}>Siparişleri başka bir masaya aktarın.</p>
+                                </div>
+                            </div>
+
+                            <div className="space-y-6">
+                                {/* Source Table */}
+                                <div>
+                                    <label className={`block text-xs font-black ${themeStyles.subText} uppercase tracking-widest mb-2`}>KAYNAK MASA (Nereden?)</label>
+                                    <div className="grid grid-cols-3 gap-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+                                        {allTables.filter(t => t.status === 'OCCUPIED').map(table => (
+                                            <button
+                                                key={table.id}
+                                                onClick={() => setTransferSourceId(table.id)}
+                                                className={`p-3 rounded-xl border-2 transition-all font-bold text-sm ${
+                                                    transferSourceId === table.id 
+                                                    ? 'border-brand-primary bg-brand-primary/10 text-brand-primary shadow-sm' 
+                                                    : `${themeStyles.border} ${themeStyles.text} hover:border-slate-300 bg-slate-50`
+                                                }`}
+                                            >
+                                                {table.name}
+                                                <div className="text-[10px] opacity-60">Dolu</div>
+                                            </button>
+                                        ))}
+                                        {allTables.filter(t => t.status === 'OCCUPIED').length === 0 && (
+                                            <div className={`col-span-3 py-8 text-center border-2 border-dashed ${themeStyles.border} rounded-2xl text-xs font-bold ${themeStyles.subText}`}>
+                                                Aktif siparişi olan masa bulunamadı.
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className="flex justify-center py-2 animate-bounce">
+                                    <span className="text-2xl opacity-40">⬇️</span>
+                                </div>
+
+                                {/* Target Table */}
+                                <div>
+                                    <label className={`block text-xs font-black ${themeStyles.subText} uppercase tracking-widest mb-2`}>HEDEF MASA (Nereye?)</label>
+                                    <div className="grid grid-cols-3 gap-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+                                        {allTables.map(table => (
+                                            <button
+                                                key={table.id}
+                                                onClick={() => setTransferTargetId(table.id)}
+                                                disabled={table.id === transferSourceId}
+                                                className={`p-3 rounded-xl border-2 transition-all font-bold text-sm ${
+                                                    transferTargetId === table.id 
+                                                    ? 'border-emerald-500 bg-emerald-50 text-emerald-700 shadow-sm' 
+                                                    : table.id === transferSourceId
+                                                    ? 'opacity-30 cursor-not-allowed border-gray-100 bg-gray-50'
+                                                    : `${themeStyles.border} ${themeStyles.text} hover:border-slate-300 bg-slate-50`
+                                                }`}
+                                            >
+                                                {table.name}
+                                                <div className="text-[10px] opacity-60">
+                                                    {table.status === 'OCCUPIED' ? 'Dolu (Birleştir)' : 'Boş'}
+                                                </div>
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <button
+                                    onClick={handleTransferTable}
+                                    disabled={!transferSourceId || !transferTargetId || isTransferring}
+                                    className={`w-full py-4 rounded-2xl font-black text-white shadow-xl transition-all flex items-center justify-center gap-3 disabled:opacity-50 ${
+                                        isTransferring ? 'bg-slate-400' : 'bg-brand-dark hover:scale-[1.02] active:scale-95'
+                                    }`}
+                                >
+                                    {isTransferring ? 'AKTARILIYOR...' : 'AKTARIMI TAMAMLA'}
+                                    {!isTransferring && <FaArrowRight />}
+                                </button>
+                                
+                                <p className={`text-[10px] text-center font-bold ${themeStyles.subText} uppercase tracking-tighter`}>
+                                    NOT: Bu işlem kaynak masadaki tüm aktif siparişleri hedef masaya taşır.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 {/* LEFT: Product Grid */}
                 <div className="flex-1 md:flex-1 h-[55vh] md:h-full flex flex-col overflow-hidden">
@@ -1614,15 +1769,22 @@ export default function POSPage() {
                             <select
                                 value={selectedTableId || ''}
                                 onChange={(e) => setSelectedTableId(e.target.value || null)}
-                                className={`${themeStyles.inputBg} border ${themeStyles.border} rounded-xl px-4 py-2 text-sm font-bold ${themeStyles.text} focus:ring-2 focus:ring-indigo-500 outline-none transition-all cursor-pointer`}
+                                className={`${themeStyles.inputBg} border ${themeStyles.border} rounded-xl px-4 py-2 text-sm font-bold ${themeStyles.text} focus:ring-2 focus:ring-indigo-500 outline-none transition-all cursor-pointer flex-1`}
                             >
                                 <option value="">Masa Seçilmedi</option>
                                 {allTables.map(table => (
                                     <option key={table.id} value={table.id}>
-                                        {table.name} ({table.capacity} Kişilik)
+                                        {table.name} ({table.capacity} Kişilik) {table.status === 'OCCUPIED' ? '🔴' : '🟢'}
                                     </option>
                                 ))}
                             </select>
+                            <button
+                                onClick={() => setShowTransferModal(true)}
+                                title="Masa Taşıma / Birleştirme"
+                                className={`p-2.5 rounded-xl ${themeStyles.searchBg} border ${themeStyles.border} ${themeStyles.text} hover:bg-slate-100 transition-all shadow-sm`}
+                            >
+                                <span className="text-xl">🔄</span>
+                            </button>
                         </div>
                     </div>
 
