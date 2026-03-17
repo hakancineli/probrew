@@ -289,6 +289,86 @@ export default function Home() {
           </div>
         </section>
 
+        {/* --- KDS UI SHOWCASE --- */}
+        <section className="py-24 bg-[#FAF9F6] relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              {...fadeInUp}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-black text-brand-dark mb-4 tracking-tighter">
+                 Mutfak ile <span className="text-orange-500">Kesintisiz</span> İletişim.
+              </h2>
+              <p className="text-lg text-gray-400 font-medium max-w-2xl mx-auto">
+                 Geleneksel fiş yazıcılarının karmaşasından kurtulun. Hızlı, şeffaf ve ölçülebilir bir mutfak yönetimine geçin.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: "easeOut" as const }}
+              className="relative max-w-6xl mx-auto"
+            >
+              <div className="bg-gray-900 rounded-[2rem] p-4 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[8px] border-gray-800">
+                <div className="bg-white rounded-[1rem] overflow-hidden group">
+                  <Swiper
+                    modules={[Autoplay, Pagination, EffectFade]}
+                    effect="fade"
+                    spaceBetween={0}
+                    slidesPerView={1}
+                    autoplay={{ delay: 3500, disableOnInteraction: false }}
+                    pagination={{ clickable: true }}
+                    loop={true}
+                    className="w-full aspect-[16/9]"
+                  >
+                    {[
+                      { src: '/images/showcase/kds-steps/step-1.png', alt: 'Mutfak Ekranı Canlı Sipariş Takibi' },
+                      { src: '/images/showcase/kds-steps/step-2.png', alt: 'Gecikme Uyarıları (Zaman Aşımı Bildirimi)' },
+                      { src: '/images/showcase/kds-steps/step-3.png', alt: 'Personel Hazırlık Başlangıç Onayı' },
+                      { src: '/images/showcase/kds-steps/step-4.png', alt: 'Sipariş Hazırlanıyor Durumu' },
+                      { src: '/images/showcase/kds-steps/step-5.png', alt: 'Sipariş Hazır ve Teslimat Onayı' }
+                    ].map((step, idx) => (
+                      <SwiperSlide key={idx}>
+                        <div className="relative w-full h-full flex items-center justify-center bg-gray-50">
+                          <img
+                            src={step.src}
+                            alt={step.alt}
+                            className="w-full h-full object-contain"
+                          />
+                          <div className="absolute bottom-10 left-10 p-4 bg-white/90 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span className="text-xs font-black text-orange-500 uppercase tracking-widest">{idx + 1}. ADIM</span>
+                            <p className="text-sm font-bold text-slate-900">{step.alt}</p>
+                          </div>
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+              </div>
+
+              {/* Floating feature tags for KDS */}
+              <div className="absolute -top-10 -right-10 bg-white p-6 rounded-3xl shadow-2xl border border-gray-50 max-w-[200px] hidden lg:block">
+                <div className="flex items-center space-x-3 text-orange-500 mb-2">
+                  <FiZap className="font-black" />
+                  <span className="font-black text-xs uppercase tracking-widest">Anlık İletişim</span>
+                </div>
+                <p className="text-sm font-bold text-gray-600">POS'tan girilen siparişler saniyeler içerisinde mutfak ekranına düşer.</p>
+              </div>
+
+              <div className="absolute bottom-20 -left-10 bg-white p-6 rounded-3xl shadow-2xl border border-gray-50 max-w-[200px] hidden lg:block">
+                <div className="flex items-center space-x-3 text-orange-500 mb-2">
+                  <FiTarget className="font-black" />
+                  <span className="font-black text-xs uppercase tracking-widest">Hatasız Teslimat</span>
+                </div>
+                <p className="text-sm font-bold text-gray-600">Hatalı ürün üretimini sonlandırın, performans raporlamalarını takip edin.</p>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+
         {/* --- DYNAMIC ECOSYSTEM SHOWCASE --- */}
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
