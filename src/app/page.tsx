@@ -85,6 +85,13 @@ export default function Home() {
       desc: 'Siparişler masadan mutfağa, mutfaktan kasaya otomatik akar. İnsan hatasını sıfırlayın, verimliliği artırın.',
       img: '/images/showcase/placeholder-flow.png',
       color: 'bg-indigo-700'
+    },
+    {
+      title: 'Hızlı Masa Taşıma & Birleştirme',
+      tag: 'ESNEKLİK',
+      desc: 'Müşterileriniz yer değiştirdiğinde tek tıkla tüm hesabı yeni masaya aktarın veya masaları birleştirin. Karmaşıklığa son verin.',
+      img: '/images/showcase/placeholder-transfer.png',
+      color: 'bg-rose-500'
     }
   ];
 
