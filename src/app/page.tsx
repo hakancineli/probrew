@@ -284,22 +284,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Floating feature tags */}
-              <div className="absolute -top-10 -right-10 bg-white p-6 rounded-3xl shadow-2xl border border-gray-50 max-w-[200px] hidden lg:block">
-                <div className="flex items-center space-x-3 text-brand-primary mb-2">
-                  <FiZap className="font-black" />
-                  <span className="font-black text-xs uppercase tracking-widest">Süper Hızlı</span>
-                </div>
-                <p className="text-sm font-bold text-gray-600">Tek tıkla ödeme ve parça parça tahsilat ile kasa kuyruklarına son verin.</p>
-              </div>
 
-              <div className="absolute bottom-20 -left-10 bg-white p-6 rounded-3xl shadow-2xl border border-gray-50 max-w-[200px] hidden lg:block">
-                <div className="flex items-center space-x-3 text-brand-primary mb-2">
-                  <FiLayout className="font-black" />
-                  <span className="font-black text-xs uppercase tracking-widest">Görsel Menü</span>
-                </div>
-                <p className="text-sm font-bold text-gray-600">Ürün fotoğrafları ile hatasız ve yıldırım hızında sipariş yönetimi.</p>
-              </div>
             </motion.div>
           </div>
         </section>
