@@ -360,7 +360,7 @@ export default function Home() {
                       autoplay={{ delay: 6000, disableOnInteraction: false }}
                       pagination={{ clickable: true }}
                       loop={true}
-                      className="w-full aspect-[16/10]"
+                      className="w-full aspect-[16/9]"
                     >
                       <SwiperSlide>
                         <div className="relative w-full h-full bg-black">
@@ -370,7 +370,7 @@ export default function Home() {
                             loop
                             muted
                             playsInline
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-contain"
                           />
                           <div className="absolute top-6 left-6 flex items-center gap-2 px-3 py-1 bg-black/50 backdrop-blur-md rounded-full text-[10px] font-bold text-white uppercase tracking-widest">
                             <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
