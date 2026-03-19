@@ -351,19 +351,47 @@ export default function Home() {
                 className="lg:col-span-7 relative"
               >
                 <div className="bg-gray-900 rounded-[2rem] p-1 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[4px] md:border-[8px] border-gray-800">
-                  <div className="bg-black rounded-[1rem] overflow-hidden relative">
-                   <video
-                    src="/videos/showcase/customer-display.mp4"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-full object-contain aspect-[16/10]"
-                   />
-                   <div className="absolute top-6 left-6 flex items-center gap-2 px-3 py-1 bg-black/50 backdrop-blur-md rounded-full text-[10px] font-bold text-white uppercase tracking-widest">
-                     <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                     Canlı Deneyim
-                   </div>
+                  <div className="bg-black rounded-[1rem] overflow-hidden relative group">
+                    <Swiper
+                      modules={[Autoplay, Pagination, EffectFade]}
+                      effect="fade"
+                      spaceBetween={0}
+                      slidesPerView={1}
+                      autoplay={{ delay: 6000, disableOnInteraction: false }}
+                      pagination={{ clickable: true }}
+                      loop={true}
+                      className="w-full aspect-[16/10]"
+                    >
+                      <SwiperSlide>
+                        <div className="relative w-full h-full bg-black">
+                          <video
+                            src="/videos/showcase/customer-display.mp4"
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="w-full h-full object-contain"
+                          />
+                          <div className="absolute top-6 left-6 flex items-center gap-2 px-3 py-1 bg-black/50 backdrop-blur-md rounded-full text-[10px] font-bold text-white uppercase tracking-widest">
+                            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                            Canlı Deneyim
+                          </div>
+                        </div>
+                      </SwiperSlide>
+                      <SwiperSlide>
+                        <div className="relative w-full h-full bg-gray-50 flex items-center justify-center">
+                          <img
+                            src="/images/showcase/customer-display/step-1.png"
+                            alt="Şeffaf Ödeme Süreci - Müşteri Sepet Görünümü"
+                            className="w-full h-full object-contain"
+                          />
+                          <div className="absolute bottom-10 left-10 p-4 bg-white/90 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span className="text-xs font-black text-indigo-600 uppercase tracking-widest">ŞEFFAF ÖDEME</span>
+                            <p className="text-sm font-bold text-slate-900">Müşteriler sepeti anlık takip eder</p>
+                          </div>
+                        </div>
+                      </SwiperSlide>
+                    </Swiper>
                   </div>
                 </div>
 
