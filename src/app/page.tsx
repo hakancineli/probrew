@@ -536,7 +536,7 @@ export default function Home() {
                  Adil ve Ölçülebilir <span className="text-rose-600">Performans</span>.
               </h2>
               <p className="text-lg text-gray-400 font-medium max-w-2xl mx-auto">
-                 Hangi personeliniz daha çok satış yapıyor? Mutfak ekibiniz ne kadar hızlı? Ekibinizi verilerle yönetin.
+                 Hangi personeliniz daha çok satış yapıyor? Hangi ürünleri öneriyor? Ekibinizi verilerle yönetin ve ödüllendirin.
               </p>
             </motion.div>
 
@@ -561,8 +561,7 @@ export default function Home() {
                   >
                     {[
                       { src: '/images/showcase/staff-steps/step-1.png', alt: 'Personel Yetkilendirme ve Kasa Seçimi' },
-                      { src: '/images/showcase/staff-steps/step-2.png', alt: 'Personel Satış ve Hasılat Analizi' },
-                      { src: '/images/showcase/staff-steps/step-3.png', alt: 'Mutfak Ekibi Performans ve Hız Analizi' }
+                      { src: '/images/showcase/staff-steps/step-consumption.png', alt: 'Detaylı Personel Satış ve Hasılat Analizi' }
                     ].map((step, idx) => (
                       <SwiperSlide key={idx}>
                         <div className="relative w-full h-full flex items-center justify-center bg-gray-50">
@@ -602,8 +601,58 @@ export default function Home() {
           </div>
         </section>
 
-        {/* --- QR MENU & ORDERING SHOWCASE --- */}
+        {/* --- CONSUMPTION & LOSS PREVENTION SHOWCASE --- */}
         <section className="md:py-24 pt-32 pb-24 bg-[#FAF9F6] relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              {...fadeInUp}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-black text-brand-dark mb-4 tracking-tighter">
+                 Personel Tüketimi ve <span className="text-indigo-600">Kayıp Önleme</span>.
+              </h2>
+              <p className="text-lg text-gray-400 font-medium max-w-2xl mx-auto">
+                 İşletme içi tüketimi ve ikramları kayıt altına alın. Stok kayıplarını minimuma indirerek kârlılığınızı koruyun.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: "easeOut" as const }}
+              className="relative max-w-6xl mx-auto"
+            >
+              <div className="bg-gray-900 rounded-[2rem] p-1 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[4px] md:border-[8px] border-gray-800">
+                <div className="bg-white rounded-[1rem] overflow-hidden group">
+                  <div className="relative w-full aspect-[16/9] flex items-center justify-center bg-gray-50">
+                    <img
+                      src="/images/showcase/kitchen/step-1.png"
+                      alt="Personel Tüketim Kaydı Ekranı"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute bottom-10 left-10 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-100 transition-opacity duration-300">
+                      <span className="text-xs font-black text-indigo-600 uppercase tracking-widest block mb-1">DİJİTAL KAYIT</span>
+                      <p className="text-sm font-bold text-slate-900 leading-tight">Tek dokunuşla personel tüketimi girişi.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating tags for Consumption */}
+              <div className="absolute top-12 -left-10 bg-white p-6 rounded-3xl shadow-2xl border border-indigo-50 max-w-[220px] hidden lg:block z-10">
+                <div className="flex items-center space-x-3 text-indigo-600 mb-2">
+                  <FiShoppingBag className="font-black" />
+                  <span className="font-black text-xs uppercase tracking-widest">Kontrol Sizde</span>
+                </div>
+                <p className="text-sm font-bold text-slate-700">Tüm personel tüketimleri anında stoktan düşer ve raporlanır.</p>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* --- QR MENU & ORDERING SHOWCASE --- */}
+        <section className="md:py-24 pt-32 pb-24 bg-white relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               {...fadeInUp}
@@ -682,7 +731,7 @@ export default function Home() {
         </section>
 
         {/* --- WAITER CALL SHOWCASE --- */}
-        <section className="md:py-24 pt-32 pb-24 bg-white relative overflow-hidden">
+        <section className="md:py-24 pt-32 pb-24 bg-[#FAF9F6] relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               {...fadeInUp}
@@ -757,7 +806,7 @@ export default function Home() {
         </section>
 
         {/* --- FEEDBACK SHOWCASE --- */}
-        <section className="md:py-24 pt-32 pb-24 bg-[#FAF9F6] relative overflow-hidden">
+        <section className="md:py-24 pt-32 pb-24 bg-white relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               {...fadeInUp}
@@ -835,7 +884,7 @@ export default function Home() {
         </section>
 
         {/* --- DYNAMIC ECOSYSTEM SHOWCASE --- */}
-        <section className="py-24 bg-white">
+        <section className="py-24 bg-[#FAF9F6]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div {...fadeInUp} className="text-center mb-20">
               <h2 className="text-4xl md:text-6xl font-black text-brand-dark mb-6 tracking-tighter">
@@ -852,7 +901,7 @@ export default function Home() {
                   key={idx}
                   {...fadeInUp}
                   whileHover={{ y: -10 }}
-                  className="bg-[#FAF9F6] rounded-[2.5rem] overflow-hidden border border-gray-50 flex flex-col group"
+                  className="bg-white rounded-[2.5rem] overflow-hidden border border-gray-50 flex flex-col group"
                 >
                   <div className="relative h-64 overflow-hidden">
                     <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
