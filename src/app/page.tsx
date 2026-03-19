@@ -438,11 +438,10 @@ export default function Home() {
                     className="w-full aspect-[1024/536]"
                   >
                     {[
-                      { src: '/images/showcase/kds-steps/step-1.png', alt: 'Mutfak Ekranı Canlı Sipariş Takibi' },
-                      { src: '/images/showcase/kds-steps/step-2.png', alt: 'Gecikme Uyarıları (Zaman Aşımı Bildirimi)' },
-                      { src: '/images/showcase/kds-steps/step-3.png', alt: 'Personel Hazırlık Başlangıç Onayı' },
-                      { src: '/images/showcase/kds-steps/step-4.png', alt: 'Sipariş Hazırlanıyor Durumu' },
-                      { src: '/images/showcase/kds-steps/step-5.png', alt: 'Sipariş Hazır ve Teslimat Onayı' }
+                      { src: '/images/showcase/kds-steps/new-step-1.png', alt: 'Mutfak Ekranı Canlı Sipariş Takibi' },
+                      { src: '/images/showcase/kds-steps/new-step-4.png', alt: 'Personel Hazırlık Başlangıç Onayı' },
+                      { src: '/images/showcase/kds-steps/new-step-2.png', alt: 'Sipariş Hazırlanıyor Durumu' },
+                      { src: '/images/showcase/kds-steps/new-step-3.png', alt: 'Sipariş Hazır Onayı (Yeşil Buton)' }
                     ].map((step, idx) => (
                       <SwiperSlide key={idx}>
                         <div className="relative w-full h-full bg-[#f8eadd]">
