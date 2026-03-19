@@ -624,7 +624,7 @@ export default function Home() {
               transition={{ duration: 1, ease: "easeOut" as const }}
               className="relative max-w-[340px] mx-auto"
             >
-              <div className="bg-gray-900 rounded-[3rem] p-3 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[12px] border-gray-800">
+              <div className="bg-gray-900 rounded-[2.5rem] p-2 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[6px] border-gray-800">
                 <div className="bg-white rounded-[2rem] overflow-hidden group">
                   <Swiper
                     modules={[Autoplay, Pagination, EffectFade]}
@@ -634,7 +634,7 @@ export default function Home() {
                     autoplay={{ delay: 3500, disableOnInteraction: false }}
                     pagination={{ clickable: true }}
                     loop={true}
-                    className="w-full aspect-[430/932]"
+                    className="w-full aspect-[420/924]"
                   >
                     {[
                       { src: '/images/showcase/qr-steps/step-1.png', alt: 'Göz Alıcı Dijital Menü Girişi' },
