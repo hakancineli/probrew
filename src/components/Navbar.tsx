@@ -42,18 +42,15 @@ const Navbar = () => {
       >
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-3 group">
-          <svg className="w-11 h-11 group-hover:scale-110 transition-transform duration-300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100" height="100" rx="24" fill="#0a101d"/>
-            <path d="M35 30V70" stroke="#10B981" strokeWidth="12" strokeLinecap="round"/>
-            <path d="M35 30H55C66.0457 30 75 38.9543 75 50C75 61.0457 66.0457 70 55 70H35" stroke="#ffffff" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round"/>
-            <circle cx="50" cy="50" r="6" fill="#10B981"/>
-            <path d="M50 50L68 50" stroke="#10B981" strokeWidth="4" strokeLinecap="round"/>
-            <circle cx="70" cy="50" r="3" fill="#10B981"/>
-            <path d="M50 50L45 42" stroke="#10B981" strokeWidth="4" strokeLinecap="round"/>
-            <circle cx="43" cy="40" r="3" fill="#10B981"/>
-          </svg>
-          <span className="text-2xl font-black text-brand-dark tracking-tighter">
-            PRO<span className="text-emerald-500">BREW</span>
+          <div className="relative w-10 h-10 transition-transform duration-300 group-hover:scale-110">
+            <img 
+              src="/images/logo/probrew-logo.png" 
+              alt="ProBrew POS" 
+              className="w-full h-full object-contain"
+            />
+          </div>
+          <span className="text-2xl font-black text-brand-dark tracking-tighter uppercase">
+            PROBREW <span className="text-emerald-500 font-extrabold">POS</span>
           </span>
         </Link>
 
