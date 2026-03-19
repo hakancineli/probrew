@@ -634,7 +634,7 @@ export default function Home() {
                     autoplay={{ delay: 3500, disableOnInteraction: false }}
                     pagination={{ clickable: true }}
                     loop={true}
-                    className="w-full aspect-[9/19.5]"
+                    className="w-full aspect-[9/16]"
                   >
                     {[
                       { src: '/images/showcase/qr-steps/step-1.png', alt: 'Göz Alıcı Dijital Menü Girişi' },
@@ -650,7 +650,7 @@ export default function Home() {
                           <img
                             src={step.src}
                             alt={step.alt}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-contain"
                           />
                           <div className="absolute bottom-10 left-4 right-4 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <span className="text-xs font-black text-amber-500 uppercase tracking-widest block mb-1">{idx + 1}. ADIM</span>
