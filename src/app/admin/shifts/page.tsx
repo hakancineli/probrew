@@ -44,7 +44,7 @@ export default function ShiftsPage() {
       const res = await fetch('/api/admin/staff'); // Just using an existing one to get business info indirectly if needed
       // Actually let's just assume "Ana Kasa" exists from our init script
       setRegisters([{ id: 'default', name: 'Ana Kasa' }]); // Placeholder until we have a real list
-      setSelectedRegisterId('default'); 
+      setSelectedRegisterId('default');
     } catch (error) {
       toast.error('Kasalar yüklenemedi.');
     }
@@ -67,7 +67,7 @@ export default function ShiftsPage() {
 
   const handleOpenShift = async () => {
     if (!openingBalance) return toast.error('Açılış bakiyesi girmelisiniz.');
-    
+
     setLoading(true);
     try {
       const res = await fetch('/api/admin/shifts', {
@@ -169,7 +169,7 @@ export default function ShiftsPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-slate-500 mb-2 uppercase tracking-wider">Kasadaki Toplam Nakit (₺)</label>
-                    <input 
+                    <input
                       type="number"
                       value={actualCash}
                       onChange={e => setActualCash(e.target.value)}
@@ -179,7 +179,7 @@ export default function ShiftsPage() {
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-slate-500 mb-2 uppercase tracking-wider">Kapanış Notları</label>
-                    <textarea 
+                    <textarea
                       value={closingNotes}
                       onChange={e => setClosingNotes(e.target.value)}
                       className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 focus:border-red-500 outline-none transition-all text-sm h-[52px] resize-none"
@@ -187,7 +187,7 @@ export default function ShiftsPage() {
                     />
                   </div>
                 </div>
-                <button 
+                <button
                   onClick={handleCloseShift}
                   className="w-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 active:scale-95 text-white font-black py-4 rounded-2xl transition-all shadow-lg shadow-red-900/20 flex items-center justify-center gap-2"
                 >
@@ -198,23 +198,23 @@ export default function ShiftsPage() {
 
             {/* Side Tools */}
             <div className="space-y-6">
-               <div className="bg-slate-800/40 p-6 rounded-3xl border border-slate-700/50">
-                  <h3 className="font-bold mb-4 flex items-center gap-2">
-                    <FaExchangeAlt className="text-blue-400" /> Hızlı İşlemler
-                  </h3>
-                  <div className="space-y-3">
-                    <button className="w-full bg-slate-700/30 hover:bg-slate-700/50 p-4 rounded-xl text-left text-sm font-medium transition-all flex justify-between items-center group">
-                      Para Giriş/Çıkış <FaCashRegister className="opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </button>
-                    <button className="w-full bg-slate-700/30 hover:bg-slate-700/50 p-4 rounded-xl text-left text-sm font-medium transition-all flex justify-between items-center group">
-                      Ara Rapor Yazdır <FaPrint className="opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </button>
-                  </div>
-               </div>
-               <div className="bg-blue-600/5 p-6 rounded-3xl border border-blue-500/20 text-xs text-blue-300 leading-relaxed">
-                 <FaInfoCircle className="inline mr-2" />
-                 Shift (Vardiya) kapatıldığında kasa bakiyesi otomatik olarak devredilir ve manager'a anlık bildirim gider.
-               </div>
+              <div className="bg-slate-800/40 p-6 rounded-3xl border border-slate-700/50">
+                <h3 className="font-bold mb-4 flex items-center gap-2">
+                  <FaExchangeAlt className="text-blue-400" /> Hızlı İşlemler
+                </h3>
+                <div className="space-y-3">
+                  <button className="w-full bg-slate-700/30 hover:bg-slate-700/50 p-4 rounded-xl text-left text-sm font-medium transition-all flex justify-between items-center group">
+                    Para Giriş/Çıkış <FaCashRegister className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </button>
+                  <button className="w-full bg-slate-700/30 hover:bg-slate-700/50 p-4 rounded-xl text-left text-sm font-medium transition-all flex justify-between items-center group">
+                    Ara Rapor Yazdır <FaPrint className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </button>
+                </div>
+              </div>
+              <div className="bg-blue-600/5 p-6 rounded-3xl border border-blue-500/20 text-xs text-blue-300 leading-relaxed">
+                <FaInfoCircle className="inline mr-2" />
+                Shift (Vardiya) kapatıldığında kasa bakiyesi otomatik olarak devredilir ve manager'a anlık bildirim gider.
+              </div>
             </div>
           </div>
         ) : (
@@ -228,17 +228,17 @@ export default function ShiftsPage() {
             </p>
 
             <div className="text-left mb-8">
-               <label className="block text-xs font-black text-slate-500 mb-3 uppercase tracking-widest px-2">Açılış Bakiyesi (₺)</label>
-               <input 
+              <label className="block text-xs font-black text-slate-500 mb-3 uppercase tracking-widest px-2">Açılış Bakiyesi (₺)</label>
+              <input
                 type="number"
                 value={openingBalance}
                 onChange={e => setOpeningBalance(e.target.value)}
                 className="w-full bg-slate-900 border-2 border-slate-700 rounded-3xl px-8 py-5 text-4xl font-black text-white focus:border-emerald-500 outline-none transition-all placeholder:text-slate-800"
                 placeholder="0.00"
-               />
+              />
             </div>
 
-            <button 
+            <button
               onClick={handleOpenShift}
               disabled={loading}
               className="w-full bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-black py-6 rounded-3xl transition-all shadow-xl shadow-emerald-500/20 text-xl tracking-tight"
