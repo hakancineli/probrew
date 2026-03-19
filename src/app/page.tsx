@@ -622,10 +622,10 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1, ease: "easeOut" as const }}
-              className="relative max-w-6xl mx-auto"
+              className="relative max-w-[380px] mx-auto"
             >
-              <div className="bg-gray-900 rounded-[2rem] p-4 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[8px] border-gray-800">
-                <div className="bg-white rounded-[1rem] overflow-hidden group">
+              <div className="bg-gray-900 rounded-[3rem] p-3 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[12px] border-gray-800">
+                <div className="bg-white rounded-[2rem] overflow-hidden group">
                   <Swiper
                     modules={[Autoplay, Pagination, EffectFade]}
                     effect="fade"
@@ -634,14 +634,16 @@ export default function Home() {
                     autoplay={{ delay: 3500, disableOnInteraction: false }}
                     pagination={{ clickable: true }}
                     loop={true}
-                    className="w-full aspect-[16/9]"
+                    className="w-full aspect-[9/19.5]"
                   >
                     {[
                       { src: '/images/showcase/qr-steps/step-1.png', alt: 'Göz Alıcı Dijital Menü Girişi' },
-                      { src: '/images/showcase/qr-steps/step-2.png', alt: 'Özelleştirilebilir Ürün Detayları' },
-                      { src: '/images/showcase/qr-steps/step-3.png', alt: 'Zengin Görselli Kategori Listesi' },
-                      { src: '/images/showcase/qr-steps/step-4.png', alt: 'Tek Tuşla Sipariş ve Garson Çağırma' },
-                      { src: '/images/showcase/qr-steps/step-5.png', alt: 'Hızlı Sepet Yönetimi ve Onay' }
+                      { src: '/images/showcase/qr-steps/step-2.png', alt: 'Özelleştirilebilir Ürün Kategorileri' },
+                      { src: '/images/showcase/qr-steps/step-3.png', alt: 'Zengin Görselli Ürün Listesi' },
+                      { src: '/images/showcase/qr-steps/step-5.png', alt: 'Müşteriye Özel Sipariş Notları' },
+                      { src: '/images/showcase/qr-steps/step-4.png', alt: 'Tek Tuşla Sepet Onayı' },
+                      { src: '/images/showcase/qr-steps/step-6.png', alt: 'Garson Çağırma Özelliği' },
+                      { src: '/images/showcase/qr-steps/step-7.png', alt: 'Siparişiniz Alındı Onayı' }
                     ].map((step, idx) => (
                       <SwiperSlide key={idx}>
                         <div className="relative w-full h-full flex items-center justify-center bg-gray-50">
@@ -650,9 +652,9 @@ export default function Home() {
                             alt={step.alt}
                             className="w-full h-full object-cover"
                           />
-                          <div className="absolute bottom-10 left-10 p-4 bg-white/90 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <span className="text-xs font-black text-amber-500 uppercase tracking-widest">{idx + 1}. ADIM</span>
-                            <p className="text-sm font-bold text-slate-900">{step.alt}</p>
+                          <div className="absolute bottom-10 left-4 right-4 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span className="text-xs font-black text-amber-500 uppercase tracking-widest block mb-1">{idx + 1}. ADIM</span>
+                            <p className="text-xs font-bold text-slate-900 leading-tight">{step.alt}</p>
                           </div>
                         </div>
                       </SwiperSlide>
@@ -662,7 +664,7 @@ export default function Home() {
               </div>
 
               {/* Floating feature tags for QR Menu */}
-              <div className="absolute top-12 -right-10 bg-white p-6 rounded-3xl shadow-2xl border border-gray-50 max-w-[200px] hidden lg:block z-10">
+              <div className="absolute top-24 -left-10 md:-left-64 bg-white p-6 rounded-3xl shadow-2xl border border-gray-50 max-w-[220px] hidden lg:block z-10">
                 <div className="flex items-center space-x-3 text-amber-500 mb-2">
                   <FiSmartphone className="font-black" />
                   <span className="font-black text-xs uppercase tracking-widest">Kolay Sipariş</span>
@@ -670,7 +672,7 @@ export default function Home() {
                 <p className="text-sm font-bold text-gray-600">Telefon kamerasından okutulan menüyle saniyeler içinde mutfağa sipariş yollayın.</p>
               </div>
 
-              <div className="absolute top-72 -right-10 bg-white p-6 rounded-3xl shadow-2xl border border-gray-50 max-w-[200px] hidden lg:block z-10">
+              <div className="absolute top-80 -right-10 md:-right-64 bg-white p-6 rounded-3xl shadow-2xl border border-gray-50 max-w-[220px] hidden lg:block z-10">
                 <div className="flex items-center space-x-3 text-amber-500 mb-2">
                   <FiZap className="font-black" />
                   <span className="font-black text-xs uppercase tracking-widest">Hızlı Garson</span>
