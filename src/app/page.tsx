@@ -370,7 +370,7 @@ export default function Home() {
                             loop
                             muted
                             playsInline
-                            className="w-full h-full object-contain"
+                            className="w-full h-full object-cover"
                           />
                           <div className="absolute top-6 left-6 flex items-center gap-2 px-3 py-1 bg-black/50 backdrop-blur-md rounded-full text-[10px] font-bold text-white uppercase tracking-widest">
                             <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
@@ -379,11 +379,11 @@ export default function Home() {
                         </div>
                       </SwiperSlide>
                       <SwiperSlide>
-                        <div className="relative w-full h-full bg-gray-50 flex items-center justify-center">
+                        <div className="relative w-full h-full bg-gray-50">
                           <img
                             src="/images/showcase/customer-display/step-1.png"
                             alt="Şeffaf Ödeme Süreci - Müşteri Sepet Görünümü"
-                            className="w-full h-full object-contain"
+                            className="w-full h-full object-cover"
                           />
                           <div className="absolute bottom-10 left-10 p-4 bg-white/90 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <span className="text-xs font-black text-indigo-600 uppercase tracking-widest">ŞEFFAF ÖDEME</span>
