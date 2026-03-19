@@ -351,14 +351,14 @@ export default function Home() {
                 className="lg:col-span-7 relative"
               >
                 <div className="bg-gray-900 rounded-[2rem] p-1 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[4px] md:border-[8px] border-gray-800">
-                  <div className="bg-white rounded-[1rem] overflow-hidden relative">
+                  <div className="bg-black rounded-[1rem] overflow-hidden relative">
                    <video
                     src="/videos/showcase/customer-display.mp4"
                     autoPlay
                     loop
                     muted
                     playsInline
-                    className="w-full h-full object-cover aspect-[16/10]"
+                    className="w-full h-full object-contain aspect-[16/10]"
                    />
                    <div className="absolute top-6 left-6 flex items-center gap-2 px-3 py-1 bg-black/50 backdrop-blur-md rounded-full text-[10px] font-bold text-white uppercase tracking-widest">
                      <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
