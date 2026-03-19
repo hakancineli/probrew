@@ -26,8 +26,11 @@ export default function PosPage() {
             color: 'bg-blue-50'
         },
         {
-            q: 'ProBrew kullanmak için özel bir donanım satın almalı mıyım?',
-            a: 'Hayır, ProBrew bulut tabanlı bir sistemdir. Mevcut tabletlerinizde, Windows bilgisayarlarınızda veya Android/iOS tabanlı el terminallerinde doğrudan kullanabilirsiniz. Ancak profesyonel bir deneyim için önerdiğimiz entegre yazıcı ve ödeme terminalleri listesine göz atabilirsiniz.'
+            title: 'Donanım Bağımsız Çalışma',
+            desc: 'ProBrew bulut tabanlı bir sistemdir. Mevcut tabletlerinizde, Windows bilgisayarlarınızda veya Android/iOS tabanlı el terminallerinde doğrudan sorunsuz bir şekilde kullanabilirsiniz.',
+            img: '/images/showcase/pos-terminal.png',
+            icon: <FiMonitor />,
+            color: 'bg-teal-50'
         },
         {
             title: 'Mutfak Yönetim Sistemi (KDS)',
@@ -45,8 +48,11 @@ export default function PosPage() {
         },
         {
             title: 'Kurumsal Marka Paneli',
-            desc: 'Kendi logonuz, kendi renkleriniz ve size özel temalarınız. SaaS altyapımızla işletmenizin kimliğini tüm platformlarda saniyeler içinde güncelleyin.',
-            img: '/images/showcase/admin-panel-ui.png',
+            desc: 'Kendi logonuz, kendi renkleriniz ve size özel temalarınız. Gelişmiş panelimizle tüm işletmelerinizi ve personelinizi tek noktadan kolayca yönetin.',
+            customImages: {
+                desktop: '/images/showcase/admin-desktop.png',
+                mobile: '/images/showcase/admin-mobile.png'
+            },
             icon: <FiSettings />,
             color: 'bg-purple-50'
         },
@@ -125,19 +131,32 @@ export default function PosPage() {
                                 <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                             </button>
                         </div>
-                        <div className="flex-1 w-full h-[450px] md:h-[600px] relative rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white group">
-                            {m.img ? (
+                        <div className="flex-1 w-full h-[450px] md:h-[600px] relative rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white group bg-gray-50">
+                            {('customImages' in m && m.customImages) ? (
+                                <div className="w-full h-full relative flex items-center justify-center p-4">
+                                    <img 
+                                        src={m.customImages.desktop} 
+                                        alt={`${m.title} Desktop`} 
+                                        className="w-[85%] rounded-2xl shadow-xl object-cover absolute left-2 md:left-6 transition-transform duration-700 group-hover:scale-[1.02]" 
+                                    />
+                                    <img 
+                                        src={m.customImages.mobile} 
+                                        alt={`${m.title} Mobile`} 
+                                        className="w-[30%] md:w-[25%] rounded-[1.5rem] md:rounded-[2rem] shadow-2xl object-cover absolute right-2 md:right-8 bottom-[10%] border-[4px] border-white transition-transform duration-700 group-hover:-translate-y-4 group-hover:scale-105" 
+                                    />
+                                </div>
+                            ) : m.img ? (
                                 <img
                                     src={m.img}
                                     alt={m.title}
                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
                                 />
                             ) : (
-                                <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                                <div className="w-full h-full flex items-center justify-center">
                                     <FiMonitor className="text-6xl text-brand-primary/20" />
                                 </div>
                             )}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />
                         </div>
                     </section>
                 ))}

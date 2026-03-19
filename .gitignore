@@ -36,5 +36,5 @@ next-env.d.ts
 
 # Prisma
 /generated/prisma
-pos/
+
 *.mov
