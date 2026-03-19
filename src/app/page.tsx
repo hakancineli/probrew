@@ -622,7 +622,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1, ease: "easeOut" as const }}
-              className="relative max-w-[380px] mx-auto"
+              className="relative max-w-[340px] mx-auto"
             >
               <div className="bg-gray-900 rounded-[3rem] p-3 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[12px] border-gray-800">
                 <div className="bg-white rounded-[2rem] overflow-hidden group">
@@ -634,7 +634,7 @@ export default function Home() {
                     autoplay={{ delay: 3500, disableOnInteraction: false }}
                     pagination={{ clickable: true }}
                     loop={true}
-                    className="w-full aspect-[9/19.5]"
+                    className="w-full aspect-[2/3]"
                   >
                     {[
                       { src: '/images/showcase/qr-steps/step-1.png', alt: 'Göz Alıcı Dijital Menü Girişi' },
