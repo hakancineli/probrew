@@ -226,7 +226,7 @@ export default function Home() {
         </section>
 
         {/* --- REAL UI SHOWCASE --- */}
-        <section className="py-24 bg-white relative overflow-hidden">
+        <section className="md:py-24 pt-32 pb-24 bg-white relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               {...fadeInUp}
@@ -247,7 +247,7 @@ export default function Home() {
               transition={{ duration: 1, ease: "easeOut" as const }}
               className="relative max-w-6xl mx-auto"
             >
-              <div className="bg-gray-900 rounded-[2rem] p-4 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[8px] border-gray-800">
+              <div className="bg-gray-900 rounded-[2rem] p-1 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[4px] md:border-[8px] border-gray-800">
                 <div className="bg-white rounded-[1rem] overflow-hidden group">
                   <Swiper
                     modules={[Autoplay, Pagination, EffectFade]}
@@ -369,7 +369,7 @@ export default function Home() {
         </section>
 
         {/* --- INVENTORY & RECIPE SHOWCASE --- */}
-        <section className="py-24 bg-white relative overflow-hidden">
+        <section className="md:py-24 pt-32 pb-24 bg-white relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               {...fadeInUp}
@@ -390,7 +390,7 @@ export default function Home() {
               transition={{ duration: 1, ease: "easeOut" as const }}
               className="relative max-w-6xl mx-auto"
             >
-              <div className="bg-gray-900 rounded-[2rem] p-4 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[8px] border-gray-800">
+              <div className="bg-gray-900 rounded-[2rem] p-1 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[4px] md:border-[8px] border-gray-800">
                 <div className="bg-white rounded-[1rem] overflow-hidden group">
                   <Swiper
                     modules={[Autoplay, Pagination, EffectFade]}
@@ -448,7 +448,7 @@ export default function Home() {
         </section>
 
         {/* --- REPORTING & ANALYTICS SHOWCASE --- */}
-        <section className="py-24 bg-[#FAF9F6] relative overflow-hidden">
+        <section className="md:py-24 pt-32 pb-24 bg-[#FAF9F6] relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               {...fadeInUp}
@@ -469,7 +469,7 @@ export default function Home() {
               transition={{ duration: 1, ease: "easeOut" as const }}
               className="relative max-w-6xl mx-auto"
             >
-              <div className="bg-gray-900 rounded-[2rem] p-4 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[8px] border-gray-800">
+              <div className="bg-gray-900 rounded-[2rem] p-1 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[4px] md:border-[8px] border-gray-800">
                 <div className="bg-white rounded-[1rem] overflow-hidden group">
                   <Swiper
                     modules={[Autoplay, Pagination, EffectFade]}
@@ -526,7 +526,7 @@ export default function Home() {
         </section>
 
         {/* --- STAFF PERFORMANCE SHOWCASE --- */}
-        <section className="py-24 bg-white relative overflow-hidden">
+        <section className="md:py-24 pt-32 pb-24 bg-white relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               {...fadeInUp}
@@ -547,7 +547,7 @@ export default function Home() {
               transition={{ duration: 1, ease: "easeOut" as const }}
               className="relative max-w-6xl mx-auto"
             >
-              <div className="bg-gray-900 rounded-[2rem] p-4 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[8px] border-gray-800">
+              <div className="bg-gray-900 rounded-[2rem] p-1 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[4px] md:border-[8px] border-gray-800">
                 <div className="bg-white rounded-[1rem] overflow-hidden group">
                   <Swiper
                     modules={[Autoplay, Pagination, EffectFade]}
@@ -603,7 +603,7 @@ export default function Home() {
         </section>
 
         {/* --- QR MENU & ORDERING SHOWCASE --- */}
-        <section className="py-24 bg-[#FAF9F6] relative overflow-hidden">
+        <section className="md:py-24 pt-32 pb-24 bg-[#FAF9F6] relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               {...fadeInUp}
@@ -624,7 +624,7 @@ export default function Home() {
               transition={{ duration: 1, ease: "easeOut" as const }}
               className="relative max-w-[340px] mx-auto"
             >
-              <div className="bg-gray-900 rounded-[2.5rem] p-2 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[6px] border-gray-800">
+              <div className="bg-gray-900 rounded-[2.5rem] p-1 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[2px] md:border-[6px] border-gray-800">
                 <div className="bg-white rounded-[2rem] overflow-hidden group">
                   <Swiper
                     modules={[Autoplay, Pagination, EffectFade]}
@@ -682,7 +682,7 @@ export default function Home() {
         </section>
 
         {/* --- WAITER CALL SHOWCASE --- */}
-        <section className="py-24 bg-white relative overflow-hidden">
+        <section className="md:py-24 pt-32 pb-24 bg-white relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               {...fadeInUp}
@@ -703,7 +703,7 @@ export default function Home() {
               transition={{ duration: 1, ease: "easeOut" as const }}
               className="relative max-w-[340px] mx-auto"
             >
-              <div className="bg-gray-900 rounded-[2.5rem] p-2 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[6px] border-gray-800">
+              <div className="bg-gray-900 rounded-[2.5rem] p-1 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[2px] md:border-[6px] border-gray-800">
                 <div className="bg-white rounded-[2rem] overflow-hidden group">
                   <Swiper
                     modules={[Autoplay, Pagination, EffectFade]}
@@ -757,7 +757,7 @@ export default function Home() {
         </section>
 
         {/* --- FEEDBACK SHOWCASE --- */}
-        <section className="py-24 bg-[#FAF9F6] relative overflow-hidden">
+        <section className="md:py-24 pt-32 pb-24 bg-[#FAF9F6] relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               {...fadeInUp}
@@ -778,7 +778,7 @@ export default function Home() {
               transition={{ duration: 1, ease: "easeOut" as const }}
               className="relative max-w-[340px] mx-auto"
             >
-              <div className="bg-white rounded-[2.5rem] p-2 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.1)] border-[6px] border-slate-100">
+              <div className="bg-white rounded-[2.5rem] p-1 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.1)] border-[2px] md:border-[6px] border-slate-100">
                 <div className="bg-white rounded-[2rem] overflow-hidden group">
                   <Swiper
                     modules={[Autoplay, Pagination, EffectFade]}
