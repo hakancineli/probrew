@@ -686,10 +686,10 @@ export default function Home() {
                     className="w-full aspect-[420/924]"
                   >
                     {[
+                      { src: '/images/showcase/qr-steps/step-4.png', alt: 'Sipariş Onay ve Not Ekleme' },
                       { src: '/images/showcase/qr-steps/step-1.png', alt: 'Göz Alıcı Dijital Menü Girişi' },
                       { src: '/images/showcase/qr-steps/step-2.png', alt: 'Zengin Görselli Ürün Kategorileri' },
                       { src: '/images/showcase/qr-steps/step-3.png', alt: 'Tek Tuşla Sepete Ekleme' },
-                      { src: '/images/showcase/qr-steps/step-4.png', alt: 'Sipariş Onay ve Not Ekleme' },
                       { src: '/images/showcase/qr-steps/step-5.png', alt: 'Siparişiniz Alındı Onayı' }
                     ].map((step, idx) => (
                       <SwiperSlide key={idx}>
