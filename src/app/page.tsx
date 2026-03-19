@@ -634,7 +634,7 @@ export default function Home() {
                     autoplay={{ delay: 3500, disableOnInteraction: false }}
                     pagination={{ clickable: true }}
                     loop={true}
-                    className="w-full aspect-[9/16]"
+                    className="w-full aspect-[9/19.5]"
                   >
                     {[
                       { src: '/images/showcase/qr-steps/step-1.png', alt: 'Göz Alıcı Dijital Menü Girişi' },
@@ -642,15 +642,15 @@ export default function Home() {
                       { src: '/images/showcase/qr-steps/step-3.png', alt: 'Zengin Görselli Ürün Listesi' },
                       { src: '/images/showcase/qr-steps/step-5.png', alt: 'Müşteriye Özel Sipariş Notları' },
                       { src: '/images/showcase/qr-steps/step-4.png', alt: 'Tek Tuşla Sepet Onayı' },
-                      { src: '/images/showcase/qr-steps/step-6.png', alt: 'Garson Çağırma Özelliği' },
-                      { src: '/images/showcase/qr-steps/step-7.png', alt: 'Siparişiniz Alındı Onayı' }
+                      { src: '/images/showcase/qr-steps/step-7.png', alt: 'Siparişiniz Alındı Onayı' },
+                      { src: '/images/showcase/qr-steps/step-6.png', alt: 'Garson Çağırma Özelliği' }
                     ].map((step, idx) => (
                       <SwiperSlide key={idx}>
                         <div className="relative w-full h-full flex items-center justify-center bg-gray-50">
                           <img
                             src={step.src}
                             alt={step.alt}
-                            className="w-full h-full object-contain"
+                            className="w-full h-full object-cover"
                           />
                           <div className="absolute bottom-10 left-4 right-4 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <span className="text-xs font-black text-amber-500 uppercase tracking-widest block mb-1">{idx + 1}. ADIM</span>
