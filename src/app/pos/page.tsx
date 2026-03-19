@@ -96,9 +96,21 @@ export default function PosPage() {
                         <span className="text-brand-primary">Tam Donanımlı</span> <br />
                         Otomasyon Çözümü.
                     </h1>
-                    <p className="text-xl md:text-2xl text-gray-500 max-w-3xl mx-auto font-medium leading-relaxed mb-12">
-                        ProBrew POS, sadece bir kasa değil; işletmenizin kalbi, beyni ve en güvenilir personeli haline gelir.
+                    <p className="text-xl md:text-2xl text-gray-500 max-w-3xl mx-auto font-medium leading-relaxed mb-8">
+                        ProBrew POS, sadece bir kasa sistemi değil; işletmenizin kalbi, beyni ve en güvenilir personeli haline gelir.
                     </p>
+
+                    <div className="bg-emerald-50 border border-emerald-100 p-6 rounded-[2rem] max-w-4xl mx-auto mb-12 flex flex-col md:flex-row items-center md:items-start text-left shadow-[0_20px_40px_-15px_rgba(16,185,129,0.2)] gap-6 hover:scale-[1.02] transition-transform duration-300">
+                        <div className="bg-emerald-100 p-4 rounded-2xl shrink-0">
+                            <FiShield className="text-5xl text-emerald-600" />
+                        </div>
+                        <div>
+                            <h3 className="text-2xl font-black text-emerald-900 mb-2">Kasanızın Acımasız Dijital Bekçisi</h3>
+                            <p className="text-emerald-800 font-medium text-lg leading-relaxed">
+                                ProBrew POS; iptal, ikram veya sistem dışı bırakılmış süsü verilen siparişleri <b className="font-black text-emerald-900">anında bloke eder</b>. Canlı performans testlerinde; <span className="font-black bg-emerald-200/60 px-2 py-0.5 rounded-lg text-emerald-950">günde 4.000₺ - 5.000₺'yi bulan</span> görünmez personel kaçaklarını ve mutfak fişi manipülasyonlarını durdurduğu kanıtlanmıştır. Kapanışta Kasa Z raporu ile mutfak arasında tek bir eksik bile bulamazsınız!
+                            </p>
+                        </div>
+                    </div>
                     <div className="flex flex-wrap justify-center gap-4">
                         <a href="/login?register=true" className="px-10 py-5 bg-brand-dark text-white rounded-2xl font-black text-xl hover:scale-105 transition-all shadow-xl">
                             15 Gün Ücretsiz Deneyin
