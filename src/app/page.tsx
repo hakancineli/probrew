@@ -634,19 +634,17 @@ export default function Home() {
                     autoplay={{ delay: 3500, disableOnInteraction: false }}
                     pagination={{ clickable: true }}
                     loop={true}
-                    className="w-full aspect-[2/3]"
+                    className="w-full aspect-[430/932]"
                   >
                     {[
                       { src: '/images/showcase/qr-steps/step-1.png', alt: 'Göz Alıcı Dijital Menü Girişi' },
-                      { src: '/images/showcase/qr-steps/step-2.png', alt: 'Özelleştirilebilir Ürün Kategorileri' },
-                      { src: '/images/showcase/qr-steps/step-3.png', alt: 'Zengin Görselli Ürün Listesi' },
-                      { src: '/images/showcase/qr-steps/step-5.png', alt: 'Müşteriye Özel Sipariş Notları' },
-                      { src: '/images/showcase/qr-steps/step-7.png', alt: 'Siparişiniz Alındı Onayı' },
-                      { src: '/images/showcase/qr-steps/step-4.png', alt: 'Tek Tuşla Sepet Onayı' },
-                      { src: '/images/showcase/qr-steps/step-6.png', alt: 'Garson Çağırma Özelliği' }
+                      { src: '/images/showcase/qr-steps/step-2.png', alt: 'Zengin Görselli Ürün Kategorileri' },
+                      { src: '/images/showcase/qr-steps/step-3.png', alt: 'Tek Tuşla Sepete Ekleme' },
+                      { src: '/images/showcase/qr-steps/step-4.png', alt: 'Sipariş Onay ve Not Ekleme' },
+                      { src: '/images/showcase/qr-steps/step-5.png', alt: 'Siparişiniz Alındı Onayı' }
                     ].map((step, idx) => (
                       <SwiperSlide key={idx}>
-                        <div className="relative w-full h-full flex items-center justify-center bg-gray-50">
+                        <div className="relative w-full h-full flex items-center justify-center bg-white">
                           <img
                             src={step.src}
                             alt={step.alt}
