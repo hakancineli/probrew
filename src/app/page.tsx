@@ -435,7 +435,7 @@ export default function Home() {
                     autoplay={{ delay: 3500, disableOnInteraction: false }}
                     pagination={{ clickable: true }}
                     loop={true}
-                    className="w-full aspect-[16/9]"
+                    className="w-full aspect-[1024/536]"
                   >
                     {[
                       { src: '/images/showcase/kds-steps/step-1.png', alt: 'Mutfak Ekranı Canlı Sipariş Takibi' },
@@ -445,11 +445,11 @@ export default function Home() {
                       { src: '/images/showcase/kds-steps/step-5.png', alt: 'Sipariş Hazır ve Teslimat Onayı' }
                     ].map((step, idx) => (
                       <SwiperSlide key={idx}>
-                        <div className="relative w-full h-full bg-white">
+                        <div className="relative w-full h-full bg-[#f8eadd]">
                           <img
                             src={step.src}
                             alt={step.alt}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-contain"
                           />
                           <div className="absolute bottom-10 left-10 p-4 bg-white/90 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <span className="text-xs font-black text-orange-500 uppercase tracking-widest">{idx + 1}. ADIM</span>
