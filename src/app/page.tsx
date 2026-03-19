@@ -182,13 +182,29 @@ export default function Home() {
                   </Link>
                 </div>
 
-                <div className="mt-12 flex items-center space-x-6 text-gray-400">
+                <div className="mt-12 flex items-center space-x-6">
                   <div className="flex -space-x-3">
                     {[1, 2, 3, 4].map(i => (
-                      <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-gray-200"></div>
+                      <div key={i} className="w-12 h-12 rounded-full border-[3px] border-white shadow-xl overflow-hidden bg-gray-100 relative group/avatar">
+                        <img 
+                          src={`/images/avatars/avatar-${i}.png`} 
+                          alt={`Müşteri ${i}`} 
+                          className="w-full h-full object-cover group-hover/avatar:scale-110 transition-transform duration-500"
+                          onError={(e) => { (e.target as any).src = `https://i.pravatar.cc/100?u=probrew${i}`; }}
+                        />
+                      </div>
                     ))}
+                    <div className="w-12 h-12 rounded-full border-[3px] border-white bg-brand-primary text-white flex items-center justify-center text-[10px] font-black shadow-xl z-10">
+                      +500
+                    </div>
                   </div>
-                  <p className="text-sm font-bold tracking-tight">500+ İşletme Güveniyor</p>
+                  <div className="flex flex-col">
+                    <p className="text-sm font-black text-brand-dark mb-1">500+ İşletme Güveniyor</p>
+                    <div className="flex items-center text-amber-500">
+                      {[1, 2, 3, 4, 5].map(i => <FiZap key={i} size={14} className="fill-amber-500" />)}
+                      <span className="ml-2 text-gray-400 font-bold text-xs">4.9 / 5.0 Memnuniyet</span>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
 
@@ -264,14 +280,14 @@ export default function Home() {
                       { src: '/images/showcase/pos-steps/step-2.png', alt: 'Varyasyon ve Boyut Seçimi' },
                       { src: '/images/showcase/pos-steps/step-3.png', alt: 'Sepet Yönetimi ve Notlar' },
                       { src: '/images/showcase/pos-steps/step-4.png', alt: 'Personel Onay Mekanizması' },
-                      { src: '/images/showcase/pos-steps/step-5.png', alt: 'Özel Tasarım Adisyon Çıktısı' }
+                      { src: '/images/showcase/pos-steps/step-5.png', alt: 'Özel Tasarım Adisyon Çıktısı', contain: true }
                     ].map((step, idx) => (
                       <SwiperSlide key={idx}>
                         <div className="relative w-full h-full flex items-center justify-center bg-gray-50">
                           <img
                             src={step.src}
                             alt={step.alt}
-                            className="w-full h-full object-cover"
+                            className={`w-full h-full ${step.contain ? 'object-contain' : 'object-cover'}`}
                           />
                           <div className="absolute bottom-10 left-10 p-4 bg-white/90 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <span className="text-xs font-black text-brand-primary uppercase tracking-widest">{idx + 1}. ADIM</span>
@@ -290,7 +306,7 @@ export default function Home() {
         </section>
 
         {/* --- KDS UI SHOWCASE --- */}
-        <section className="py-24 bg-[#FAF9F6] relative overflow-hidden">
+        <section className="md:py-24 pt-32 pb-24 bg-[#FAF9F6] relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               {...fadeInUp}
@@ -311,7 +327,7 @@ export default function Home() {
               transition={{ duration: 1, ease: "easeOut" as const }}
               className="relative max-w-6xl mx-auto"
             >
-              <div className="bg-gray-900 rounded-[2rem] p-4 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[8px] border-gray-800">
+              <div className="bg-gray-900 rounded-[2rem] p-1 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[4px] md:border-[8px] border-gray-800">
                 <div className="bg-white rounded-[1rem] overflow-hidden group">
                   <Swiper
                     modules={[Autoplay, Pagination, EffectFade]}
@@ -331,11 +347,11 @@ export default function Home() {
                       { src: '/images/showcase/kds-steps/step-5.png', alt: 'Sipariş Hazır ve Teslimat Onayı' }
                     ].map((step, idx) => (
                       <SwiperSlide key={idx}>
-                        <div className="relative w-full h-full flex items-center justify-center bg-gray-50">
+                        <div className="relative w-full h-full flex items-center justify-center bg-white">
                           <img
                             src={step.src}
                             alt={step.alt}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-contain"
                           />
                           <div className="absolute bottom-10 left-10 p-4 bg-white/90 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <span className="text-xs font-black text-orange-500 uppercase tracking-widest">{idx + 1}. ADIM</span>
@@ -561,7 +577,7 @@ export default function Home() {
                   >
                     {[
                       { src: '/images/showcase/staff-steps/step-1.png', alt: 'Personel Yetkilendirme ve Kasa Seçimi' },
-                      { src: '/images/showcase/staff-steps/step-consumption.png', alt: 'Detaylı Personel Satış ve Hasılat Analizi' }
+                      { src: '/images/showcase/staff-steps/step-2.png', alt: 'Personel Satış ve Hasılat Analizi' }
                     ].map((step, idx) => (
                       <SwiperSlide key={idx}>
                         <div className="relative w-full h-full flex items-center justify-center bg-gray-50">
@@ -625,17 +641,35 @@ export default function Home() {
             >
               <div className="bg-gray-900 rounded-[2rem] p-1 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[4px] md:border-[8px] border-gray-800">
                 <div className="bg-white rounded-[1rem] overflow-hidden group">
-                  <div className="relative w-full aspect-[16/9] flex items-center justify-center bg-gray-50">
-                    <img
-                      src="/images/showcase/kitchen/step-1.png"
-                      alt="Personel Tüketim Kaydı Ekranı"
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute bottom-10 left-10 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-100 transition-opacity duration-300">
-                      <span className="text-xs font-black text-indigo-600 uppercase tracking-widest block mb-1">DİJİTAL KAYIT</span>
-                      <p className="text-sm font-bold text-slate-900 leading-tight">Tek dokunuşla personel tüketimi girişi.</p>
-                    </div>
-                  </div>
+                  <Swiper
+                    modules={[Autoplay, Pagination, EffectFade]}
+                    effect="fade"
+                    spaceBetween={0}
+                    slidesPerView={1}
+                    autoplay={{ delay: 3500, disableOnInteraction: false }}
+                    pagination={{ clickable: true }}
+                    loop={true}
+                    className="w-full aspect-[16/9]"
+                  >
+                    {[
+                      { src: '/images/showcase/kitchen/step-1.png', alt: 'Personel Tüketim Kaydı Ekranı' },
+                      { src: '/images/showcase/staff-steps/step-consumption.png', alt: 'Personel Tüketim Takibi ve Analizi' }
+                    ].map((step, idx) => (
+                      <SwiperSlide key={idx}>
+                        <div className="relative w-full h-full flex items-center justify-center bg-gray-50">
+                          <img
+                            src={step.src}
+                            alt={step.alt}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute bottom-10 left-10 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-100 transition-opacity duration-300">
+                            <span className="text-xs font-black text-indigo-600 uppercase tracking-widest block mb-1">DİJİTAL KAYIT</span>
+                            <p className="text-sm font-bold text-slate-900 leading-tight">{step.alt}</p>
+                          </div>
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
                 </div>
               </div>
 
