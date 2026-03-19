@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
-import { FiCheckCircle, FiLayers, FiTrendingUp, FiSettings, FiUsers, FiShoppingBag, FiArrowRight, FiSmartphone, FiPieChart, FiCpu, FiGlobe, FiTarget, FiZap, FiLayout, FiShield } from 'react-icons/fi';
+import { FiCheckCircle, FiLayers, FiTrendingUp, FiSettings, FiUsers, FiShoppingBag, FiArrowRight, FiSmartphone, FiPieChart, FiCpu, FiGlobe, FiTarget, FiZap, FiLayout, FiShield, FiClock } from 'react-icons/fi';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -681,8 +681,83 @@ export default function Home() {
           </div>
         </section>
 
+        {/* --- WAITER CALL SHOWCASE --- */}
+        <section className="py-24 bg-white relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              {...fadeInUp}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-black text-brand-dark mb-4 tracking-tighter">
+                 Masa Servisinde <span className="text-sky-500">Işık Hızı</span>.
+              </h2>
+              <p className="text-lg text-gray-400 font-medium max-w-2xl mx-auto">
+                 Müşterileriniz garson aramak zorunda kalmasın! Tek bir dokunuşla masadan servis talebi gönderilsin, verimliliğiniz artsın.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: "easeOut" as const }}
+              className="relative max-w-[340px] mx-auto"
+            >
+              <div className="bg-gray-900 rounded-[2.5rem] p-2 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[6px] border-gray-800">
+                <div className="bg-white rounded-[2rem] overflow-hidden group">
+                  <Swiper
+                    modules={[Autoplay, Pagination, EffectFade]}
+                    effect="fade"
+                    spaceBetween={0}
+                    slidesPerView={1}
+                    autoplay={{ delay: 3500, disableOnInteraction: false }}
+                    pagination={{ clickable: true }}
+                    loop={false}
+                    className="w-full aspect-[414/928]"
+                  >
+                    {[
+                      { src: '/images/showcase/waiter-call/step-1.png', alt: 'Hızlı Garson Çağırma Onayı' }
+                    ].map((step, idx) => (
+                      <SwiperSlide key={idx}>
+                        <div className="relative w-full h-full flex items-center justify-center bg-white">
+                          <img
+                            src={step.src}
+                            alt={step.alt}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute bottom-10 left-4 right-4 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span className="text-xs font-black text-sky-500 uppercase tracking-widest block mb-1">MÜŞTERİ DENEYİMİ</span>
+                            <p className="text-xs font-bold text-slate-900 leading-tight">{step.alt}</p>
+                          </div>
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+              </div>
+
+              {/* Floating feature tags for Waiter Call */}
+              <div className="absolute top-24 -left-10 md:-left-64 bg-[#F0F9FF] p-6 rounded-3xl shadow-2xl border border-sky-50 max-w-[220px] hidden lg:block z-10">
+                <div className="flex items-center space-x-3 text-sky-600 mb-2">
+                  <FiZap className="font-black" />
+                  <span className="font-black text-xs uppercase tracking-widest">Sinyal Hızı</span>
+                </div>
+                <p className="text-sm font-bold text-slate-700">Masa numarasıyla birlikte ilgili garsonun cihazına anında bildirim düşer.</p>
+              </div>
+
+              <div className="absolute top-80 -right-10 md:-right-64 bg-[#F0F9FF] p-6 rounded-3xl shadow-2xl border border-sky-50 max-w-[220px] hidden lg:block z-10">
+                <div className="flex items-center space-x-3 text-sky-600 mb-2">
+                  <FiClock className="font-black" />
+                  <span className="font-black text-xs uppercase tracking-widest">Sıfır Bekleme</span>
+                </div>
+                <p className="text-sm font-bold text-slate-700">Müşterileriniz sesini duyurmaya veya el sallamaya çalışmak zorunda kalmaz.</p>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* --- DYNAMIC ECOSYSTEM SHOWCASE --- */}
-        <section className="py-24 bg-white">
+        <section className="py-24 bg-[#FAF9F6]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div {...fadeInUp} className="text-center mb-20">
               <h2 className="text-4xl md:text-6xl font-black text-brand-dark mb-6 tracking-tighter">
@@ -699,7 +774,7 @@ export default function Home() {
                   key={idx}
                   {...fadeInUp}
                   whileHover={{ y: -10 }}
-                  className="bg-[#FAF9F6] rounded-[2.5rem] overflow-hidden border border-gray-50 flex flex-col group"
+                  className="bg-white rounded-[2.5rem] overflow-hidden border border-gray-50 flex flex-col group"
                 >
                   <div className="relative h-64 overflow-hidden">
                     <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
