@@ -240,8 +240,8 @@ export async function GET(request: NextRequest) {
             const revenue = stat.revenue;
             const totalCost = stat.totalCost;
             const profit = revenue - totalCost;
-            const margin = revenue > 0 ? (profit / revenue) * 100 : 0;
-            const markup = totalCost > 0 ? (profit / totalCost) * 100 : 0;
+            const margin = revenue > 0 ? (profit / revenue) * 100 : (profit > 0 ? 100 : 0);
+            const markup = totalCost > 0 ? (profit / totalCost) * 100 : (profit > 0 ? 100 : 0);
 
             return {
                 productName: stat.productName,
@@ -269,8 +269,8 @@ export async function GET(request: NextRequest) {
                 totalRevenue: Math.round(totalRevenue * 100) / 100,
                 totalCost: Math.round(totalCostSum * 100) / 100,
                 totalProfit: Math.round(totalProfitSum * 100) / 100,
-                profitMargin: totalRevenue > 0 ? Math.round((totalProfitSum / totalRevenue) * 1000) / 10 : 0,
-                markup: totalCostSum > 0 ? Math.round((totalProfitSum / totalCostSum) * 1000) / 10 : 0,
+                profitMargin: totalRevenue > 0 ? Math.round((totalProfitSum / totalRevenue) * 1000) / 10 : (totalProfitSum > 0 ? 100 : 0),
+                markup: totalCostSum > 0 ? Math.round((totalProfitSum / totalCostSum) * 1000) / 10 : (totalProfitSum > 0 ? 100 : 0),
                 orderRevenue: Math.round(orderRevenue * 100) / 100,
                 staffRevenue: Math.round(staffRevenue * 100) / 100
             },

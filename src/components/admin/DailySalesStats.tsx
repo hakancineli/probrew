@@ -101,8 +101,8 @@ export default function DailySalesStats() {
             totalRevenue: rev,
             totalCost: cost,
             totalProfit: profit,
-            profitMargin: rev > 0 ? Math.round((profit / rev) * 1000) / 10 : 0,
-            markup: cost > 0 ? Math.round((profit / cost) * 1000) / 10 : 0
+            profitMargin: rev > 0 ? Math.round((profit / rev) * 1000) / 10 : (profit > 0 ? 100 : 0),
+            markup: cost > 0 ? Math.round((profit / cost) * 1000) / 10 : (profit > 0 ? 100 : 0)
         };
     }, [stats, selectedCategory]);
 
