@@ -756,8 +756,86 @@ export default function Home() {
           </div>
         </section>
 
+        {/* --- FEEDBACK SHOWCASE --- */}
+        <section className="py-24 bg-[#FAF9F6] relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              {...fadeInUp}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-black text-brand-dark mb-4 tracking-tighter">
+                 Müşterilerinizin <span className="text-indigo-600">Sesi Olun</span>.
+              </h2>
+              <p className="text-lg text-gray-400 font-medium max-w-2xl mx-auto">
+                 Geri bildirimleri anlık olarak toplayın, müşteri deneyimini mükemmelleştirin. Misafirlerinizden gelen her fikir işinizi büyütür.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: "easeOut" as const }}
+              className="relative max-w-[340px] mx-auto"
+            >
+              <div className="bg-white rounded-[2.5rem] p-2 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.1)] border-[6px] border-slate-100">
+                <div className="bg-white rounded-[2rem] overflow-hidden group">
+                  <Swiper
+                    modules={[Autoplay, Pagination, EffectFade]}
+                    effect="fade"
+                    spaceBetween={0}
+                    slidesPerView={1}
+                    autoplay={{ delay: 3500, disableOnInteraction: false }}
+                    pagination={{ clickable: true }}
+                    loop={true}
+                    className="w-full aspect-[414/928]"
+                  >
+                    {[
+                      { src: '/images/showcase/feedback/step-1.png', alt: 'Öneri Bildirimi' },
+                      { src: '/images/showcase/feedback/step-3.png', alt: 'Şikayet / Geri Bildirim' },
+                      { src: '/images/showcase/feedback/step-4.png', alt: 'İletişim Bilgileri' },
+                      { src: '/images/showcase/feedback/step-5.png', alt: 'Başarılı Gönderim Onayı' }
+                    ].map((step, idx) => (
+                      <SwiperSlide key={idx}>
+                        <div className="relative w-full h-full flex items-center justify-center bg-white">
+                          <img
+                            src={step.src}
+                            alt={step.alt}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute bottom-10 left-4 right-4 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span className="text-xs font-black text-indigo-600 uppercase tracking-widest block mb-1">MÜŞTERİ SESİ</span>
+                            <p className="text-xs font-bold text-slate-900 leading-tight">{step.alt}</p>
+                          </div>
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+              </div>
+
+              {/* Floating feature tags for Feedback */}
+              <div className="absolute top-24 -left-10 md:-left-64 bg-white p-6 rounded-3xl shadow-2xl border border-indigo-50 max-w-[220px] hidden lg:block z-10">
+                <div className="flex items-center space-x-3 text-indigo-600 mb-2">
+                  <FiLayers className="font-black" />
+                  <span className="font-black text-xs uppercase tracking-widest">Kategorize Edin</span>
+                </div>
+                <p className="text-sm font-bold text-slate-700">Şikayet, öneri veya dileklerinizi anlık olarak kategorilere ayırın.</p>
+              </div>
+
+              <div className="absolute top-80 -right-10 md:-right-64 bg-white p-6 rounded-3xl shadow-2xl border border-indigo-50 max-w-[220px] hidden lg:block z-10">
+                <div className="flex items-center space-x-3 text-indigo-600 mb-2">
+                  <FiTrendingUp className="font-black" />
+                  <span className="font-black text-xs uppercase tracking-widest">Performans Takibi</span>
+                </div>
+                <p className="text-sm font-bold text-slate-700">Müşteri memnuniyetini grafiklerle izleyin, işletmenizi verilere dayanarak yönetin.</p>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* --- DYNAMIC ECOSYSTEM SHOWCASE --- */}
-        <section className="py-24 bg-[#FAF9F6]">
+        <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div {...fadeInUp} className="text-center mb-20">
               <h2 className="text-4xl md:text-6xl font-black text-brand-dark mb-6 tracking-tighter">
@@ -774,7 +852,7 @@ export default function Home() {
                   key={idx}
                   {...fadeInUp}
                   whileHover={{ y: -10 }}
-                  className="bg-white rounded-[2.5rem] overflow-hidden border border-gray-50 flex flex-col group"
+                  className="bg-[#FAF9F6] rounded-[2.5rem] overflow-hidden border border-gray-50 flex flex-col group"
                 >
                   <div className="relative h-64 overflow-hidden">
                     <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
