@@ -23,10 +23,10 @@ export const metadata = {
     siteName: 'ProBrew',
     images: [
       {
-        url: '/images/logo/probrew-logo.png',
-        width: 800,
-        height: 600,
-        alt: 'ProBrew Logo',
+        url: '/og-v2.png',
+        width: 1200,
+        height: 630,
+        alt: 'ProBrew POS Desktop',
       },
     ],
     locale: 'tr_TR',
@@ -36,7 +36,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'ProBrew',
     description: 'Kafe işletme yönetim sisteminiz.',
-    images: ['/images/logo/probrew-logo.png'],
+    images: ['/og-v2.png'],
     site: '@probrew',
     creator: '@hakancineli',
   },
