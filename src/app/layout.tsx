@@ -10,8 +10,8 @@ export const metadata = {
     default: 'ProBrew | Yeni Nesil Kafe POS & Restoran Otomasyon Sistemi',
     template: '%s | ProBrew Kafe Yazılımı'
   },
-  description: 'ProBrew ile işletmenizi dijitalleştirin. Bulut tabanlı Kafe POS, interaktif QR Menü, stok takibi, personel yönetimi ve yapay zeka destekli analizler tek platformda.',
-  keywords: ['kafe pos sistemi', 'restoran otomasyonu', 'qr menü sistemi', 'stok takibi yazılımı', 'kafe yönetim sistemi', 'bulut tabanlı pos', 'temassız sipariş', 'probrew', 'adısyon takip sistemi'],
+  description: 'ProBrew POS ile işletmenizi akıllandırın. Bulut tabanlı Yeni Nesil Kafe POS, QR Menü, Stok Takibi ve Yapay Zeka destekli analizler ile kârlılığınızı %30 artırın.',
+  keywords: ['kafe pos sistemi', 'restoran otomasyonu', 'qr menü sistemi', 'stok takibi yazılımı', 'bulut tabanlı pos', 'adısyon takip sistemi', 'probrew pos', 'kafe yönetim yazılımı'],
   metadataBase: new URL('https://probrew.com.tr'),
   alternates: {
     canonical: '/',
@@ -37,8 +37,12 @@ export const metadata = {
     title: 'ProBrew',
     description: 'Kafe işletme yönetim sisteminiz.',
     images: ['/og-v2.png'],
-    site: '@probrew',
+    site: '@probrewpos',
     creator: '@hakancineli',
+  },
+  other: {
+    'instagram:site': '@probrew.pos',
+    'linkedin:site': 'probrew-pos',
   },
   robots: {
     index: true,
@@ -55,7 +59,7 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: '#2563EB',
+  themeColor: '#10B981',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
