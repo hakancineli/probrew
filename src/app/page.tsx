@@ -305,6 +305,74 @@ export default function Home() {
           </div>
         </section>
 
+        {/* --- CUSTOMER DISPLAY VIDEO SHOWCASE --- */}
+        <section className="md:py-24 pt-32 pb-24 bg-[#FAF9F6] relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="lg:col-span-5"
+              >
+                <div className="inline-block px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full text-xs font-black mb-6 border border-indigo-200 tracking-widest uppercase">
+                  MÜŞTERİ DENEYİMİ
+                </div>
+                <h2 className="text-4xl md:text-5xl font-black text-brand-dark mb-6 tracking-tighter leading-tight">
+                  Kasa Önünde <br/><span className="text-indigo-600">Premium Karşılama.</span>
+                </h2>
+                <p className="text-lg text-gray-500 font-medium mb-10 leading-relaxed">
+                  İkinci ekran (Customer Display) ile müşterileriniz siparişlerini anlık takip etsin. Kurumsal videolarınızı, güncel kampanyalarınızı ve Wi-Fi şifrenizi şık bir şekilde gösterin.
+                </p>
+
+                <div className="grid grid-cols-1 gap-6">
+                  {[
+                    { title: 'Şeffaf Ödeme Süreci', desc: 'Müşteriler sepet içeriğini ve toplamı anlık görür, hatalar önlenir.' },
+                    { title: 'Dinamik Kampanya Yönetimi', desc: 'İsterseniz video, isterseniz afişlerle satışlarınızı artırın.' },
+                    { title: 'Dijital Fiş & QR', desc: 'Kağıt israfına son! Müşterileriniz fişini telefonuna anında indirsin.' }
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-4">
+                      <div className="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center text-white text-[10px] font-black shrink-0 mt-1">
+                        ✓
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-gray-900 leading-none mb-1">{item.title}</h4>
+                        <p className="text-sm text-gray-400 font-medium">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                className="lg:col-span-7 relative"
+              >
+                <div className="relative z-10 bg-gray-950 rounded-[2.5rem] p-2 shadow-2xl shadow-indigo-200 border-[6px] border-gray-900 overflow-hidden aspect-[16/10]">
+                   <video
+                    src="/videos/showcase/customer-display.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover"
+                   />
+                   <div className="absolute top-6 left-6 flex items-center gap-2 px-3 py-1 bg-black/50 backdrop-blur-md rounded-full text-[10px] font-bold text-white uppercase tracking-widest">
+                     <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                     Canlı Deneyim
+                   </div>
+                </div>
+
+                {/* Decorative gradients */}
+                <div className="absolute -top-10 -right-10 w-64 h-64 bg-indigo-500/10 rounded-full blur-[80px] -z-10"></div>
+                <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px] -z-10"></div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
         {/* --- KDS UI SHOWCASE --- */}
         <section className="md:py-24 pt-32 pb-24 bg-[#FAF9F6] relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
