@@ -3,6 +3,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { FiMonitor, FiCpu, FiSmartphone, FiPieChart, FiArrowRight, FiZap, FiLayout, FiShield, FiUsers, FiClock, FiGlobe, FiSettings } from 'react-icons/fi';
 import { FaUsers, FaGlobe } from 'react-icons/fa';
+import ClientShowcaseSlider from '@/components/ClientShowcaseSlider';
 
 export const metadata: Metadata = {
     title: 'ProBrew POS | Her Ölçekten İşletmeye Uygun Restoran Otomasyonu',
@@ -59,7 +60,13 @@ export default function PosPage() {
         {
             title: 'Yapay Zeka Destekli Analiz',
             desc: 'Gemini AI entegrasyonu ile stok ihtiyaçlarınızı öngörün, personel verimliliğini optimize edin ve yarının satışlarını bugünden tahmin edin.',
-            img: '/images/showcase/analytics-ui.png', // Placeholder or use AI logic
+            customSlider: [
+                '/images/showcase/analytics-steps/step-1.png',
+                '/images/showcase/analytics-steps/step-2.png',
+                '/images/showcase/analytics-steps/step-3.png',
+                '/images/showcase/analytics-steps/step-4.png',
+                '/images/showcase/analytics-steps/step-5.png'
+            ],
             icon: <FiCpu />,
             color: 'bg-orange-50'
         },
@@ -132,7 +139,11 @@ export default function PosPage() {
                             </button>
                         </div>
                         <div className="flex-1 w-full h-[450px] md:h-[600px] relative rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white group bg-gray-50">
-                            {('customImages' in m && m.customImages) ? (
+                            {('customSlider' in m && m.customSlider) ? (
+                                <div className="absolute inset-0 bg-white">
+                                    <ClientShowcaseSlider images={m.customSlider} />
+                                </div>
+                            ) : ('customImages' in m && m.customImages) ? (
                                 <div className="w-full h-full relative flex items-center justify-center p-4">
                                     <img 
                                         src={m.customImages.desktop} 
@@ -156,7 +167,7 @@ export default function PosPage() {
                                     <FiMonitor className="text-6xl text-brand-primary/20" />
                                 </div>
                             )}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />
+                            {(!('customSlider' in m)) && <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />}
                         </div>
                     </section>
                 ))}
