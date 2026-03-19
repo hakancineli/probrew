@@ -447,8 +447,87 @@ export default function Home() {
           </div>
         </section>
 
+        {/* --- REPORTING & ANALYTICS SHOWCASE --- */}
+        <section className="py-24 bg-[#FAF9F6] relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              {...fadeInUp}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-black text-brand-dark mb-4 tracking-tighter">
+                 Veriyle <span className="text-indigo-600">Büyüyen</span> İşletmeler.
+              </h2>
+              <p className="text-lg text-gray-400 font-medium max-w-2xl mx-auto">
+                 Anlık raporlar, net nakit akışı ve akıllı analizlerle işletmenizin nabzını her an, her yerden (mobilden de) tutun.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: "easeOut" as const }}
+              className="relative max-w-6xl mx-auto"
+            >
+              <div className="bg-gray-900 rounded-[2rem] p-4 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[8px] border-gray-800">
+                <div className="bg-white rounded-[1rem] overflow-hidden group">
+                  <Swiper
+                    modules={[Autoplay, Pagination, EffectFade]}
+                    effect="fade"
+                    spaceBetween={0}
+                    slidesPerView={1}
+                    autoplay={{ delay: 3500, disableOnInteraction: false }}
+                    pagination={{ clickable: true }}
+                    loop={true}
+                    className="w-full aspect-[16/9]"
+                  >
+                    {[
+                      { src: '/images/showcase/dashboard-steps/step-1.png', alt: 'Aylık ve Günlük Finansal Hareketler' },
+                      { src: '/images/showcase/dashboard-steps/step-2.png', alt: 'Gün Detayı & Anlık Sipariş Geçmişi' },
+                      { src: '/images/showcase/dashboard-steps/step-3.png', alt: 'Detaylı Ürün Satış Raporları' },
+                      { src: '/images/showcase/dashboard-steps/step-4.png', alt: 'Günlük Operasyonel Giderler Takibi' },
+                      { src: '/images/showcase/dashboard-steps/step-5.jpg', alt: 'Cebinizdeki Patron: Mobil Raporlama' }
+                    ].map((step, idx) => (
+                      <SwiperSlide key={idx}>
+                        <div className="relative w-full h-full flex items-center justify-center bg-gray-50">
+                          <img
+                            src={step.src}
+                            alt={step.alt}
+                            className="w-full h-full object-contain"
+                          />
+                          <div className="absolute bottom-10 left-10 p-4 bg-white/90 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span className="text-xs font-black text-indigo-600 uppercase tracking-widest">{idx + 1}. ADIM</span>
+                            <p className="text-sm font-bold text-slate-900">{step.alt}</p>
+                          </div>
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+              </div>
+
+              {/* Floating feature tags for Analytics */}
+              <div className="absolute top-12 -right-10 bg-white p-6 rounded-3xl shadow-2xl border border-gray-50 max-w-[200px] hidden lg:block z-10">
+                <div className="flex items-center space-x-3 text-indigo-600 mb-2">
+                  <FiTrendingUp className="font-black" />
+                  <span className="font-black text-xs uppercase tracking-widest">Büyüme</span>
+                </div>
+                <p className="text-sm font-bold text-gray-600">Her bir masanın, günün ve personelin performansını grafiklerle kıyaslayın.</p>
+              </div>
+
+              <div className="absolute top-72 -right-10 bg-white p-6 rounded-3xl shadow-2xl border border-gray-50 max-w-[200px] hidden lg:block z-10">
+                <div className="flex items-center space-x-3 text-indigo-600 mb-2">
+                  <FiSmartphone className="font-black" />
+                  <span className="font-black text-xs uppercase tracking-widest">Mobil Rapor</span>
+                </div>
+                <p className="text-sm font-bold text-gray-600">Nerede olursanız olun, kasanızdaki her kuruş telefonunuzdan izlenebilir.</p>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* --- DYNAMIC ECOSYSTEM SHOWCASE --- */}
-        <section className="py-24 bg-[#FAF9F6]">
+        <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div {...fadeInUp} className="text-center mb-20">
               <h2 className="text-4xl md:text-6xl font-black text-brand-dark mb-6 tracking-tighter">
