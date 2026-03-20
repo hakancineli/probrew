@@ -529,15 +529,17 @@ export default function Home() {
                             alt={step.alt}
                             className="w-full h-full object-contain p-2 md:p-0"
                           />
-                          <div className="relative md:absolute md:bottom-10 md:left-10 mt-6 md:mt-0 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-100 transition-opacity duration-300 mx-4 md:mx-0 text-center md:text-left">
-                            <span className="text-xs font-black text-emerald-600 uppercase tracking-widest block mb-1">{idx + 1}. ADIM</span>
-                            <p className="text-sm font-bold text-slate-900 leading-tight">{step.alt}</p>
-                          </div>
                         </div>
                       </SwiperSlide>
                     ))}
                   </Swiper>
                 </div>
+              </div>
+
+              {/* Labels outside the frame */}
+              <div className="relative md:absolute md:bottom-10 md:left-10 mt-8 md:mt-0 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl mx-4 md:mx-0 text-center md:text-left z-20">
+                <span className="text-xs font-black text-emerald-600 uppercase tracking-widest block mb-1">PROBREW ENVANTER</span>
+                <p className="text-sm font-bold text-slate-900 leading-tight">İşletmenizin her adımını uçtan uca kontrol edin.</p>
               </div>
 
               {/* Floating feature tags for Inventory */}
@@ -607,15 +609,17 @@ export default function Home() {
                             alt={step.alt}
                             className="w-full h-full object-contain p-2 md:p-0"
                           />
-                          <div className="relative md:absolute md:bottom-10 md:left-10 mt-6 md:mt-0 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-100 transition-opacity duration-300 mx-4 md:mx-0 text-center md:text-left">
-                            <span className="text-xs font-black text-indigo-600 uppercase tracking-widest block mb-1">{idx + 1}. ADIM</span>
-                            <p className="text-sm font-bold text-slate-900 leading-tight">{step.alt}</p>
-                          </div>
                         </div>
                       </SwiperSlide>
                     ))}
                   </Swiper>
                 </div>
+              </div>
+
+              {/* Labels outside the frame */}
+              <div className="relative md:absolute md:bottom-10 md:left-10 mt-8 md:mt-0 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl mx-4 md:mx-0 text-center md:text-left z-20">
+                <span className="text-xs font-black text-indigo-600 uppercase tracking-widest block mb-1">PROBREW RAPORLAMA</span>
+                <p className="text-sm font-bold text-slate-900 leading-tight">İşletmenizin nabzını her an, her yerden tutun.</p>
               </div>
 
               {/* Floating feature tags for Analytics */}
@@ -649,7 +653,7 @@ export default function Home() {
                  Adil ve Ölçülebilir <span className="text-rose-600">Performans</span>.
               </h2>
               <p className="text-lg text-gray-400 font-medium max-w-2xl mx-auto">
-                 Hangi personeliniz daha çok satış yapıyor? Hangi ürünleri öneriyor? Ekibinizi verilerle yönetin ve ödüllendirin.
+                Hangi personeliniz daha çok satış yapıyor? Hangi ürünleri öneriyor? Ekibinizi verilerle yönetin ve ödüllendirin.
               </p>
             </motion.div>
 
@@ -681,17 +685,19 @@ export default function Home() {
                           <img
                             src={step.src}
                             alt={step.alt}
-                            className="w-full h-full object-contain"
+                            className="w-full h-full object-contain p-2 md:p-0"
                           />
-                          <div className="relative md:absolute md:bottom-10 md:left-10 mt-4 md:mt-0 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-100 transition-opacity duration-300 mx-4 md:mx-0 text-center md:text-left">
-                            <span className="text-xs font-black text-rose-600 uppercase tracking-widest block mb-1">{idx + 1}. ADIM</span>
-                            <p className="text-sm font-bold text-slate-900 leading-tight">{step.alt}</p>
-                          </div>
                         </div>
                       </SwiperSlide>
                     ))}
                   </Swiper>
                 </div>
+              </div>
+
+              {/* Labels outside the frame */}
+              <div className="relative md:absolute md:bottom-10 md:left-10 mt-8 md:mt-0 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl mx-4 md:mx-0 text-center md:text-left z-20">
+                <span className="text-xs font-black text-rose-600 uppercase tracking-widest block mb-1">PROBREW PERSONEL</span>
+                <p className="text-sm font-bold text-slate-900 leading-tight">Takımınızı şeffaf ve ölçülebilir verilerle yönetin.</p>
               </div>
 
               {/* Floating feature tags for Staff */}
@@ -759,15 +765,17 @@ export default function Home() {
                             alt={step.alt}
                             className="w-full h-full object-contain p-2 md:p-0"
                           />
-                          <div className="relative md:absolute md:bottom-10 md:left-10 mt-6 md:mt-0 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-100 transition-opacity duration-300 mx-4 md:mx-0 text-center md:text-left">
-                            <span className="text-xs font-black text-indigo-600 uppercase tracking-widest block mb-1">DİJİTAL KAYIT</span>
-                            <p className="text-sm font-bold text-slate-900 leading-tight">{step.alt}</p>
-                          </div>
                         </div>
                       </SwiperSlide>
                     ))}
                   </Swiper>
                 </div>
+              </div>
+
+              {/* Labels outside the frame */}
+              <div className="relative md:absolute md:bottom-10 md:left-10 mt-8 md:mt-0 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl mx-4 md:mx-0 text-center md:text-left z-20">
+                <span className="text-xs font-black text-indigo-600 uppercase tracking-widest block mb-1">DİJİTAL KAYIT</span>
+                <p className="text-sm font-bold text-slate-900 leading-tight">Personel tüketimlerini ve ikramları anında kayıt altına alın.</p>
               </div>
 
               {/* Floating tags for Consumption */}
