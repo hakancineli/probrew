@@ -1169,32 +1169,69 @@ export default function Home() {
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                className="bg-white/5 rounded-[3rem] p-10 border border-white/10 backdrop-blur-xl"
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                className="relative"
               >
-                <div className="space-y-6">
-                  <div className="h-4 w-1/3 bg-white/10 rounded-full"></div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="h-32 bg-brand-primary/20 rounded-2xl flex items-center justify-center">
-                      <FiPieChart className="text-4xl text-brand-primary" />
+                <div className="bg-[#1a2332] rounded-[3rem] p-8 border border-white/5 shadow-2xl relative z-10">
+                  {/* Top Stats - Realistic Gemini AI View */}
+                  <div className="grid grid-cols-2 gap-6 mb-8">
+                    <div className="bg-white/5 rounded-3xl p-6 border border-white/5">
+                      <div className="flex justify-between items-start mb-4">
+                        <div className="w-10 h-10 bg-brand-primary/20 rounded-xl flex items-center justify-center text-brand-primary">
+                          <FiPieChart size={20} />
+                        </div>
+                        <span className="text-emerald-500 font-bold text-xs">AI ACTIVE</span>
+                      </div>
+                      <p className="text-white/40 text-xs font-black uppercase tracking-widest mb-1">Satış Tahmini</p>
+                      <h4 className="text-2xl font-black text-white">₺142.500</h4>
                     </div>
-                    <div className="h-32 bg-white/5 rounded-2xl flex items-center justify-center">
-                      <FiTrendingUp className="text-4xl text-emerald-500" />
+                    <div className="bg-white/5 rounded-3xl p-6 border border-white/5">
+                      <div className="flex justify-between items-start mb-4">
+                        <div className="w-10 h-10 bg-emerald-500/20 rounded-xl flex items-center justify-center text-emerald-500">
+                          <FiTrendingUp size={20} />
+                        </div>
+                        <span className="text-brand-primary font-bold text-xs">+%18.2</span>
+                      </div>
+                      <p className="text-white/40 text-xs font-black uppercase tracking-widest mb-1">Verimlilik</p>
+                      <h4 className="text-2xl font-black text-white">Max. Optimize</h4>
                     </div>
                   </div>
-                  <div className="h-40 bg-white/5 rounded-2xl p-6 flex flex-col justify-between">
-                    <div className="flex justify-between items-center text-white font-bold text-sm">
-                      <span>Satış Tahmini</span>
-                      <span className="text-brand-primary">+%24</span>
+
+                  {/* Main Graph - Simplified and Elegant */}
+                  <div className="bg-white/5 rounded-3xl p-8 border border-white/5">
+                    <div className="flex items-center justify-between mb-8">
+                      <h5 className="text-white font-black">Haftalık Hammadde Öngörüsü</h5>
+                      <div className="flex space-x-2">
+                        <div className="w-3 h-3 rounded-full bg-brand-primary"></div>
+                        <div className="w-3 h-3 rounded-full bg-white/10"></div>
+                      </div>
                     </div>
-                    <div className="flex items-end space-x-1 h-12">
-                      {[40, 70, 50, 90, 60, 80, 100].map((h, i) => (
-                        <div key={i} className="flex-1 bg-brand-primary/40 rounded-t-lg transition-all" style={{ height: `${h}%` }}></div>
+                    <div className="flex items-end justify-between h-32 gap-3">
+                      {[30, 45, 35, 60, 85, 40, 55].map((h, i) => (
+                        <div key={i} className="flex-1 group relative">
+                          <motion.div 
+                            initial={{ height: 0 }}
+                            whileInView={{ height: `${h}%` }}
+                            transition={{ delay: i * 0.1, duration: 1 }}
+                            className={`w-full rounded-t-lg transition-all cursor-help ${h > 70 ? 'bg-brand-primary shadow-[0_0_20px_rgba(37,99,235,0.4)]' : 'bg-white/10 group-hover:bg-white/20'}`}
+                          ></motion.div>
+                          <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] text-white/40 font-bold opacity-0 group-hover:opacity-100 transition-opacity">%{h}</span>
+                        </div>
                       ))}
                     </div>
+                    <div className="border-t border-white/5 mt-4 pt-4 flex justify-between text-[10px] text-white/30 font-black tracking-widest uppercase">
+                      <span>Pzt</span><span>Sal</span><span>Çar</span><span>Per</span><span>Cum</span><span>Cmt</span><span>Paz</span>
+                    </div>
+                  </div>
+
+                  {/* Floating AI Bubble */}
+                  <div className="absolute -top-6 -right-6 bg-brand-primary p-4 rounded-2xl shadow-2xl animate-bounce">
+                    <FiCpu className="text-white text-xl" />
                   </div>
                 </div>
+                {/* Visual Glow */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-brand-primary/20 blur-[120px] rounded-full"></div>
               </motion.div>
             </div>
           </div>
@@ -1256,43 +1293,72 @@ export default function Home() {
 
         {/* --- COMPARISON (SIMPRA VS PROBREW) --- */}
         <section className="py-32 bg-[#FAF9F6]">
-          <div className="max-w-5xl mx-auto px-4 text-center">
-            <motion.h2 {...fadeInUp} className="text-4xl md:text-5xl font-black text-brand-dark mb-16 tracking-tighter leading-tight">
-              Neden <span className="text-brand-primary hover:underline transition-all">Geleneksel</span> POS'lardan <br /> Farklıyız?
-            </motion.h2>
+          <div className="max-w-7xl mx-auto px-4">
+            <motion.div {...fadeInUp} className="text-center mb-20">
+              <h2 className="text-4xl md:text-6xl font-black text-brand-dark mb-6 tracking-tighter">
+                Yeni Nesil <span className="text-brand-primary">Liderlik</span>.
+              </h2>
+              <p className="text-lg text-gray-500 max-w-2xl mx-auto font-medium">
+                Geleneksel POS sitemleri kayıt tutar, ProBrew ise işletmenizi geleceğe hazırlar.
+              </p>
+            </motion.div>
 
-            <div className="overflow-hidden rounded-[3rem] shadow-2xl bg-white border border-gray-100">
-              <table className="w-full text-left">
-                <thead>
-                  <tr className="bg-brand-dark text-white">
-                    <th className="p-8 font-black text-xl">Özellik</th>
-                    <th className="p-8 font-black text-xl text-brand-primary">ProBrew</th>
-                    <th className="p-8 font-black text-xl text-white/30">Klasik Sistemler</th>
-                  </tr>
-                </thead>
-                <tbody className="text-gray-600 font-bold">
-                  <tr className="border-b border-gray-50">
-                    <td className="p-8">Yapay Zeka Tahminleme</td>
-                    <td className="p-8 text-brand-primary"><FiCheckCircle className="text-2xl" /></td>
-                    <td className="p-8 opacity-20"><FiX className="text-2xl" /></td>
-                  </tr>
-                  <tr className="border-b border-gray-50">
-                    <td className="p-8">Gerçek Zamanlı Bulut Senk.</td>
-                    <td className="p-8 text-brand-primary"><FiCheckCircle className="text-2xl" /></td>
-                    <td className="p-8 opacity-20"><FiCircle className="text-2xl" /></td>
-                  </tr>
-                  <tr className="border-b border-gray-50">
-                    <td className="p-8">Ücretsiz Entegrasyonlar</td>
-                    <td className="p-8 text-brand-primary"><FiCheckCircle className="text-2xl" /></td>
-                    <td className="p-8 opacity-20"><FiX className="text-2xl" /></td>
-                  </tr>
-                  <tr>
-                    <td className="p-8">7/24 Teknik Destek</td>
-                    <td className="p-8 text-brand-primary"><FiCheckCircle className="text-2xl" /></td>
-                    <td className="p-8 text-emerald-500"><FiCheckCircle className="text-2xl" /></td>
-                  </tr>
-                </tbody>
-              </table>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { title: 'Yapay Zeka Destekli Tahminleme', pro: true, desc: 'Haftalık ihtiyaçlarınızı Gemini AI ile öngörür.' },
+                { title: 'Gerçek Zamanlı Bulut Senk.', pro: true, desc: 'Verileriniz saniyeler içinde tüm şubelerde aktif.' },
+                { title: 'Ücretsiz Entegrasyonlar', pro: true, desc: 'Ek ücret ödemeden tüm ödeme sistemlerine hazır.' },
+                { title: '7/24 Proaktif Destek', pro: true, desc: 'Siz aramadan biz sorunları tespit ederiz.' },
+              ].map((item, i) => (
+                <motion.div 
+                  key={i}
+                  {...fadeInUp}
+                  className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-xl relative overflow-hidden group hover:bg-brand-dark transition-colors duration-500"
+                >
+                  <div className="relative z-10">
+                    <div className="w-12 h-12 bg-brand-primary/10 rounded-2xl flex items-center justify-center text-brand-primary mb-6 group-hover:bg-white/10">
+                      <FiCheckCircle size={24} />
+                    </div>
+                    <h4 className="text-xl font-black text-brand-dark mb-4 group-hover:text-white transition-colors">{item.title}</h4>
+                    <p className="text-gray-500 text-sm font-medium group-hover:text-white/60 transition-colors">{item.desc}</p>
+                  </div>
+                  {/* Decorative badge */}
+                  <div className="absolute top-4 right-4 px-3 py-1 bg-brand-primary/10 rounded-full text-[10px] font-black text-brand-primary group-hover:bg-white group-hover:text-brand-dark uppercase tracking-widest">
+                    PROBREW
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Comparison Table Redesign */}
+            <div className="mt-12 overflow-x-auto">
+              <div className="inline-block min-w-full align-middle">
+                <div className="overflow-hidden rounded-[3rem] border border-gray-100 bg-white shadow-2xl">
+                  <table className="min-w-full divide-y divide-gray-50 text-left">
+                    <thead>
+                      <tr className="bg-brand-dark text-white">
+                        <th className="px-10 py-8 font-black text-xl">Neyi Değiştiriyoruz?</th>
+                        <th className="px-10 py-8 font-black text-xl text-brand-primary text-center">Modern ProBrew</th>
+                        <th className="px-10 py-8 font-black text-xl text-white/30 text-center">Geleneksel POS</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-50 text-gray-600 font-bold">
+                      {[
+                        { label: 'Yatırım Maliyeti', pb: 'Donanım Gerektirmez', old: 'Hantal Terminal Şart' },
+                        { label: 'Güncelleme Hızı', pb: 'Anlık & Bulut Tabanlı', old: 'Yerinde Servis Bekleme' },
+                        { label: 'Veri Analizi', pb: 'AI Öngörü Uygulanmış', old: 'Sadece Manuel Raporlar' },
+                        { label: 'Kullanım Kolaylığı', pb: 'Sosyal Medya Pratikliği', old: 'Eski DOS Arayüzleri' }
+                      ].map((row, i) => (
+                        <tr key={i} className="hover:bg-gray-50 transition-colors">
+                          <td className="px-10 py-6 text-brand-dark">{row.label}</td>
+                          <td className="px-10 py-6 text-brand-primary font-black text-center bg-brand-primary/5">{row.pb}</td>
+                          <td className="px-10 py-6 text-gray-300 text-center">{row.old}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
         </section>
