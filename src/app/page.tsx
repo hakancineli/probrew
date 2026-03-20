@@ -54,7 +54,7 @@ export default function Home() {
       title: 'Personel Tableti',
       tag: 'MOBİLİTE',
       desc: 'Garsonlar için optimize edilmiş taşınabilir güç. Stok durumunu anlık görün, hata payını sıfırlayın.',
-      img: '/images/showcase/tablet-pos.png',
+      img: '/images/showcase/staff-steps/step-screenshot.png',
       color: 'bg-indigo-600'
     },
     {
@@ -82,7 +82,7 @@ export default function Home() {
       title: 'Uçtan Uca Dijital Sipariş',
       tag: 'OTOMASYON',
       desc: 'Siparişler masadan mutfağa, mutfaktan kasaya otomatik akar. İnsan hatasını sıfırlayın, verimliliği artırın.',
-      img: '/images/showcase/kds-steps/new-step-1.png',
+      img: '/images/showcase/inventory-steps/step-4.png',
       color: 'bg-indigo-700'
     },
     {
