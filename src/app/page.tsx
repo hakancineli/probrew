@@ -836,17 +836,19 @@ export default function Home() {
                           <img
                             src={step.src}
                             alt={step.alt}
-                            className="w-full h-full object-contain"
+                            className="w-full h-full object-contain p-2 md:p-0"
                           />
-                          <div className="relative md:absolute md:bottom-10 md:left-10 mt-4 md:mt-0 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 mx-4 md:mx-0 text-center md:text-left">
-                            <span className="text-xs font-black text-orange-500 uppercase tracking-widest block mb-1">PROBREW PREMIUM AI</span>
-                            <p className="text-sm font-bold text-slate-900 leading-tight">{step.alt}</p>
-                          </div>
                         </div>
                       </SwiperSlide>
                     ))}
                   </Swiper>
                 </div>
+              </div>
+
+              {/* Labels outside the frame */}
+              <div className="relative md:absolute md:bottom-10 md:left-10 mt-8 md:mt-0 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl mx-4 md:mx-0 text-center md:text-left z-20">
+                <span className="text-xs font-black text-orange-500 uppercase tracking-widest block mb-1">PROBREW PREMIUM AI</span>
+                <p className="text-sm font-bold text-slate-900 leading-tight">Yapay zeka ile yarının satışlarını bugünden tahmin edin.</p>
               </div>
 
               {/* Floating tags */}
