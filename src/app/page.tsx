@@ -68,28 +68,28 @@ export default function Home() {
       title: 'Benzersiz Masa QR Kodları',
       tag: 'OPERASYON',
       desc: 'Her masa için saniyeler içinde özel QR kod oluşturun ve yazdırın. Müşterileriniz anında dijital dünyanıza erişsin.',
-      img: '/images/showcase/qr-menu.png',
+      img: '/images/showcase/qr-steps/step-2.png',
       color: 'bg-blue-500'
     },
     {
       title: 'Mobil Garson Çağırma Sistemi',
       tag: 'İLETİŞİM',
       desc: 'Müşteriniz butona bastığında tüm panellerinizde anlık uyarı görün. Servis kalitesini ve hızını maksimize edin.',
-      img: '/images/showcase/tablet-pos.png',
+      img: '/images/showcase/waiter-call/step-1.png',
       color: 'bg-orange-600'
     },
     {
       title: 'Uçtan Uca Dijital Sipariş',
       tag: 'OTOMASYON',
       desc: 'Siparişler masadan mutfağa, mutfaktan kasaya otomatik akar. İnsan hatasını sıfırlayın, verimliliği artırın.',
-      img: '/images/showcase/admin-panel-ui.png',
+      img: '/images/showcase/kds-steps/new-step-1.png',
       color: 'bg-indigo-700'
     },
     {
       title: 'Hızlı Masa Taşıma & Birleştirme',
       tag: 'ESNEKLİK',
       desc: 'Müşterileriniz yer değiştirdiğinde tek tıkla tüm hesabı yeni masaya aktarın veya masaları birleştirin. Karmaşıklığa son verin.',
-      img: '/images/showcase/pos-ambience.png',
+      img: '/images/showcase/pos-steps/step-4.png',
       color: 'bg-rose-500'
     }
   ];
