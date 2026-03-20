@@ -1107,13 +1107,21 @@ export default function Home() {
                   whileHover={{ y: -10 }}
                   className="bg-white rounded-[2.5rem] overflow-hidden border border-gray-50 flex flex-col group"
                 >
-                  <div className="relative h-64 overflow-hidden">
-                    <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                    <div className="absolute top-6 left-6 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-sm shadow-sm">
-                      <span className="text-[10px] font-black tracking-widest uppercase text-brand-dark">{item.tag}</span>
-                    </div>
-                  </div>
                   <div className="p-8 flex-1 flex flex-col">
+                    <div className="flex items-center justify-between mb-6">
+                      <div className={`w-12 h-12 ${item.color} rounded-2xl flex items-center justify-center text-white shadow-lg`}>
+                        {idx === 0 && <FiLayout size={24} />}
+                        {idx === 1 && <FiTarget size={24} />}
+                        {idx === 2 && <FiSmartphone size={24} />}
+                        {idx === 3 && <FiUsers size={24} />}
+                        {idx === 4 && <FiTrendingUp size={24} />}
+                        {idx === 5 && <FiZap size={24} />}
+                        {idx === 6 && <FiGlobe size={24} />}
+                        {idx === 7 && <FiShoppingBag size={24} />}
+                        {idx === 8 && <FiShield size={24} />}
+                      </div>
+                      <span className="text-[10px] font-black tracking-widest uppercase text-gray-400">{item.tag}</span>
+                    </div>
                     <h3 className="text-2xl font-black text-brand-dark mb-4">{item.title}</h3>
                     <p className="text-gray-500 font-medium text-sm leading-relaxed mb-6 flex-1">
                       {item.desc}
