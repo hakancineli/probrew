@@ -527,9 +527,9 @@ export default function Home() {
                           <img
                             src={step.src}
                             alt={step.alt}
-                            className="w-full h-full object-contain"
+                            className="w-full h-full object-contain p-2 md:p-0"
                           />
-                          <div className="relative md:absolute md:bottom-10 md:left-10 mt-4 md:mt-0 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-100 transition-opacity duration-300 mx-4 md:mx-0 text-center md:text-left">
+                          <div className="relative md:absolute md:bottom-10 md:left-10 mt-6 md:mt-0 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-100 transition-opacity duration-300 mx-4 md:mx-0 text-center md:text-left">
                             <span className="text-xs font-black text-emerald-600 uppercase tracking-widest block mb-1">{idx + 1}. ADIM</span>
                             <p className="text-sm font-bold text-slate-900 leading-tight">{step.alt}</p>
                           </div>
@@ -605,9 +605,9 @@ export default function Home() {
                           <img
                             src={step.src}
                             alt={step.alt}
-                            className="w-full h-full object-contain"
+                            className="w-full h-full object-contain p-2 md:p-0"
                           />
-                          <div className="relative md:absolute md:bottom-10 md:left-10 mt-4 md:mt-0 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-100 transition-opacity duration-300 mx-4 md:mx-0 text-center md:text-left">
+                          <div className="relative md:absolute md:bottom-10 md:left-10 mt-6 md:mt-0 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-100 transition-opacity duration-300 mx-4 md:mx-0 text-center md:text-left">
                             <span className="text-xs font-black text-indigo-600 uppercase tracking-widest block mb-1">{idx + 1}. ADIM</span>
                             <p className="text-sm font-bold text-slate-900 leading-tight">{step.alt}</p>
                           </div>
@@ -757,9 +757,9 @@ export default function Home() {
                           <img
                             src={step.src}
                             alt={step.alt}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-contain p-2 md:p-0"
                           />
-                          <div className="relative md:absolute md:bottom-10 md:left-10 mt-4 md:mt-0 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-100 transition-opacity duration-300 mx-4 md:mx-0 text-center md:text-left">
+                          <div className="relative md:absolute md:bottom-10 md:left-10 mt-6 md:mt-0 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-100 transition-opacity duration-300 mx-4 md:mx-0 text-center md:text-left">
                             <span className="text-xs font-black text-indigo-600 uppercase tracking-widest block mb-1">DİJİTAL KAYIT</span>
                             <p className="text-sm font-bold text-slate-900 leading-tight">{step.alt}</p>
                           </div>
