@@ -1,10 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { getAuthenticatedUser } from '@/lib/auth';
+import { verifyToken } from '@/lib/auth';
+
+const getUser = (request: NextRequest) => {
+  let token = request.cookies.get('auth-token')?.value;
+  if (!token) {
+    const authHeader = request.headers.get('authorization');
+    if (authHeader?.startsWith('Bearer ')) {
+      token = authHeader.substring(7);
+    }
+  }
+  return token ? verifyToken(token) : null;
+};
 
 export async function GET(request: NextRequest) {
   try {
-    const user = await getAuthenticatedUser();
+    const user = getUser(request);
     if (!user || !user.businessId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -41,7 +52,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const user = await getAuthenticatedUser();
+    const user = getUser(request);
     if (!user || !user.businessId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -108,7 +119,7 @@ export async function POST(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   try {
-    const user = await getAuthenticatedUser();
+    const user = getUser(request);
     if (!user || !user.businessId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -146,7 +157,7 @@ export async function PUT(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
-    const user = await getAuthenticatedUser();
+    const user = getUser(request);
     if (!user || !user.businessId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
