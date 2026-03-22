@@ -91,6 +91,13 @@ export default function Home() {
       desc: 'Müşterileriniz yer değiştirdiğinde tek tıkla tüm hesabı yeni masaya aktarın veya masaları birleştirin. Karmaşıklığa son verin.',
       img: '/images/showcase/pos-steps/step-4.png',
       color: 'bg-rose-500'
+    },
+    {
+      title: 'Akıllı Masa Rezervasyonu',
+      tag: 'REZERVASYON',
+      desc: 'Telefonla gelen her rezervasyonu anında kaydedin. Çakışma kontrolü, durum takibi ve günlük takvim görünümü ile misafirlerinizi profesyonelce karşılayın.',
+      img: '/images/showcase/pos-steps/step-1.png',
+      color: 'bg-amber-600'
     }
   ];
 
