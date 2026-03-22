@@ -98,6 +98,13 @@ export default function Home() {
       desc: 'Telefonla gelen her rezervasyonu anında kaydedin. Çakışma kontrolü, durum takibi ve günlük takvim görünümü ile misafirlerinizi profesyonelce karşılayın.',
       img: '/images/showcase/pos-steps/step-1.png',
       color: 'bg-amber-600'
+    },
+    {
+      title: 'Kafe İçi Sesli Anons Sistemi',
+      tag: 'İLETİŞİM',
+      desc: 'Kapanış saati, kampanya duyuruları veya özel mesajlarınızı tek tuşla kafe hoparlörlerinden sesli olarak iletin. Profesyonel bir deneyim sunun.',
+      img: '/images/showcase/pos-steps/step-2.png',
+      color: 'bg-violet-600'
     }
   ];
 
