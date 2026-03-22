@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import { prisma } from '@/lib/prisma';
 
 const CREEM_API_KEY = process.env.CREEM_API_KEY!;
-const CREEM_BASE_URL = 'https://api.creem.io/v1';
+const CREEM_BASE_URL = process.env.CREEM_TEST_MODE === 'true' ? 'https://test-api.creem.io/v1' : 'https://api.creem.io/v1';
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://probrew.com.tr';
 
 export async function POST(request: NextRequest) {
