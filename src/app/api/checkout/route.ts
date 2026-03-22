@@ -2,9 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import jwt from 'jsonwebtoken';
 import { prisma } from '@/lib/prisma';
+import { creem } from '@/lib/creem';
 
-const CREEM_API_KEY = process.env.CREEM_API_KEY!;
-const CREEM_BASE_URL = process.env.CREEM_TEST_MODE === 'true' ? 'https://test-api.creem.io/v1' : 'https://api.creem.io/v1';
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://probrew.com.tr';
 
 export async function POST(request: NextRequest) {
@@ -39,47 +38,29 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    const checkoutPayload: Record<string, unknown> = {
-      product_id: productId,
-      success_url: `${APP_URL}/odeme-basarili`,
+    const payload: any = {
+      productId: productId,
+      successUrl: `${APP_URL}/odeme-basarili`,
       metadata: {
-        userId: userId || undefined,
-        businessId: businessId || undefined
+         userId: userId || undefined,
+         businessId: businessId || undefined
       }
     };
 
     if (customerEmail) {
-      checkoutPayload.customer = { email: customerEmail };
+      payload.customer = { email: customerEmail };
     }
 
-    const response = await fetch(`${CREEM_BASE_URL}/checkouts`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': CREEM_API_KEY,
-      },
-      body: JSON.stringify(checkoutPayload),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error('Creem API error:', errorData);
-      return NextResponse.json(
-        { error: 'Ödeme oturumu oluşturulamadı', details: errorData },
-        { status: response.status }
-      );
-    }
-
-    const checkout = await response.json();
+    const checkout = await creem.checkouts.create(payload);
 
     return NextResponse.json({ 
-      checkoutUrl: checkout.checkout_url,
+      checkoutUrl: checkout.checkoutUrl,
       checkoutId: checkout.id 
     });
-  } catch (error) {
-    console.error('Checkout error:', error);
+  } catch (error: any) {
+    console.error('Checkout error:', error.message || error);
     return NextResponse.json(
-      { error: 'Ödeme oturumu oluşturulamadı' },
+      { error: 'Ödeme oturumu oluşturulamadı', details: error.message || error },
       { status: 500 }
     );
   }
