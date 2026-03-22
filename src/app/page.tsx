@@ -394,11 +394,11 @@ export default function Home() {
                         </div>
                       </SwiperSlide>
                       <SwiperSlide>
-                        <div className="relative w-full h-full bg-gray-50">
+                        <div className="relative w-full h-full bg-white">
                           <img
                             src="/images/showcase/customer-display/step-1.png"
                             alt="Şeffaf Ödeme Süreci - Müşteri Sepet Görünümü"
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover showcase-img"
                           />
                           <div className="absolute bottom-10 left-10 p-4 bg-white/90 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <span className="text-xs font-black text-indigo-600 uppercase tracking-widest">ŞEFFAF ÖDEME</span>
