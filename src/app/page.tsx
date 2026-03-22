@@ -150,6 +150,10 @@ export default function Home() {
         .animate-bounce-subtle {
           animation: bounce-subtle 2s infinite ease-in-out;
         }
+        .showcase-img {
+          image-rendering: -webkit-optimize-contrast;
+          image-rendering: crisp-edges;
+        }
       `}</style>
       <Navbar />
 
@@ -381,7 +385,7 @@ export default function Home() {
                             loop
                             muted
                             playsInline
-                            className="w-full h-full object-contain"
+                            className="w-full h-full object-cover showcase-img"
                           />
                           <div className="absolute top-6 left-6 flex items-center gap-2 px-3 py-1 bg-black/50 backdrop-blur-md rounded-full text-[10px] font-bold text-white uppercase tracking-widest">
                             <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
@@ -459,7 +463,7 @@ export default function Home() {
                           <img
                             src={step.src}
                             alt={step.alt}
-                            className="w-full h-full object-contain"
+                            className="w-full h-full object-cover showcase-img"
                           />
                           <div className="relative md:absolute md:bottom-10 md:left-10 mt-4 md:mt-0 p-4 bg-white/95 backdrop-blur-md rounded-2xl border border-gray-100 shadow-xl opacity-100 transition-opacity duration-300 mx-4 md:mx-0 text-center md:text-left">
                             <span className="text-xs font-black text-orange-500 uppercase tracking-widest block mb-1">{idx + 1}. ADIM</span>
@@ -538,7 +542,7 @@ export default function Home() {
                           <img
                             src={step.src}
                             alt={step.alt}
-                            className="w-full h-full object-contain p-2 md:p-0"
+                            className="w-full h-full object-cover showcase-img"
                           />
                         </div>
                       </SwiperSlide>
@@ -618,7 +622,7 @@ export default function Home() {
                           <img
                             src={step.src}
                             alt={step.alt}
-                            className="w-full h-full object-contain p-2 md:p-0"
+                            className="w-full h-full object-cover showcase-img"
                           />
                         </div>
                       </SwiperSlide>
@@ -696,7 +700,7 @@ export default function Home() {
                           <img
                             src={step.src}
                             alt={step.alt}
-                            className="w-full h-full object-contain p-2 md:p-0"
+                            className="w-full h-full object-cover showcase-img"
                           />
                         </div>
                       </SwiperSlide>
@@ -774,7 +778,7 @@ export default function Home() {
                           <img
                             src={step.src}
                             alt={step.alt}
-                            className="w-full h-full object-contain p-2 md:p-0"
+                            className="w-full h-full object-cover showcase-img"
                           />
                         </div>
                       </SwiperSlide>
@@ -847,7 +851,7 @@ export default function Home() {
                           <img
                             src={step.src}
                             alt={step.alt}
-                            className="w-full h-full object-contain p-2 md:p-0"
+                            className="w-full h-full object-cover showcase-img"
                           />
                         </div>
                       </SwiperSlide>
