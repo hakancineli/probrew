@@ -136,6 +136,13 @@ export default function Home() {
         .animate-spin-slow {
           animation: spin-slow 8s linear infinite;
         }
+        @keyframes bounce-subtle {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-5px); }
+        }
+        .animate-bounce-subtle {
+          animation: bounce-subtle 2s infinite ease-in-out;
+        }
       `}</style>
       <Navbar />
 
@@ -156,17 +163,22 @@ export default function Home() {
                 </div>
 
                 <h1 className="text-5xl md:text-7xl font-black text-brand-dark leading-[0.9] mb-8 tracking-tighter">
-                  Kafe POS ve <br />
-                  <span className="text-brand-primary">Restoran Yönetiminde Yeni Nesil Standart.</span>
+                  Sadece Bir POS Değil, <br />
+                  <span className="text-brand-primary">İşletmenizin Akıllı Ortağı.</span>
                 </h1>
 
-                <p className="text-xl text-gray-500 mb-10 leading-relaxed font-medium">
-                  Hantal sistemlerle vakit kaybetmeyin. ProBrew, yapay zeka destekli altyapısıyla işletmenizin her hücresini tek bir ekranda birleştirir.
+                <p className="text-xl text-gray-500 mb-6 leading-relaxed font-medium">
+                  Hantal sistemlere veda edin. ProBrew ile yapay zeka destekli, ultra hızlı ve hatasız bir sisteme lansmana özel <span className="text-brand-dark font-black">1.000 TL + KDV</span>&apos;den başlayan fiyatlarla hemen sahip olun.
                 </p>
 
+                <div className="flex items-center space-x-3 mb-10 text-emerald-600 font-bold bg-emerald-50 w-fit px-4 py-2 rounded-xl border border-emerald-100 italic">
+                  <FiCheckCircle />
+                  <span>Kurulum Ücreti Yok. Taahhüt Yok. Sadece Başarı Var.</span>
+                </div>
+
                 <div className="flex flex-col sm:flex-row gap-5">
-                  <Link href="/login?register=true" className="px-10 py-5 bg-brand-dark text-white rounded-2xl font-black text-lg hover:scale-[1.03] active:scale-[0.97] transition-all shadow-2xl shadow-brand-dark/30 flex items-center justify-center space-x-3 group">
-                    <span>15 Gün Ücretsiz Deneyin</span>
+                  <Link href="/login?register=true" className="px-10 py-5 bg-brand-dark text-white rounded-2xl font-black text-lg hover:scale-[1.03] active:scale-[0.97] transition-all shadow-2xl shadow-brand-dark/30 flex items-center justify-center space-x-3 group animate-bounce-subtle">
+                    <span>Hemen Ücretsiz Başla</span>
                     <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                   </Link>
                   <Link href="/contact" className="px-10 py-5 bg-white border border-gray-100 text-brand-dark rounded-2xl font-black text-lg hover:bg-gray-50 transition-all flex items-center justify-center space-x-3 shadow-xl">
