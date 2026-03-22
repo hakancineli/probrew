@@ -31,27 +31,53 @@ export async function POST(request: NextRequest) {
           checkoutId: event.data.id,
           customerId: event.data.customer_id,
           productId: event.data.product_id,
+          metadata: event.data.metadata
         });
-        // TODO: İşletme hesabını aktifleştir, e-posta gönder
+
+        const businessId = event.data.metadata?.businessId;
+        if (businessId) {
+          // Activating the subscription for 1 month
+          const endDate = new Date();
+          endDate.setMonth(endDate.getMonth() + 1);
+
+          await prisma.business.update({
+            where: { id: businessId },
+            data: {
+              subscriptionStatus: 'ACTIVE',
+              subscriptionEnd: endDate
+            }
+          });
+          console.log(`✅ Business ${businessId} marked as ACTIVE.`);
+        }
         break;
 
       case 'subscription.created':
         console.log('🆕 Yeni abonelik:', event.data);
-        // TODO: Abonelik bilgilerini veritabanına kaydet
         break;
 
       case 'subscription.renewed':
         console.log('🔄 Abonelik yenilendi:', event.data);
+        const renewBizId = event.data.metadata?.businessId;
+        if (renewBizId) {
+          const newEndDate = new Date();
+          newEndDate.setMonth(newEndDate.getMonth() + 1);
+          await prisma.business.update({
+            where: { id: renewBizId },
+            data: { subscriptionStatus: 'ACTIVE', subscriptionEnd: newEndDate }
+          });
+        }
         break;
 
       case 'subscription.canceled':
-        console.log('❌ Abonelik iptal edildi:', event.data);
-        // TODO: İşletme erişimini kısıtla
-        break;
-
       case 'subscription.expired':
-        console.log('⏰ Abonelik süresi doldu:', event.data);
-        // TODO: İşletme erişimini kapat
+        console.log('❌ Abonelik sonlandı:', event.type, event.data);
+         const cancelBizId = event.data.metadata?.businessId;
+        if (cancelBizId) {
+          await prisma.business.update({
+            where: { id: cancelBizId },
+            data: { subscriptionStatus: 'SUSPENDED' }
+          });
+        }
         break;
 
       default:

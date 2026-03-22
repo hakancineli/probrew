@@ -8,8 +8,10 @@ import AIConsultant from '@/components/admin/AIConsultant';
 import toast from 'react-hot-toast';
 import { useRealtime } from '@/hooks/useRealtime';
 import { useCallback } from 'react';
+import { FiCreditCard } from 'react-icons/fi';
 
 export default function AdminDashboard() {
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [stats, setStats] = useState({
     totalOrders: 0,
@@ -77,6 +79,29 @@ export default function AdminDashboard() {
       console.error('Logout error:', error);
       // Fallback
       window.location.href = '/login';
+    }
+  };
+
+  const handleStartSubscription = async () => {
+    setCheckoutLoading(true);
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          productId: process.env.NEXT_PUBLIC_CREEM_PRODUCT_ID || 'prod_3Ok6QOuqs5xiTvH0bohraS',
+        }),
+      });
+      const data = await response.json();
+      if (data.checkoutUrl) {
+        window.location.href = data.checkoutUrl;
+      } else {
+        toast.error('Ödeme sayfası oluşturulamadı.');
+      }
+    } catch (error) {
+      toast.error('Bir hata oluştu.');
+    } finally {
+      setCheckoutLoading(false);
     }
   };
 
@@ -396,6 +421,26 @@ export default function AdminDashboard() {
             </button>
           </div>
         )}
+
+        {/* Subscription CTA Banner */}
+        <div className="mb-8 bg-gradient-to-r from-emerald-600 to-teal-700 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between shadow-xl shadow-emerald-900/20 text-white animate-in slide-in-from-bottom-4 duration-700">
+          <div className="flex-1 mb-6 md:mb-0 text-center md:text-left">
+            <h3 className="text-2xl font-black mb-2 flex items-center justify-center md:justify-start gap-2">
+              <FiCreditCard className="text-emerald-200" />
+              Aboneliğinizi Aktifleştirin
+            </h3>
+            <p className="text-emerald-50 text-base max-w-2xl font-medium leading-relaxed">
+              İşletmeniz şu anda deneme sürümündedir. Sistemin tüm özelliklerini kesintisiz kullanmaya devam etmek için güvenli ödeme ile ProBrew aboneliğinizi başlatın.
+            </p>
+          </div>
+          <button
+            onClick={handleStartSubscription}
+            disabled={checkoutLoading}
+            className="w-full md:w-auto px-8 py-4 bg-white text-emerald-800 rounded-xl font-black text-lg hover:scale-105 active:scale-95 transition-all shadow-lg flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-wait"
+          >
+            {checkoutLoading ? 'Yönlendiriliyor...' : 'Satın Al (1.000 TL / Ay)'}
+          </button>
+        </div>
 
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
               <h3 className="text-lg leading-6 font-medium text-gray-900">Son Siparişler</h3>

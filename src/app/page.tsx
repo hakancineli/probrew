@@ -1,5 +1,4 @@
 'use client';
-import { useState } from 'react';
 
 import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
@@ -17,31 +16,6 @@ import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
 
 export default function Home() {
-  const [checkoutLoading, setCheckoutLoading] = useState(false);
-
-  const handleCheckout = async () => {
-    setCheckoutLoading(true);
-    try {
-      const response = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          productId: process.env.NEXT_PUBLIC_CREEM_PRODUCT_ID || 'prod_PLACEHOLDER',
-        }),
-      });
-      const data = await response.json();
-      if (data.checkoutUrl) {
-        window.location.href = data.checkoutUrl;
-      } else {
-        alert('Ödeme sayfası oluşturulamadı. Lütfen tekrar deneyin.');
-      }
-    } catch (error) {
-      console.error('Checkout failed:', error);
-      alert('Bir hata oluştu. Lütfen tekrar deneyin.');
-    } finally {
-      setCheckoutLoading(false);
-    }
-  };
   const fadeInUp = {
     initial: { opacity: 0, y: 30 },
     whileInView: { opacity: 1, y: 0 },
@@ -221,10 +195,10 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-5">
-                  <button onClick={handleCheckout} disabled={checkoutLoading} className="px-10 py-5 bg-brand-dark text-white rounded-2xl font-black text-lg hover:scale-[1.03] active:scale-[0.97] transition-all shadow-2xl shadow-brand-dark/30 flex items-center justify-center space-x-3 group animate-bounce-subtle disabled:opacity-50 disabled:cursor-wait">
-                    <span>{checkoutLoading ? 'Yönlendiriliyor...' : 'Hemen Ücretsiz Başla'}</span>
+                  <Link href="/login?register=true" className="px-10 py-5 bg-brand-dark text-white rounded-2xl font-black text-lg hover:scale-[1.03] active:scale-[0.97] transition-all shadow-2xl shadow-brand-dark/30 flex items-center justify-center space-x-3 group animate-bounce-subtle">
+                    <span>Hemen Ücretsiz Başla</span>
                     <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
-                  </button>
+                  </Link>
                   <Link href="/contact" className="px-10 py-5 bg-white border border-gray-100 text-brand-dark rounded-2xl font-black text-lg hover:bg-gray-50 transition-all flex items-center justify-center space-x-3 shadow-xl">
                     <span>Özel Teklif Alın</span>
                   </Link>
@@ -1434,9 +1408,9 @@ export default function Home() {
                 Saniyeler içinde kayıt olun, dakikalar içinde şubenizi aktif edin. Donanım zorunluluğu yok, karmaşa yok.
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-6">
-                <button onClick={handleCheckout} disabled={checkoutLoading} className="px-12 py-6 bg-brand-dark text-white rounded-[2rem] font-black text-2xl hover:scale-105 active:scale-95 transition-all shadow-xl disabled:opacity-50 disabled:cursor-wait">
-                  {checkoutLoading ? 'Yönlendiriliyor...' : '15 Gün Ücretsiz Başlatın'}
-                </button>
+                <Link href="/login?register=true" className="px-12 py-6 bg-brand-dark text-white rounded-[2rem] font-black text-2xl hover:scale-105 active:scale-95 transition-all shadow-xl">
+                  15 Gün Ücretsiz Başlatın
+                </Link>
                 <Link href="/contact" className="px-12 py-6 bg-white text-brand-primary rounded-[2rem] font-black text-2xl hover:scale-105 active:scale-95 transition-all shadow-xl">
                   Sizi Arayalım
                 </Link>
