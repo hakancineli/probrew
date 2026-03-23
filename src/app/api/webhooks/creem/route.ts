@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
       case 'subscription.canceled':
       case 'subscription.expired':
         console.log('❌ Abonelik sonlandı:', event.type, event.data);
-         const cancelBizId = event.data.metadata?.businessId;
+        const cancelBizId = event.data.metadata?.businessId;
         if (cancelBizId) {
           await prisma.business.update({
             where: { id: cancelBizId },

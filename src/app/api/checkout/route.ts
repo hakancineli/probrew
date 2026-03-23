@@ -6,7 +6,7 @@ import { prisma } from '@/lib/prisma';
 export const preferredRegion = 'fra1';
 export const dynamic = 'force-dynamic';
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://probrew.com.tr';
+const APP_URL = 'https://probrew.com.tr';
 
 export async function POST(request: NextRequest) {
   console.log('--- Checkout API [FRA1 + NEW KEY] Started ---');
