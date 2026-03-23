@@ -6,8 +6,10 @@ import { creem } from '@/lib/creem';
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://probrew.com.tr';
 
+import https from 'https';
+
 export async function POST(request: NextRequest) {
-  console.log('--- Checkout API [REFINED v2] Started ---');
+  console.log('--- Checkout API [NATIVE NODE.JS HTTPS] Started ---');
   try {
     const body = await request.json();
     const { productId, customerEmail } = body;
@@ -21,11 +23,11 @@ export async function POST(request: NextRequest) {
     }
 
     const isTestKey = apiKey.startsWith('creem_test_');
-    const baseUrl = isTestKey ? 'https://test-api.creem.io/v1' : 'https://api.creem.io/v1';
+    const hostname = isTestKey ? 'test-api.creem.io' : 'api.creem.io';
 
     // Mask for logs & response
     const maskedKey = `${apiKey.substring(0, 8)}...${apiKey.substring(apiKey.length - 4)}`;
-    console.log(`[AUTH] Mode: ${isTestKey ? 'TEST' : 'LIVE'} | Key: ${maskedKey}`);
+    console.log(`[AUTH] Mode: ${isTestKey ? 'TEST' : 'LIVE'} | Key: ${maskedKey} | Host: ${hostname}`);
 
     // Auth & Context
     let userId = null;
@@ -55,39 +57,58 @@ export async function POST(request: NextRequest) {
     if (Object.keys(metadata).length > 0) requestPayload.metadata = metadata;
     if (customerEmail) requestPayload.customer = { email: customerEmail };
 
-    console.log('Final Fetch Request to:', `${baseUrl}/checkouts`);
-    console.log('With Header x-api-key length:', apiKey.length);
+    const payloadString = JSON.stringify(requestPayload);
 
-    const res = await fetch(`${baseUrl}/checkouts`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'X-API-KEY': apiKey,
-        'User-Agent': 'ProBrew/1.0',
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-      body: JSON.stringify(requestPayload),
+    console.log(`Final HTTPS Request to: ${hostname}/v1/checkouts`);
+
+    // Using native https to bypass Next.js fetch patches and Vercel proxy headers
+    const data = await new Promise<any>((resolve, reject) => {
+      const options = {
+        hostname: hostname,
+        port: 443,
+        path: '/v1/checkouts',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'x-api-key': apiKey,
+          'Content-Length': Buffer.byteLength(payloadString)
+        }
+      };
+
+      const req = https.request(options, (res) => {
+        let responseBody = '';
+        res.on('data', (chunk) => responseBody += chunk);
+        res.on('end', () => {
+          try {
+            const parsed = JSON.parse(responseBody);
+            resolve({ statusCode: res.statusCode, parsed });
+          } catch (e) {
+            resolve({ statusCode: res.statusCode, parsed: responseBody });
+          }
+        });
+      });
+
+      req.on('error', (e) => reject(e));
+      req.write(payloadString);
+      req.end();
     });
 
-    if (!res.ok) {
-      const errorData = await res.json().catch(() => ({}));
-      console.error('Creem API Rejection (403):', errorData);
+    if (data.statusCode !== 200 && data.statusCode !== 201) {
+      console.error('Creem API Rejection (Native HTTP):', data.parsed);
       return NextResponse.json({ 
-        error: 'Ödeme oturumu engellendi (403)', 
-        details: errorData.message || res.statusText,
-        trace_id: errorData.trace_id,
-        summary: `Gelen anahtar boyutu: ${apiKey.length}, Maske: ${maskedKey}, Mod: ${isTestKey ? 'TEST' : 'LIVE'}`
-      }, { status: res.status });
+        error: 'Ödeme oturumu engellendi (Native 403)', 
+        details: data.parsed?.message || data.parsed,
+        trace_id: data.parsed?.trace_id,
+        summary: `Mod: ${isTestKey ? 'TEST' : 'LIVE'} - HTTPS Proxy Bypass`
+      }, { status: data.statusCode || 500 });
     }
 
-    const data = await res.json();
-    console.log('SUCCESS! Checkout created:', data.id);
+    console.log('SUCCESS! Checkout created:', data.parsed.id);
 
     return NextResponse.json({ 
-      checkoutUrl: data.checkout_url,
-      checkoutId: data.id 
+      checkoutUrl: data.parsed.checkout_url,
+      checkoutId: data.parsed.id 
     });
 
   } catch (error: any) {
