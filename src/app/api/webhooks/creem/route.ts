@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
     }
 
     const event = JSON.parse(body);
-    
+
     // Creem sends: { id, eventType, object: { ... }, created_at }
     // OR legacy: { type, data: { ... } }
     const eventType = event.eventType || event.type;
