@@ -5,19 +5,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     const routes = [
         '',
-        '/menu',
         '/pos',
-        '/franchising',
         '/about',
         '/corporate',
         '/faq',
         '/contact',
-        '/campaigns',
-        '/rewards',
         '/privacy',
         '/terms',
         '/cookies',
         '/kvkk',
+        '/legal',
         '/iptal-iade-kosullari',
         '/mesafeli-satis-sozlesmesi',
     ];

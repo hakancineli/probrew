@@ -33,6 +33,35 @@ const nextConfig = {
     };
     return config;
   },
+  async redirects() {
+    return [
+      {
+        source: '/coffee',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/menu',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/rewards',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/campaigns',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/fiyat-listesi',
+        destination: '/',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

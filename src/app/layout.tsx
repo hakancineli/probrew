@@ -94,6 +94,9 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
+        <div className="bg-brand-primary text-white text-[10px] md:text-xs py-1.5 text-center font-bold tracking-wide">
+          ProBrew, işletmeler için geliştirilmiş bir bulut tabanlı yazılım (SaaS) hizmetidir. Web sitemiz üzerinden fiziksel ürün satışı yapılmamaktadır.
+        </div>
         <div className="min-h-screen bg-white">
           <SuspensionWrapper>
             <Providers>

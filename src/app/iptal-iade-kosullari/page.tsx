@@ -25,12 +25,6 @@ export default function CancellationRefundPolicy() {
                             <li>Abonelik yenileme öncesi bildirim sorunu yaşanması durumlarında durum değerlendirilerek iade işlemi gerçekleştirilir.</li>
                         </ul>
 
-                        <h2 className="text-2xl font-black text-brand-dark mb-4 uppercase tracking-tight">3. Donanım İadesi</h2>
-                        <p className="mb-8">
-                            ProBrew üzerinden satın alınan fiziksel donanımlar (yazıcı, terminal, tablet vb.), ambalajı bozulmamış ve kurulumu yapılmamış olması şartıyla, teslimat tarihinden itibaren 14 gün içinde iade edilebilir. Kurulumu yapılmış ve aktive edilmiş donanımlarda TSHK gereği "ikinci el" statüsüne geçtiği için iade kabul edilememektedir.
-                        </p>
-
-                        <h2 className="text-2xl font-black text-brand-dark mb-4 uppercase tracking-tight">4. İade Süreci</h2>
                         <p className="mb-8">
                             İadesi onaylanan tutarlar, ödemeyi gerçekleştirdiğiniz kredi kartına/hesaba 7-10 iş günü içerisinde iade edilir.
                         </p>

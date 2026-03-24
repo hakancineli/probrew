@@ -32,6 +32,7 @@ const Footer = () => {
         { name: 'Kullanım Koşulları', href: '/terms' },
         { name: 'KVKK Metni', href: '/kvkk' },
         { name: 'İptal ve İade', href: '/iptal-iade-kosullari' },
+        { name: 'Abonelik Yönetimi', href: 'https://app.creem.io/customer/portal' },
       ],
     },
   ];
@@ -58,6 +59,8 @@ const Footer = () => {
             <p className="text-gray-400 font-medium max-w-sm leading-relaxed">
               İşletmenizi modern çağın gereksinimlerine göre dijitalleştiriyoruz.
               Yapay zeka destekli POS çözümlerimizle verimliliği artırın, operasyonu sadeleştirin.
+              <br /><br />
+              <span className="text-sm">Destek: <span className="text-white">info@probrew.com.tr</span></span>
             </p>
             <div className="flex space-x-4 pt-4">
               {[FaLinkedin, FaTwitter, FaInstagram, FaFacebook].map((Icon, idx) => (
@@ -94,6 +97,11 @@ const Footer = () => {
             </span>
             <p>Zafer mahallesi, Baki Sk. no: 46 Bahçelievler / İstanbul</p>
           </div>
+        </div>
+        <div className="mt-8 border-t border-white/5 pt-8 text-[10px] text-gray-600 leading-relaxed font-medium">
+          <p>
+            ProBrew, işletmeler için özelleştirilmiş bir ara yüz sunan bağımsız bir platformdur ve Google ile herhangi bir bağlılığı, sponsorluğu veya onayı bulunmamaktadır. Gemini modeline olan erişim, özel ara yüzümüz aracılığıyla sağlanmaktadır.
+          </p>
         </div>
       </div>
     </footer>

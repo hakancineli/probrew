@@ -30,8 +30,8 @@ export default function Home() {
   };
   const showcaseItems = [
     {
-      title: 'Akıllı POS Terminali',
-      tag: 'DONANIM & YAZILIM',
+      title: 'Akıllı POS Arayüzü',
+      tag: 'BULUT YAZILIM',
       desc: 'Mermer tezgahlara yakışan estetik, bulutun hızıyla birleşti. Çevrimdışı bile tıkır tıkır çalışır.',
       img: '/images/showcase/pos-terminal.png',
       color: 'bg-brand-primary'
@@ -124,11 +124,6 @@ export default function Home() {
               "@type": "Offer",
               "price": "0",
               "priceCurrency": "TRY"
-            },
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": "4.9",
-              "ratingCount": "520"
             }
           })
         }}
@@ -182,11 +177,11 @@ export default function Home() {
 
                 <h1 className="text-5xl md:text-7xl font-black text-brand-dark leading-[0.9] mb-8 tracking-tighter">
                   Sadece Bir POS Değil, <br />
-                  <span className="text-brand-primary">İşletmenizin Akıllı Ortağı.</span>
+                  <span className="text-brand-primary">Dijital Yönetim Merkeziniz.</span>
                 </h1>
 
                 <p className="text-xl text-gray-500 mb-6 leading-relaxed font-medium">
-                  Hantal sistemlere veda edin. ProBrew ile yapay zeka destekli, ultra hızlı ve hatasız bir sisteme lansmana özel <span className="text-brand-dark font-black">1.000 TL + KDV</span>&apos;den başlayan fiyatlarla hemen sahip olun.
+                  Hantal sistemlere veda edin. ProBrew ile yapay zeka destekli, ultra hızlı ve bulut tabanlı yazılımımıza lansmana özel <span className="text-brand-dark font-black">aylık 1.000 TL + KDV</span>&apos;den başlayan fiyatlarla hemen sahip olun.
                 </p>
 
                 <div className="flex items-center space-x-3 mb-10 text-emerald-600 font-bold bg-emerald-50 w-fit px-4 py-2 rounded-xl border border-emerald-100 italic">
@@ -200,7 +195,7 @@ export default function Home() {
                     <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                   </Link>
                   <Link href="/contact" className="px-10 py-5 bg-white border border-gray-100 text-brand-dark rounded-2xl font-black text-lg hover:bg-gray-50 transition-all flex items-center justify-center space-x-3 shadow-xl">
-                    <span>Özel Teklif Alın</span>
+                    <span>Fiyat Teklifi Alın</span>
                   </Link>
                 </div>
 
@@ -217,14 +212,14 @@ export default function Home() {
                       </div>
                     ))}
                     <div className="w-12 h-12 rounded-full border-[3px] border-white bg-brand-primary text-white flex items-center justify-center text-[10px] font-black shadow-xl z-10">
-                      +500
+                      LIVE
                     </div>
                   </div>
                   <div className="flex flex-col">
-                    <p className="text-sm font-black text-brand-dark mb-1">500+ İşletme Güveniyor</p>
+                    <p className="text-sm font-black text-brand-dark mb-1">Geleceğin Yazılımına Geçin</p>
                     <div className="flex items-center text-amber-500">
                       {[1, 2, 3, 4, 5].map(i => <FiZap key={i} size={14} className="fill-amber-500" />)}
-                      <span className="ml-2 text-gray-400 font-bold text-xs">4.9 / 5.0 Memnuniyet</span>
+                      <span className="ml-2 text-gray-400 font-bold text-xs">%100 Yerli Bulut Tabanlı Ar-Ge</span>
                     </div>
                   </div>
                 </div>
@@ -246,7 +241,7 @@ export default function Home() {
                   {/* Live Indicator Overlay */}
                   <div className="absolute top-10 left-10 flex items-center space-x-3 px-5 py-2.5 rounded-full bg-brand-dark/90 backdrop-blur-xl text-white border border-white/20 shadow-2xl">
                     <span className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span className="text-xs font-black tracking-widest uppercase">Müşteri Ekranı CANLI</span>
+                    <span className="text-xs font-black tracking-widest uppercase">Bulut Yazılım Arayüzü</span>
                   </div>
                 </div>
 
@@ -1308,10 +1303,10 @@ export default function Home() {
         <section className="py-24 bg-white border-b border-gray-100">
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
             {[
-              { label: 'Yıllık İşlem', value: '25M+' },
-              { label: 'Aktif Şube', value: '1.200+' },
-              { label: 'Destek Süresi', value: '2 Dakika' },
-              { label: 'Veritabanı Hızı', value: '0.8sn' }
+              { label: 'Sınırsız İşlem', value: 'INFINITY' },
+              { label: 'Bulut Tabanlı', value: 'CLOUD' },
+              { label: 'Hızlı Destek', value: '7/24' },
+              { label: 'Yazılım Hızı', value: '0.8sn' }
             ].map((stat, i) => (
               <div key={i}>
                 <div className="text-4xl md:text-5xl font-black text-brand-dark mb-2 tracking-tighter">{stat.value}</div>

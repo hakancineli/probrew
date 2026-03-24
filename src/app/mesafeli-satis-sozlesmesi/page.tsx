@@ -20,7 +20,7 @@ export default function DistanceSalesAgreement() {
 
                         <h2 className="text-xl font-black text-brand-dark mb-4 uppercase">MADDE 2 – KONU</h2>
                         <p className="mb-8">
-                            İşbu sözleşmenin konusu, ALICI'nın SATICI'ya ait www.probrew.com.tr internet sitesi üzerinden elektronik ortamda siparişini yaptığı ProBrew POS Yazılım Lisansı (SaaS) ve/veya donanım ürünlerinin satışı ve teslimi ile ilgili olarak tarafların hak ve yükümlülüklerinin belirlenmesidir. 
+                            İşbu sözleşmenin konusu, ALICI'nın SATICI'ya ait www.probrew.com.tr internet sitesi üzerinden elektronik ortamda siparişini yaptığı ProBrew POS Yazılım Lisansı (SaaS) hizmetinin satışı ile ilgili olarak tarafların hak ve yükümlülüklerinin belirlenmesidir. 
                         </p>
 
                         <h2 className="text-xl font-black text-brand-dark mb-4 uppercase">MADDE 3 – SÖZLEŞME KONUSU HİZMET/ÜRÜN</h2>
@@ -38,7 +38,7 @@ export default function DistanceSalesAgreement() {
 
                         <h2 className="text-xl font-black text-brand-dark mb-4 uppercase">MADDE 5 – CAYMA HAKKI VE İSTİSNALAR</h2>
                         <p className="mb-10">
-                            Mesafeli Sözleşmeler Yönetmeliği'nin 15. Maddesi gereği; "Elektronik ortamda anında ifa edilen hizmetler veya tüketiciye anında teslim edilen gayrimaddi mallara ilişkin sözleşmelerde" cayma hakkı kullanılamaz. ProBrew POS yazılımı bu kapsamda anında aktif edilen bir dijital hizmet olduğu için, aktivasyon sonrası cayma hakkı bulunmamaktadır. Ancak donanım ürünlerinde ambalaj açılmadığı sürece 14 günlük yasal cayma hakkı saklıdır.
+                            Mesafeli Sözleşmeler Yönetmeliği'nin 15. Maddesi gereği; "Elektronik ortamda anında ifa edilen hizmetler veya tüketiciye anında teslim edilen gayrimaddi mallara ilişkin sözleşmelerde" cayma hakkı kullanılamaz. ProBrew POS yazılımı bu kapsamda anında aktif edilen bir dijital hizmet olduğu için, aktivasyon sonrası cayma hakkı bulunmamaktadır.
                         </p>
 
                         <div className="p-6 bg-brand-primary/5 rounded-2xl border border-brand-primary/10 text-xs italic text-gray-500">
