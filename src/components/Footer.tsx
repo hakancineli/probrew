@@ -12,7 +12,6 @@ const Footer = () => {
         { name: 'Mutfak Ekranı (KDS)', href: '/pos' },
         { name: 'Mobil Sipariş', href: '/pos' },
         { name: 'QR Menü', href: '/pos' },
-        { name: 'E-Fatura Entegrasyonu', href: '/corporate' },
       ],
     },
     {
