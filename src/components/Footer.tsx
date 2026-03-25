@@ -8,7 +8,7 @@ const Footer = () => {
     {
       title: 'Çözümlerimiz',
       links: [
-        { name: 'POS Terminali', href: '/pos' },
+        { name: 'POS Yazılımı', href: '/pos' },
         { name: 'Mutfak Ekranı (KDS)', href: '/pos' },
         { name: 'Mobil Sipariş', href: '/pos' },
         { name: 'QR Menü', href: '/pos' },
@@ -31,7 +31,7 @@ const Footer = () => {
         { name: 'Kullanım Koşulları', href: '/terms' },
         { name: 'KVKK Metni', href: '/kvkk' },
         { name: 'İptal ve İade', href: '/iptal-iade-kosullari' },
-        { name: 'Abonelik Yönetimi', href: 'https://app.creem.io/customer/portal' },
+        { name: 'Abonelik Yönetimi', href: '/account' },
       ],
     },
   ];
