@@ -60,6 +60,36 @@ const nextConfig = {
         destination: '/',
         permanent: true,
       },
+      {
+        source: '/profile',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/checkout',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/orders',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/order-confirmation',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/settings',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/odeme-basarili',
+        destination: '/',
+        permanent: true,
+      },
     ];
   },
 };
