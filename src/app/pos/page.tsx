@@ -28,7 +28,7 @@ export default function PosPage() {
         },
         {
             title: 'Donanım Bağımsız Çalışma',
-            desc: 'ProBrew bulut tabanlı bir sistemdir. Mevcut tabletlerinizde, Windows bilgisayarlarınızda veya Android/iOS tabanlı el terminallerinde doğrudan sorunsuz bir şekilde kullanabilirsiniz.',
+            desc: 'ProBrew bulut tabanlı bir sistemdir. Mevcut tabletlerinizde, Windows bilgisayarlarınızda veya Android/iOS tabanlı el cihazlarınızda doğrudan sorunsuz bir şekilde kullanabilirsiniz.',
             img: '/images/showcase/pos-terminal.png',
             icon: <FiMonitor />,
             color: 'bg-teal-50'
@@ -93,7 +93,7 @@ export default function PosPage() {
                     </div>
                     <h1 className="text-5xl md:text-8xl font-black text-brand-dark mb-8 tracking-tighter leading-[0.85]">
                         İşletmeniz İçin <br />
-                        <span className="text-brand-primary">Tam Donanımlı</span> <br />
+                        <span className="text-brand-primary">Bulut Tabanlı</span> <br />
                         Otomasyon Çözümü.
                     </h1>
                     <p className="text-xl md:text-2xl text-gray-500 max-w-3xl mx-auto font-medium leading-relaxed mb-8">
@@ -107,7 +107,7 @@ export default function PosPage() {
                         <div>
                             <h3 className="text-2xl font-black text-emerald-900 mb-2">Kasanızın Acımasız Dijital Bekçisi</h3>
                             <p className="text-emerald-800 font-medium text-lg leading-relaxed">
-                                ProBrew POS; iptal, ikram veya sistem dışı bırakılmış süsü verilen siparişleri <b className="font-black text-emerald-900">anında bloke eder</b>. Canlı performans testlerinde; <span className="font-black bg-emerald-200/60 px-2 py-0.5 rounded-lg text-emerald-950">günde 4.000₺ - 5.000₺'yi bulan</span> görünmez personel kaçaklarını ve mutfak fişi manipülasyonlarını durdurduğu kanıtlanmıştır. Kapanışta Kasa Z raporu ile mutfak arasında tek bir eksik bile bulamazsınız!
+                                ProBrew POS; iptal, ikram veya sistem dışı bırakılmış süsü verilen siparişleri <b className="font-black text-emerald-900">anında bloke eder</b>. Canlı performans testlerinde; görünmez personel kaçaklarını ve mutfak fişi manipülasyonlarını durdurduğu kanıtlanmıştır. Kapanışta Kasa Z raporu ile mutfak arasında tek bir eksik bile bulamazsınız!
                             </p>
                         </div>
                     </div>

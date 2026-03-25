@@ -181,7 +181,7 @@ export default function Home() {
                 </h1>
 
                 <p className="text-xl text-gray-500 mb-6 leading-relaxed font-medium">
-                  Hantal sistemlere veda edin. ProBrew ile yapay zeka destekli, ultra hızlı ve bulut tabanlı yazılımımıza lansmana özel <span className="text-brand-dark font-black">aylık 1.000 TL + KDV</span>&apos;den başlayan fiyatlarla hemen sahip olun.
+                  Hantal sistemlere veda edin. ProBrew ile yapay zeka destekli, ultra hızlı ve bulut tabanlı yazılımımıza lansmana özel <span className="text-brand-dark font-black">aylık 1.000 TL + KDV</span>&apos;den başlayan fiyatlarla hemen başlayın.
                 </p>
 
                 <div className="flex items-center space-x-3 mb-10 text-emerald-600 font-bold bg-emerald-50 w-fit px-4 py-2 rounded-xl border border-emerald-100 italic">
@@ -1369,7 +1369,7 @@ export default function Home() {
                     </thead>
                     <tbody className="divide-y divide-gray-50 text-gray-600 font-bold">
                       {[
-                        { label: 'Yatırım Maliyeti', pb: 'Donanım Gerektirmez', old: 'Hantal Terminal Şart' },
+                        { label: 'Başlangıç Maliyeti', pb: 'Donanım Gerektirmez', old: 'Eski Tip Donanım Zorunluluğu' },
                         { label: 'Güncelleme Hızı', pb: 'Anlık & Bulut Tabanlı', old: 'Yerinde Servis Bekleme' },
                         { label: 'Veri Analizi', pb: 'AI Öngörü Uygulanmış', old: 'Sadece Manuel Raporlar' },
                         { label: 'Kullanım Kolaylığı', pb: 'Sosyal Medya Pratikliği', old: 'Eski DOS Arayüzleri' }

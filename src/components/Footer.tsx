@@ -45,9 +45,9 @@ const Footer = () => {
           <div className="lg:col-span-2 space-y-6">
             <Link href="/" className="flex items-center space-x-3 group">
               <div className="relative w-10 h-10 transition-transform duration-300 group-hover:scale-110">
-                <img 
-                  src="/images/logo/probrew-logo.png" 
-                  alt="ProBrew POS" 
+                <img
+                  src="/images/logo/probrew-logo.png"
+                  alt="ProBrew POS"
                   className="w-full h-full object-contain"
                 />
               </div>
