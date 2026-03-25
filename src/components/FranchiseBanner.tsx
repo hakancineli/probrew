@@ -29,7 +29,7 @@ export default function FranchiseBanner() {
                             Bölgenizin <span className="text-[#D7E8D5]">ProBrew Bayisi</span> Olun
                         </h2>
                         <p className="text-lg md:text-xl text-[#D7E8D5]/80 mb-8 md:mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium">
-                            Yeni nesil restoran ve kafe otomasyon sistemlerimizin satışını gerçekleştirin; hem donanımdan hem de aylık yazılım (SaaS) gelirlerinden sürekli kazanç sağlayarak kârlı bir iş modeline ortak olun.
+                            Yeni nesil restoran ve kafe otomasyon sistemlerimizin satışını gerçekleştirin; aylık yazılım (SaaS) gelirlerinden ve kurulum hizmetlerinizden sürekli kazanç sağlayarak kârlı bir iş modeline ortak olun.
                         </p>
 
                         {/* Features Grid */}

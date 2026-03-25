@@ -50,7 +50,7 @@ export default function FranchisingPage() {
                                 <FaChartLine />
                             </div>
                             <h3 className="text-xl font-black text-brand-dark mb-4 uppercase tracking-tight">Yüksek Kar Marjı</h3>
-                            <p className="text-gray-500 leading-relaxed text-sm font-medium">SaaS abonelikleri ve donanım satışlarından elde edilen rekabetçi komisyon oranları ile gelirinizi katlayın.</p>
+                            <p className="text-gray-500 leading-relaxed text-sm font-medium">SaaS aboneliklerinden elde edilen rekabetçi komisyon oranları ile düzenli gelirinizi katlayın.</p>
                         </div>
 
                         <div className="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all border border-gray-100 group">
@@ -58,7 +58,7 @@ export default function FranchisingPage() {
                                 <FaCogs />
                             </div>
                             <h3 className="text-xl font-black text-brand-dark mb-4 uppercase tracking-tight">API & Entegrasyon</h3>
-                            <p className="text-gray-500 leading-relaxed text-sm font-medium">Esnek yapımız sayesinde mevcut donanımlarınızla kolayca entegre olun, müşterilerinize özel çözümler üretin.</p>
+                            <p className="text-gray-500 leading-relaxed text-sm font-medium">Esnek bulut mimarimiz sayesinde müşterilerinizin mevcut cihazlarıyla kolayca entegre olun, özel çözümler üretin.</p>
                         </div>
 
                         <div className="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all border border-gray-100 group">
