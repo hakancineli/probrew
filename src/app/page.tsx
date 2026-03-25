@@ -51,9 +51,9 @@ export default function Home() {
       color: 'bg-emerald-500'
     },
     {
-      title: 'Personel Tableti',
-      tag: 'MOBİLİTE',
-      desc: 'Garsonlar için optimize edilmiş taşınabilir güç. Stok durumunu anlık görün, hata payını sıfırlayın.',
+      title: 'Mobil Garson Arayüzü',
+      tag: 'MOBİL UYGULAMA',
+      desc: 'Garsonlarınızın kendi telefonlarında çalışan optimize edilmiş arayüz. Stok durumunu anlık görün, hata payını sıfırlayın.',
       img: '/images/showcase/staff-steps/step-screenshot.png',
       color: 'bg-indigo-600'
     },
