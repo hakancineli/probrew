@@ -65,7 +65,7 @@ export default function PrivacyPage() {
                         </section>
 
                         <section className="pt-10 border-t border-gray-100 italic text-sm text-gray-400">
-                            Gizlilik politikamız hakkındaki tüm sorularınız için <span className="font-bold text-brand-primary">gizlilik@probrew.com.tr</span> adresinden veri güvenliği temsilcimize ulaşabilirsiniz.
+                            Gizlilik politikamız hakkındaki tüm sorularınız için <span className="font-bold text-brand-primary">info@probrew.com.tr</span> adresinden veri güvenliği temsilcimize ulaşabilirsiniz.
                         </section>
                     </div>
                 </div>

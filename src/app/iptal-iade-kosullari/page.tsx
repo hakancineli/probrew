@@ -29,8 +29,13 @@ export default function CancellationRefundPolicy() {
                             İadesi onaylanan tutarlar, ödemeyi gerçekleştirdiğiniz kredi kartına/hesaba 7-10 iş günü içerisinde iade edilir.
                         </p>
 
-                        <div className="p-6 bg-gray-50 rounded-2xl border border-gray-100 text-sm italic text-gray-500 mt-10">
-                            Bu metin, ProBrew Teknoloji Hizmetleri-nin genel iptal ve iade politikalarını özetlemektedir. Özel projeler ve kurumsal anlaşmalar (Enterprise) için imzalanan ana hizmet sözleşmesi maddeleri önceliklidir.
+                        <div className="p-8 bg-gray-50 rounded-2xl border border-gray-100 text-sm mt-12">
+                            <p className="font-bold text-gray-700 mb-3 uppercase tracking-widest">Destek & Başvuru:</p>
+                            <p className="mb-2 italic">İptal veya iade talepleriniz için lütfen Store ID bilginiz ile birlikte bizimle iletişime geçin:</p>
+                            <div className="flex flex-col gap-1 font-bold text-gray-800">
+                                <span>Destek: <span className="text-brand-primary">info@probrew.com.tr</span></span>
+                                <span>Adres: Zafer mahallesi, Baki Sk. no: 46 Bahçelievler / İstanbul</span>
+                            </div>
                         </div>
                     </div>
                 </div>

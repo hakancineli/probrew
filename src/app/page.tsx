@@ -1388,6 +1388,83 @@ export default function Home() {
           </div>
         </section>
 
+        {/* --- PRICING SECTION --- */}
+        <section id="pricing" className="py-32 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div {...fadeInUp} className="text-center mb-20">
+              <h2 className="text-4xl md:text-6xl font-black text-brand-dark mb-6 tracking-tighter">
+                Şeffaf ve <span className="text-brand-primary">Adil Fiyatlandırma</span>
+              </h2>
+              <p className="text-lg text-gray-400 max-w-2xl mx-auto font-medium">
+                Karmaşık paketler yok, gizli ücretler yok. İhtiyacınız olan her şey tek bir planda.
+              </p>
+            </motion.div>
+
+            <div className="max-w-3xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                className="bg-brand-dark rounded-[3.5rem] p-12 md:p-16 text-white relative overflow-hidden shadow-2xl"
+              >
+                <div className="relative z-10">
+                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-8">
+                    <div>
+                      <h3 className="text-3xl font-black mb-2 uppercase tracking-tighter">ProBrew Premium</h3>
+                      <p className="text-white/50 font-bold uppercase tracking-widest text-xs">SaaS Yazılım Lisansı</p>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-5xl md:text-7xl font-black text-brand-primary mb-2">$25<span className="text-xl md:text-2xl text-white/50">/ay</span></div>
+                      <p className="text-xs font-bold text-white/40 uppercase tracking-widest">(₺1.000 + KDV Lansman Fiyatı)</p>
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-x-12 gap-y-6 mb-16">
+                    {[
+                      'Sınırsız İşlem & Adisyon',
+                      'Akıllı Mutfak Yönetimi (KDS)',
+                      'Gemini Yapay Zeka Analizi',
+                      'Gelişmiş Hammadde & Reçete',
+                      'Anlık Bulut Raporlama',
+                      'Sınırsız Personel Hesabı',
+                      'Hukuki & KVKK Güvencesi',
+                      '7/24 Teknik Destek'
+                    ].map((feature, i) => (
+                      <div key={i} className="flex items-center space-x-4">
+                        <div className="w-5 h-5 rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary shrink-0">
+                          <FiCheckCircle size={14} />
+                        </div>
+                        <span className="font-bold text-white/80">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Link 
+                    href="/login?register=true" 
+                    className="block w-full py-6 bg-brand-primary text-white rounded-2xl font-black text-2xl text-center hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl"
+                  >
+                    15 Gün Ücretsiz Başlatın
+                  </Link>
+
+                  <p className="mt-8 text-center text-xs font-bold text-white/30 uppercase tracking-[0.2em]">
+                    Kredi Kartı Gerektirmez • Taahhüt Yok • Her An İptal
+                  </p>
+                </div>
+
+                {/* Decorative background logo */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[40rem] font-black text-white/[0.02] select-none pointer-events-none -z-0">
+                  P
+                </div>
+              </motion.div>
+              
+              <div className="mt-12 p-8 bg-blue-50/50 rounded-3xl border border-blue-100/50 text-center">
+                <p className="text-sm text-blue-800 font-bold leading-relaxed">
+                  İşletmeniz için donanım tedarikimiz bulunmamaktadır. ProBrew, mevcut cihazlarınızda (Tablet, PC, Akıllı Telefon) çalışan bir <span className="underline decoration-2">bulut yazılım hizmetidir</span>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* --- FINAL CTA --- */}
         <section className="py-32 px-4">
           <motion.div
